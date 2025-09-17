@@ -18,7 +18,7 @@ function Testimonial2() {
   
   const visibleTestimonials = showAll
     ? testimonials
-    : testimonials.slice(0, 5);
+    : testimonials.slice(0, 4);
 
   return (
     <div className="font-sans flex flex-col items-center py-16 px-4 sm:px-6 lg:px-8">
@@ -31,7 +31,7 @@ function Testimonial2() {
       </p>
 
       {/* Cards */}
-      <div className="w-full max-w-7xl columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+      <div className="w-full max-w-7xl columns-1 sm:columns-2 lg:columns-4  gap-4 space-y-4">
         {visibleTestimonials.map((testimonial, index) => (
           <div
             key={index}
@@ -65,7 +65,7 @@ function Testimonial2() {
       </div>
 
       
-      {testimonials.length > 5 && (
+      {testimonials.length > 4 && (
         <button
           onClick={() => setShowAll(!showAll)}
           className="mt-8 cursor-pointer px-6 py-2 shadow-md rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
