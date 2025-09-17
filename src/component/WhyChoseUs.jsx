@@ -2,7 +2,7 @@
 
 
 import { FaUsers, FaBolt, FaLock, FaHandsHelping } from "react-icons/fa";
-import ThreeDCard from "./ThreeDCard";
+
 
 export default function WhyChooseUs() {
   const features = [
@@ -42,13 +42,13 @@ export default function WhyChooseUs() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, i) => (
-            <ThreeDCard key={i} backgroundImage={feature.bg}>
+            <div key={i} className="bg-white shadow-xl hover:shadow-sm rounded-lg transition-shadow duration-300">
               <div className="p-6 flex flex-col items-start text-left">
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-semibold text-blue-800">{feature.title}</h3>
                 <p className="text-gray-500 text-sm mt-2">{feature.desc}</p>
               </div>
-            </ThreeDCard>
+            </div>
           ))}
         </div>
       </div>
