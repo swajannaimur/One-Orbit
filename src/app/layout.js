@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <header className="border-b-2 border-[#E5E8EB]">
           <Navbar />
         </header>
-        <main className="max-w-7xl mx-auto">{children}</main>
+        <main className="max-w-7xl mx-auto px-2 xl:px-0">{children}</main>
       </body>
     </html>
   );
