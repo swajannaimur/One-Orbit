@@ -32,7 +32,7 @@ function Testimonial2() {
 
       {/* Cards */}
       <div className="w-full max-w-7xl columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
-        {/* {visibleTestimonials.map((testimonial, index) => (
+        {visibleTestimonials.map((testimonial, index) => (
           <div
             key={index}
             className="bg-white dark:bg-black p-6 rounded-xl shadow-md break-inside-avoid border border-gray-200 dark:border-gray-800"
@@ -61,7 +61,7 @@ function Testimonial2() {
               {testimonial.text}
             </p>
           </div>
-        ))} */}
+        ))}
       </div>
 
       {/* View More / View Less Button */}
