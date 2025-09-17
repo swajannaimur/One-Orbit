@@ -68,7 +68,7 @@ function ThreeDCard({
   }, []);
   const cardStyle = {
     transform: `perspective(1000px) rotateX(${transform.rotateX}deg) rotateY(${transform.rotateY}deg) scale3d(1, 1, 1)`,
-    boxShadow: enableShadow ? `${transform.shadowX}px ${transform.shadowY}px ${shadowBlur}px rgba(0, 0, 0, 0.4)` : 'none',
+    boxShadow: enableShadow ? `${transform.shadowX}px ${transform.shadowY}px ${shadowBlur}px rgba(1, 1, 1, 0.43)` : 'none',
     transition: `transform ${transitionDuration} cubic-bezier(0.23, 1, 0.32, 1), box-shadow ${transitionDuration} cubic-bezier(0.23, 1, 0.32, 1)`,
     transformStyle: 'preserve-3d'
   };
@@ -91,7 +91,7 @@ function ThreeDCard({
   return <div style={{
     perspective: '1000px'
   }} className={className}>
-      <div ref={cardRef} onMouseMove={handleMouseMove} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={cardStyle} className="relative bg-gray-800 rounded-2xl overflow-hidden" role="img" tabIndex={0} onFocus={handleMouseEnter} onBlur={handleMouseLeave}>
+      <div ref={cardRef} onMouseMove={handleMouseMove} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={cardStyle} className="relative bg-white rounded-2xl overflow-hidden" role="img" tabIndex={0} onFocus={handleMouseEnter} onBlur={handleMouseLeave}>
         {backgroundImage && <div className="absolute inset-0 rounded-2xl" style={backgroundStyle} aria-hidden="true" />}
 
         <div className="absolute inset-0 border-2 border-white/10 rounded-2xl pointer-events-none" aria-hidden="true" />
