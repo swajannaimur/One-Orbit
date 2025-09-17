@@ -6,6 +6,8 @@ export default function Home() {
 			<h2>hello I am yasin</h2>
 
             
+
+            
         </div>
 	);
 }
