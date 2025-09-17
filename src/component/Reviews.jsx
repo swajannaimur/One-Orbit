@@ -27,7 +27,7 @@ function Testimonial2() {
       </h1>
 
       <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 text-center max-w-3xl mb-16">
-        Harum quae dolore corrupti aut temporibus pariatur.
+        Hear directly from our users about their experience and how our platform helps them collaborate, grow, and succeed.
       </p>
 
       {/* Cards */}

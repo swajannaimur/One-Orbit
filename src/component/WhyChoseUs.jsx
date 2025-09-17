@@ -36,7 +36,7 @@ export default function WhyChooseUs() {
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold mb-4">Why Choose Us</h2>
-        <p className="text-gray-600 mb-12">
+        <p className="text-gray-600 dark:text-gray-400 mb-12">
           Discover why people trust our platform for collaboration and growth.
         </p>
 
@@ -46,7 +46,7 @@ export default function WhyChooseUs() {
               <div className="p-6 flex flex-col items-start text-left">
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-semibold text-blue-800">{feature.title}</h3>
-                <p className="text-gray-800 text-sm mt-2">{feature.desc}</p>
+                <p className="text-gray-500 text-sm mt-2">{feature.desc}</p>
               </div>
             </ThreeDCard>
           ))}
