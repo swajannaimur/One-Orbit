@@ -64,14 +64,14 @@ function Testimonial2() {
         ))}
       </div>
 
-      {/* View More / View Less Button */}
+      
       {testimonials.length > 5 && (
-        // <button
-        //   onClick={() => setShowAll(!showAll)}
-        //   className="mt-8 cursor-pointer px-6 py-2 shadow-md rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
-        // >
-        //   {showAll ? "View Less" : "View More"}
-        // </button>
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="mt-8 cursor-pointer px-6 py-2 shadow-md rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+        >
+          {showAll ? "View Less" : "View More"}
+        </button>
       )}
     </div>
   );
