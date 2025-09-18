@@ -10,9 +10,9 @@ export default function Login() {
             <div className="w-9/12 sm:w-7/12 md:max-w-md mx-auto rounded-lg p-6 bg-white">
 
                 {/* title */}
-                <h2 className='text-center text-2xl font-semibold my-4'>Login to One Orbit</h2>
+                <h2 className='text-center text-xl sm:text-3xl font-semibold'>Login to One Orbit</h2>
 
-                <form className="flex flex-col gap-4">
+                <form className="flex flex-col gap-4 mt-6">
 
                     {/* email label and input field */}
                     <div className="flex flex-col gap-1">
