@@ -16,7 +16,7 @@ export default function Login() {
 
                     {/* email label and input field */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium text-gray-700">Email</label>
+                        <label className="text-sm md:text-base font-medium text-gray-700">Email</label>
                         <input
                             type="email"
                             placeholder="Enter your email"
@@ -27,7 +27,7 @@ export default function Login() {
 
                     {/* password label and input field */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium text-gray-700">Password</label>
+                        <label className="text-sm md:text-base font-medium text-gray-700">Password</label>
                         <input
                             type="password"
                             placeholder="Enter your password"
