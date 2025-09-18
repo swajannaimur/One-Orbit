@@ -39,8 +39,8 @@ const FaqSection = () => {
   };
 
   return (
-    <section className="bg-amber-50 py-12 px-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
+    <section className="bg-teal-50 py-12 px-4 w-full">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         {/* ✅ Lottie Animation */}
         <div className="flex justify-center md:justify-start">
           <Lottie
@@ -65,8 +65,8 @@ const FaqSection = () => {
                 <button
                   className={`w-full text-left px-5 py-4 font-medium text-lg flex justify-between items-center focus:outline-none transition-colors duration-300 ${
                     openIndex === idx
-                      ? "bg-black text-white"
-                      : "bg-gray-50 text-black"
+                      ? "bg-[#064232] text-white"
+                      : "bg-white text-[#064232]"
                   }`}
                   onClick={() => handleToggle(idx)}
                   aria-expanded={openIndex === idx}
