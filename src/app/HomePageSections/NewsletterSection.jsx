@@ -15,7 +15,7 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="bg-teal-50 py-12 px-4 w-full">
+    <section className="py-12 px-4 w-full">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="w-full md:w-1/2 flex justify-center">
           <Lottie
