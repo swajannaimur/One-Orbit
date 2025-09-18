@@ -84,9 +84,38 @@ const Solutions = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-4">Solutions</h1>
-      <p className="text-gray-600 mb-12">
+      <p className="text-[#4D7399] mb-12">
        One Orbit is a versatile platform that adapts to the unique needs of various industries. Explore how our features can streamline your workflows and enhance collaboration.
       </p>
+
+      {solutionsData.map((section, index) => (
+        <div key={index} className="mb-16">
+          <h2 className="text-2xl font-semibold mb-2">{section.category}</h2>
+          <p className="text-[#0D141C] mb-6">{section.description}</p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {section.items.map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+              >
+               <div className="flex justify-center items-center">
+                 <img
+                  src={item.image}
+                  alt={item.title}
+                  
+                  className="w-[305px] h-[305px]"
+                />
+               </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                  <p className="text-[#4D7399] text-sm">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
 
       
     </div>
