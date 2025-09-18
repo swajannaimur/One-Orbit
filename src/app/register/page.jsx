@@ -9,9 +9,10 @@ export default function Register() {
             <div className="w-9/12 sm:w-7/12 md:max-w-md mx-auto rounded-lg p-6 bg-white">
 
                 {/* title */}
-                <h2 className='text-center text-2xl font-semibold my-4'>Register to One Orbit</h2>
+                <h2 className='text-center text-xl sm:text-3xl font-semibold'>Register to One Orbit</h2>
 
-                <form className="flex flex-col gap-4">
+                {/* register form start */}
+                <form className="flex flex-col gap-4 mt-6">
 
                     {/* name label and input field */}
                     <div className="flex flex-col gap-1">
