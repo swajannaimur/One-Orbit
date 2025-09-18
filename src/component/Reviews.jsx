@@ -68,7 +68,7 @@ function Testimonial2() {
       {testimonials.length > 4 && (
         <button
           onClick={() => setShowAll(!showAll)}
-          className="mt-8 cursor-pointer px-6 py-2 shadow-md rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+          className="mt-8 cursor-pointer px-6 py-2 shadow-md rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition"
         >
           {showAll ? "View Less" : "View More"}
         </button>

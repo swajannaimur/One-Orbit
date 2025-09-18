@@ -25,7 +25,7 @@ const NewsletterSection = () => {
           />
         </div>
         <div className="w-full md:w-1/2">
-          <h2 className="text-3xl font-bold mb-4 text-[#064232]">
+          <h2 className="text-3xl font-bold mb-4 text-primary">
             Stay Updated!
           </h2>
           <p className="mb-6 text-gray-700 text-base">
@@ -44,7 +44,7 @@ const NewsletterSection = () => {
             />
             <button
               type="submit"
-              className="bg-[#064232] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#07694b] transition"
+              className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#07694b] transition"
             >
               Subscribe
             </button>
