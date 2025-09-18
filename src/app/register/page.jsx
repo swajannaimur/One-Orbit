@@ -48,9 +48,9 @@ export default function Register() {
                         />
                     </div>
 
-                    {/* redirecting to register page */}
-                    <p className="text-sm font-medium">
-                        Already have an account? <Link href="login" className="hover:underline hover:text-blue-500">Login</Link>
+                    {/* redirecting to Login page */}
+                    <p className="text-sm text-gray-700 tracking-wide font-semibold">
+                        Already have an account? <Link href="login" className="text-primary hover:underline">Login</Link>
 
                     </p>
 

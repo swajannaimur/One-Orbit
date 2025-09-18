@@ -38,8 +38,8 @@ export default function Login() {
                     </div>
 
                     {/* redirecting to register page */}
-                    <p className="text-sm font-medium">
-                        Don't have an account? <Link href="register" className="hover:underline hover:text-blue-500">Register</Link>
+                    <p className="text-sm text-gray-700 tracking-wide font-semibold">
+                        Don't have an account? <Link href="register" className="text-primary hover:underline">Register</Link>
 
                     </p>
 
