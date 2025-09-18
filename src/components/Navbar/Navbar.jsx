@@ -64,6 +64,7 @@ export default function Navbar() {
         {/* right side buttons */}
         <a className="btn btn-primary rounded-lg hidden sm:flex">Get Started</a>
         <Link href="/login" className="btn bg-secondary rounded-lg">Log In</Link>
+        <Link href="/register" className="btn bg-secondary rounded-lg">Register</Link>
       </div>
     </div>
   );
