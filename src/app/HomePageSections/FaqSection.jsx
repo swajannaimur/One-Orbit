@@ -39,8 +39,8 @@ const FaqSection = () => {
   };
 
   return (
-    <section className="bg-teal-50 py-12 px-4 w-full">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <section className="bg-amber-50 py-12 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
         {/* ✅ Lottie Animation */}
         <div className="flex justify-center md:justify-start">
           <Lottie
@@ -52,7 +52,7 @@ const FaqSection = () => {
 
         {/* ✅ FAQ Content */}
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-[#064232] text-center md:text-left">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-primary text-center md:text-left">
             Frequently Asked Questions
           </h2>
 
