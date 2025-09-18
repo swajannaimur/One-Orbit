@@ -5,16 +5,16 @@ export default function Navbar() {
   const navItem = (
     <>
       <li>
-        <a>Product</a>
+        <Link href="/product">Product</Link>
       </li>
       <li>
-        <a>Solutions</a>
+        <Link href="/solutions">Solutions</Link>
       </li>
       <li>
-        <a>Resources</a>
+        <Link href="/resources">Resources</Link>
       </li>
       <li>
-        <a>Pricing</a>
+        <Link href="/pricing">Pricing</Link>
       </li>
     </>
   );
@@ -63,7 +63,8 @@ export default function Navbar() {
 
         {/* right side buttons */}
         <a className="btn btn-primary rounded-lg hidden sm:flex">Get Started</a>
-        <Link href="/login" className="btn bg-secondary rounded-lg">Log In</Link>
+        <Link href="/login" className="btn bg-secondary text-primary rounded-lg">Log In</Link>
+        <Link href="/register" className="btn bg-secondary text-primary rounded-lg">Register</Link>
       </div>
     </div>
   );

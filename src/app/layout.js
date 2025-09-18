@@ -25,10 +25,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={poppins.className} data-theme="light">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" data-theme="light">
+      <body className={poppins.className} >
         <header className="border-b-2 border-[#E5E8EB]">
           <Navbar />
         </header>
