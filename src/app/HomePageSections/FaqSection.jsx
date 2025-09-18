@@ -39,20 +39,11 @@ const FaqSection = () => {
   };
 
   return (
-    <section className="bg-amber-50 py-12 px-4">
+    <section className="py-12 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
-        {/* ✅ Lottie Animation */}
-        <div className="flex justify-center md:justify-start">
-          <Lottie
-            animationData={faqAnimation}
-            loop
-            className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]"
-          />
-        </div>
-
         {/* ✅ FAQ Content */}
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-primary text-center md:text-left">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-black text-center md:text-left">
             Frequently Asked Questions
           </h2>
 
@@ -65,8 +56,8 @@ const FaqSection = () => {
                 <button
                   className={`w-full text-left px-5 py-4 font-medium text-lg flex justify-between items-center focus:outline-none transition-colors duration-300 ${
                     openIndex === idx
-                      ? "bg-[#064232] text-white"
-                      : "bg-white text-[#064232]"
+                      ? "bg-secondary text-black"
+                      : "bg-white text-black"
                   }`}
                   onClick={() => handleToggle(idx)}
                   aria-expanded={openIndex === idx}
@@ -93,6 +84,14 @@ const FaqSection = () => {
               </div>
             ))}
           </div>
+        </div>
+        {/* ✅ Lottie Animation */}
+        <div className="flex justify-center md:justify-start">
+          <Lottie
+            animationData={faqAnimation}
+            loop
+            className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]"
+          />
         </div>
       </div>
     </section>
