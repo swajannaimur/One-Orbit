@@ -5,16 +5,16 @@ export default function Navbar() {
   const navItem = (
     <>
       <li>
-        <a>Product</a>
+        <Link href="/product">Product</Link>
       </li>
       <li>
-        <a>Solutions</a>
+        <Link href="/solutions">Solutions</Link>
       </li>
       <li>
-        <a>Resources</a>
+        <Link href="/resources">Resources</Link>
       </li>
       <li>
-        <a>Pricing</a>
+        <Link href="/pricing">Pricing</Link>
       </li>
     </>
   );
