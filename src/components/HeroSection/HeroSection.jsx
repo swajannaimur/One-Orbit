@@ -13,10 +13,10 @@ export default function HeroSection() {
         >
           <div className="flex flex-col gap-2 max-w-2xl">
             <h1 className="text-white text-4xl font-black leading-tight tracking-tight sm:text-5xl">
-              Streamline Your Workflow with One Orbit
+              Streamline Your Workflow with OneOrbit
             </h1>
             <h2 className="text-white text-sm font-normal leading-normal sm:text-base">
-              One Orbit is the all-in-one platform for project management and
+              OneOrbit is the all-in-one platform for project management and
               team collaboration. Boost productivity, enhance communication, and
               achieve your goals faster.
             </h2>
