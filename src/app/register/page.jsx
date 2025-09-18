@@ -21,7 +21,7 @@ export default function Register() {
                             type="text"
                             placeholder="Your full name"
                             className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 
-                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                   focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                         />
                     </div>
                     
@@ -32,7 +32,7 @@ export default function Register() {
                             type="email"
                             placeholder="Enter your email"
                             className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 
-                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                   focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                         />
                     </div>
 
@@ -44,7 +44,7 @@ export default function Register() {
                             placeholder="Enter your password"
                             className="w-full px-3 py-2 border border-gray-300 rounded-md 
                    placeholder-gray-400 text-gray-800
-                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                   focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                         />
                     </div>
 
