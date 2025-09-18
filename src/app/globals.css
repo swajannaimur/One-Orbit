@@ -1,6 +1,18 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
-:root {
+
+@plugin "daisyui"{
+  themes: light --default, dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #1273D4;
+  --color-secondary: #E8EDF2;
+}
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -17,7 +29,7 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);

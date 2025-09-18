@@ -22,7 +22,7 @@ function Testimonial2() {
 
   return (
     <div className="font-sans flex flex-col items-center py-16 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4 text-gray-900 dark:text-white">
+      <h1 className="text-4xl  font-bold text-center max-w-4xl leading-tight mb-4 text-gray-900 ">
         Loved by community
       </h1>
 
@@ -35,7 +35,7 @@ function Testimonial2() {
         {visibleTestimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-black p-6 rounded-xl shadow-md break-inside-avoid border border-gray-200 dark:border-gray-800"
+            className="bg-white p-6 rounded-xl shadow-md break-inside-avoid border border-gray-200 dark:border-gray-800"
           >
             <div className="flex items-center mb-4">
               <img
@@ -49,15 +49,15 @@ function Testimonial2() {
                 }}
               />
               <div>
-                <p className="font-semibold text-gray-900 dark:text-white">
+                <p className="font-semibold text-gray-900 ">
                   {testimonial.name}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600 ">
                   {testimonial.title}
                 </p>
               </div>
             </div>
-            <p className="text-base text-gray-700 dark:text-gray-200 leading-relaxed">
+            <p className="text-base text-gray-700  leading-relaxed">
               {testimonial.text}
             </p>
           </div>
