@@ -41,6 +41,14 @@ const FaqSection = () => {
   return (
     <section className="py-12 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
+        {/* ✅ Lottie Animation */}
+        <div className="flex justify-center md:justify-start">
+          <Lottie
+            animationData={faqAnimation}
+            loop
+            className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]"
+          />
+        </div>
         {/* ✅ FAQ Content */}
         <div>
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-black text-center md:text-left">
@@ -84,14 +92,6 @@ const FaqSection = () => {
               </div>
             ))}
           </div>
-        </div>
-        {/* ✅ Lottie Animation */}
-        <div className="flex justify-center md:justify-start">
-          <Lottie
-            animationData={faqAnimation}
-            loop
-            className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]"
-          />
         </div>
       </div>
     </section>

@@ -15,9 +15,9 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="py-12 px-4 w-full">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
-        <div className="w-full md:w-1/2 flex justify-center">
+    <section className="py-12 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
+        <div className="flex justify-center md:justify-start">
           <Lottie
             animationData={require("../../../public/newsletter.json")}
             loop={true}
@@ -33,18 +33,18 @@ const NewsletterSection = () => {
             management, team collaboration tips, and new features in One-Orbit.
           </p>
           <form
-            className="flex flex-col sm:flex-row gap-3"
+            className="flex flex-col sm:flex-row gap-0.5"
             onSubmit={handleSubmit}
           >
             <input
               type="email"
               required
               placeholder="Enter your email"
-              className="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#064232] flex-1"
+              className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#064232] flex-1"
             />
             <button
               type="submit"
-              className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#07694b] transition"
+              className="bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#07694b] transition"
             >
               Subscribe
             </button>
