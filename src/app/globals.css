@@ -10,7 +10,7 @@
   name: "light";
   default: true;
   --color-primary: #1273D4;
-  --color-secondary: #E8EDF2;
+  --color-secondary: #cfdbe7;
 }
 /* :root {
   --background: #ffffff;

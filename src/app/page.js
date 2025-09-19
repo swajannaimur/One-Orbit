@@ -1,17 +1,20 @@
 "use client";
-import Footer from "./homepagesections/footer";
+
+import Testimonial2 from "@/component/Reviews";
+import WhyChooseUs from "@/component/WhyChoseUs";
 import FaqSection from "./HomePageSections/FaqSection";
 import NewsletterSection from "./HomePageSections/NewsletterSection";
 import HeroSection from "@/components/HeroSection/HeroSection";
-
 
 export default function Home() {
   return (
     <div>
       <HeroSection/>
-      <NewsletterSection />
+      <WhyChooseUs/>
+      <Testimonial2/>    
       <FaqSection />
-      <Footer />
+      <NewsletterSection />
+      
     </div>
   );
 }
