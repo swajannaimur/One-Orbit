@@ -15,8 +15,8 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="bg-white py-12 px-4">
-      <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
+    <section className="py-12 px-4 w-full">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="w-full md:w-1/2 flex justify-center">
           <Lottie
             animationData={require("../../../public/newsletter.json")}
