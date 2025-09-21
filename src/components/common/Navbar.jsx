@@ -16,6 +16,9 @@ export default function Navbar() {
       <li>
         <Link href="/pricing">Pricing</Link>
       </li>
+      <li>
+        <Link href="/projects">Projects</Link>
+      </li>
     </>
   );
   return (
