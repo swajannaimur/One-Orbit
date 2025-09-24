@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from "next/navigation";
+import Link from 'next/link';
 
 
 
@@ -19,12 +20,13 @@ export default function RegisterForm() {
         }
     }, [sessionStatus, router]);
 
+    // email validation function with regx
     const isValidEmail = (email) => {
         const emailRegx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         return emailRegx.test(email);
     };
 
-    const handleSubmit = async (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const name = e.target[0].value;
@@ -34,20 +36,20 @@ export default function RegisterForm() {
         console.log(name, email, password);
 
         // email validation
-        if(isValidEmail(email)) {
+        if (!isValidEmail(email)) {
             setError("Email is Invalid");
             return;
         }
 
         // password validation
-        if(!password || password.length < 8 ){
+        if (!password || password.length < 8) {
             setError("Password is Invalid");
             return;
         }
 
 
         // calling the api and sending form data
-        try{
+        try {
             const res = await fetch("/api/auth/register", {
                 method: "POST",
                 headers: {
@@ -57,18 +59,18 @@ export default function RegisterForm() {
             });
 
             // if server returns any error
-            if(res.status === 400) {
+            if (res.status === 400) {
                 setError("This email is already registered");
                 return;
             }
 
             // otherwise
-            if(res.status === 200) {
+            if (res.status === 200) {
                 setError("");
                 router.push("/solutions");
             }
         }
-        catch(err){
+        catch (err) {
             setError("Error, try again");
             console.error(err);
         }
@@ -76,7 +78,7 @@ export default function RegisterForm() {
 
     };
 
-    if(sessionStatus === "loading") {
+    if (sessionStatus === "loading") {
         return <h1>Loading....</h1>;
     }
 
@@ -120,15 +122,13 @@ export default function RegisterForm() {
                     <input
                         type="password"
                         placeholder="Enter your password"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md 
-                   placeholder-gray-400 text-gray-800
-                   focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                 </div>
 
                 {/* redirecting to Login page */}
                 <p className="text-sm text-gray-700 tracking-wide font-semibold">
-                    Already have an account? <Link href="login" className="text-primary hover:underline">Login</Link>
+                    Already have an account? <Link href="/login" className="text-primary hover:underline">Login</Link>
 
                 </p>
 
@@ -140,6 +140,10 @@ export default function RegisterForm() {
                 >
                     Register
                 </button>
+
+                <p className="text-red-500 text-base mb-4">
+                    {error && error}
+                </p>
 
             </form>
         </div>
