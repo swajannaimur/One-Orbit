@@ -4,7 +4,7 @@ import clientPromise from "../../../../../lib/mongodb";
 import bcrypt from 'bcryptjs';
 
 // users collection name 
-const USERS_COLLECTION = "users";
+const USERS_COLLECTION = "users-data";
 
 export const authOptions = {
     providers: [
@@ -19,7 +19,7 @@ export const authOptions = {
             async authorize(credentials){
                 try{
                     const client = await clientPromise;
-                    const db = client.db("AuthMongoNext"); // database name
+                    const db = client.db(process.env.DB_NAME); // database name
                     const user = await db.collection(USERS_COLLECTION).findOne({email: credentials.email});
                     
                     if(!user) return null;
