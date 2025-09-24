@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import clientPromise from "../../../../../lib/mongodb";
-
+import clientPromise from "../../../../lib/mongodb";
+import bcrypt from "bcryptjs";
 
 // collection name
 const USERS_COLLECTION = "users";

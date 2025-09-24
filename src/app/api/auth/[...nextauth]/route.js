@@ -19,7 +19,7 @@ export const authOptions = {
             async authorize(credentials){
                 try{
                     const client = await clientPromise;
-                    const db = client.db("AuthNextMongo"); // database name
+                    const db = client.db("AuthMongoNext"); // database name
                     const user = await db.collection(USERS_COLLECTION).findOne({email: credentials.email});
                     
                     if(!user) return null;

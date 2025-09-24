@@ -1,10 +1,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Link from 'next/link';
-
-
 
 
 export default function RegisterForm() {
@@ -33,7 +31,7 @@ export default function RegisterForm() {
         const email = e.target[1].value;
         const password = e.target[2].value;
 
-        console.log(name, email, password);
+        // console.log(name, email, password);
 
         // email validation
         if (!isValidEmail(email)) {
@@ -50,7 +48,7 @@ export default function RegisterForm() {
 
         // calling the api and sending form data
         try {
-            const res = await fetch("/api/auth/register", {
+            const res = await fetch("/api/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -82,7 +80,7 @@ export default function RegisterForm() {
         return <h1>Loading....</h1>;
     }
 
-    return sessionStatus !== "authenticated" ? (
+    return sessionStatus !== "authenticated" && (
 
 
 
@@ -99,6 +97,7 @@ export default function RegisterForm() {
                     <label className="text-sm md:text-base font-medium text-gray-700">Name</label>
                     <input
                         type="text"
+                        name="name"
                         placeholder="Your full name"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 
                    focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
@@ -110,6 +109,7 @@ export default function RegisterForm() {
                     <label className="text-sm md:text-base font-medium text-gray-700">Email</label>
                     <input
                         type="email"
+                        name="email"
                         placeholder="Enter your email"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 
                    focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
@@ -121,6 +121,7 @@ export default function RegisterForm() {
                     <label className="text-sm md:text-base font-medium text-gray-700">Password</label>
                     <input
                         type="password"
+                        name="password"
                         placeholder="Enter your password"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
@@ -147,5 +148,5 @@ export default function RegisterForm() {
 
             </form>
         </div>
-    )
+    ) 
 }
