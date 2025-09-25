@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
-import SessionProvider from "../../lib/SessionProvider";
+import SessionProvider from "../lib/SessionProvider";
 
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";

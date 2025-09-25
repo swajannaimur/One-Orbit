@@ -22,6 +22,9 @@ export default function Navbar() {
             <li>
                 <Link href="/pricing">Pricing</Link>
             </li>
+            <li>
+                <Link href="/users">Users</Link>
+            </li>
 
         </>
     );
