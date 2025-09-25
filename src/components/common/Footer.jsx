@@ -1,65 +1,6 @@
-// import Link from "next/link";
-// import React from "react";
-// import { FaFacebook, FaLinkedin } from "react-icons/fa";
 
-// const Footer = () => {
-//   return (
-//     <footer className="w-full bg-secondary text-black py-16 px-4">
-//       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-//         <div className="font-bold text-lg tracking-wide">
-//           <Link href="/" className="text-2xl font-bold">
-//             OneOrbit
-//           </Link>
-//         </div>
-//         <nav className="flex flex-wrap gap-6 text-base">
-//           <a
-//             href="#about"
-//             className="hover:text-primary font-semibold transition"
-//           >
-//             About
-//           </a>
-//           <a
-//             href="#services"
-//             className="hover:text-primary font-semibold transition"
-//           >
-//             Services
-//           </a>
-//           <a
-//             href="#contact"
-//             className="hover:text-primary font-semibold transition"
-//           >
-//             Contact
-//           </a>
-//         </nav>
-//         <div className="flex gap-4">
-//           <a
-//             href="https://facebook.com/"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//             className="hover:text-primary transition"
-//           >
-//             <FaFacebook size={25}></FaFacebook>
-//           </a>
-//           <a
-//             href="https://linkedin.com/"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//             className="hover:text-primary transition"
-//           >
-//             <FaLinkedin size={25}></FaLinkedin>
-//           </a>
-//         </div>
-//       </div>
-
-//       <div className="text-center text-sm  mt-6">
-//         &copy; {new Date().getFullYear()} One-Orbit. All rights reserved.
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
 "use client";
+
 import Link from "next/link";
 import React from "react";
 import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
@@ -137,38 +78,8 @@ const Footer = () => {
             >
               <FaTwitter size={22} />
             </a>
-            {/* <a
-              href="https://instagram.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-pink-500 transition"
-            >
-              <FaInstagram size={22} />
-            </a> */}
           </div>
         </div>
-        {/* Newsletter */}
-        {/* <div>
-          <p className="text-sm text-gray-700 mb-3">
-            Subscribe to get the latest updates and news.
-          </p>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex items-center bg-gray-800 rounded-lg overflow-hidden"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full px-3 py-2 bg-transparent text-sm focus:outline-none text-white placeholder-gray-400"
-            />
-            <button
-              type="submit"
-              className="bg-primary px-4 py-2 text-white text-sm font-medium hover:bg-primary/90 transition"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div> */}
       </div>
 
       {/* Bottom Note */}
