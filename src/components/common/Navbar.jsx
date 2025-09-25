@@ -81,7 +81,7 @@ export default function Navbar() {
                     !session ? (<><Link href="/login" className="btn bg-secondary text-primary rounded-lg">Log In</Link>
                         <Link href="/register" className="btn bg-secondary text-primary rounded-lg hidden sm:flex">Register</Link></>) : (<><button onClick={() => {
                             signOut();
-                        }} className="bg-red-500 px-3 py-2 rounded-md cursor-pointer">
+                        }} className="btn bg-secondary text-primary rounded-lg">
                             Logout
                         </button></>)
                 }

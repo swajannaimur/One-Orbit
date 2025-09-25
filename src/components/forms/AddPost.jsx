@@ -34,7 +34,7 @@ const AddPost = () => {
 
                         <fieldset className="fieldset">
                             <legend className="fieldset-legend text-lg text-primary">Project Type</legend>
-                            <input type="text" name='projectType' required className="input w-full border-2 border-secondary" placeholder="Photo URL" />
+                            <input type="text" name='projectType' required className="input w-full border-2 border-secondary" placeholder="Enter Your Project Type" />
                         </fieldset>
 
                         <fieldset className="fieldset">
@@ -49,12 +49,11 @@ const AddPost = () => {
 
                         <fieldset className="fieldset">
                             <legend className="fieldset-legend text-lg text-primary">Budget</legend>
-                            <input type="text" name='instructions' required className="input w-full border-2 border-secondary" placeholder="Separate with periods" />
+                            <input type="text" name='instructions' required className="input w-full border-2 border-secondary" placeholder="Enter Your budget here" />
                         </fieldset>
 
                     </div>
-
-                    <button className="btn btn-primary w-full text-lg my-4">Add Your Recipe</button>
+                    <button className="btn btn-primary w-full text-lg my-4">Add Post</button>
 
                 </form>
             </div>
