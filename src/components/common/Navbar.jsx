@@ -25,7 +25,9 @@ export default function Navbar() {
             <li>
                 <Link href="/users">Users</Link>
             </li>
-
+            <li>
+                <Link href="/create-post">Create Post</Link>
+            </li>
         </>
     );
     return (
