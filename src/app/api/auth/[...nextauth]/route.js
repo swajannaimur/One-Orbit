@@ -80,6 +80,10 @@ export const authOptions = {
       }
       return true;
     },
+    async redirect({ url, baseUrl }) {
+      // Always send user to homepage after login
+      return "/";
+    },
   },
 };
 
