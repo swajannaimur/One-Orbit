@@ -8,20 +8,14 @@ export default function Navbar() {
 
   const navItem = (
     <>
-      <li>
-        <Link href="/product">Product</Link>
+   <li>
+        <Link href="/projects">All Projects</Link>
       </li>
       <li>
         <Link href="/solutions">Solutions</Link>
       </li>
       <li>
-        <Link href="/resources">Resources</Link>
-      </li>
-      <li>
         <Link href="/pricing">Pricing</Link>
-      </li>
-      <li>
-        <Link href="/users">Users</Link>
       </li>
       <li>
         <Link href="/create-post">Create Post</Link>
@@ -29,7 +23,7 @@ export default function Navbar() {
     </>
   );
   return (
-    <div className="navbar xl:px-0 max-w-7xl mx-auto">
+    <div className="navbar xl:px-0 max-w-7xl mx-auto ">
       <div className="navbar-start w-auto">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="lg:hidden mr-5">
@@ -64,21 +58,17 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="navbar-end gap-5 w-full">
+      <div className="navbar-end w-full">
         <div className="hidden lg:flex">
           {/* nav items for desktop */}
           <ul className="menu menu-horizontal px-1 text-base">{navItem}</ul>
         </div>
-
-        {/* right side buttons */}
-
-        <a className="btn btn-primary rounded-lg hidden sm:flex">Get Started</a>
         {/* conditional buttons */}
         {!session ? (
           <>
             <Link
               href="/login"
-              className="btn bg-secondary text-primary rounded-lg"
+              className="btn btn-primary rounded-lg"
             >
               Log In
             </Link>
@@ -95,7 +85,7 @@ export default function Navbar() {
               onClick={() => {
                 signOut();
               }}
-              className="bg-red-500 px-3 py-2 rounded-md cursor-pointer"
+              className="btn btn-primary px-3 py-2 rounded-md cursor-pointer"
             >
               Logout
             </button>
