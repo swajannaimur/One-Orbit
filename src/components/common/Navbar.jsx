@@ -16,15 +16,11 @@ export default function Navbar() {
             <li>
                 <Link href="/solutions">Solutions</Link>
             </li>
-            <li>
-                <Link href="/resources">Resources</Link>
-            </li>
+            
             <li>
                 <Link href="/pricing">Pricing</Link>
             </li>
-            <li>
-                <Link href="/users">Users</Link>
-            </li>
+            
             <li>
                 <Link href="/create-post">Create Post</Link>
             </li>
@@ -72,20 +68,15 @@ export default function Navbar() {
                     {/* nav items for desktop */}
                     <ul className="menu menu-horizontal px-1 text-base">{navItem}</ul>
                 </div>
-
-                {/* right side buttons */}
-
-                <a className="btn btn-primary rounded-lg hidden sm:flex">Get Started</a>
                 {/* conditional buttons */}
                 {
-                    !session ? (<><Link href="/login" className="btn bg-secondary text-primary rounded-lg">Log In</Link>
+                    !session ? (<><Link href="/login" className="btn btn-primary rounded-lg hidden sm:flex">Log In</Link>
                         <Link href="/register" className="btn bg-secondary text-primary rounded-lg hidden sm:flex">Register</Link></>) : (<><button onClick={() => {
                             signOut();
                         }} className="btn bg-secondary text-primary rounded-lg">
                             Logout
                         </button></>)
                 }
-
             </div>
         </div>
     );
