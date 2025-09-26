@@ -92,7 +92,14 @@ export default function LoginForm() {
           />
         </div>
 
-        
+        {/* forget password redirect link */}
+        <div>
+            <p className="text-sm text-gray-700 tracking-wide font-semibold">
+            
+                Forgot password? <Link href="/forget-password" className="text-primary hover:underline">Reset Here</Link>
+
+            </p>
+        </div>
 
         {/* login button */}
         <button
@@ -108,9 +115,9 @@ export default function LoginForm() {
         </button>
 
         {/* redirecting to register page */}
-        <p className="text-sm text-gray-700 tracking-wide font-semibold">
+        <p className="text-sm text-gray-500 tracking-wide font-semibold">
           Don't have an account?{" "}
-          <Link href="register" className="text-primary hover:underline">
+          <Link href="register" className="text-primary/80 hover:underline">
             Register
           </Link>
         </p>
