@@ -10,15 +10,13 @@ let client;
 let clientPromise;
 
 if (process.env.NODE_ENV === "development") {
-  // Use a global variable so that the value is preserved across hot reloads in dev mode
   if (!global._mongoClientPromise) {
-    client = new MongoClient(uri); // no options needed
+    client = new MongoClient(uri);
     global._mongoClientPromise = client.connect();
   }
   clientPromise = global._mongoClientPromise;
 } else {
-  // In production, always create a new client
-  client = new MongoClient(uri); // removed 'options' because it's undefined
+  client = new MongoClient(uri);
   clientPromise = client.connect();
 }
 
