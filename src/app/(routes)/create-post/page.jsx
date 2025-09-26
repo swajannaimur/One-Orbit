@@ -1,4 +1,4 @@
-import AddPost from '@/components/forms/AddPost';
+import AddPost from '../../../components/forms/AddPost';
 import React from 'react';
 
 const page = () => {

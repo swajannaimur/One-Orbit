@@ -3,8 +3,8 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "../lib/SessionProvider";
 
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",

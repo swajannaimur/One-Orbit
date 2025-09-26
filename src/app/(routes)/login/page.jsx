@@ -1,5 +1,6 @@
-import LoginForm from "@/components/forms/LoginForm";
-import Social from "@/components/social";
+// import LoginForm from "@/components/forms/LoginForm";
+import LoginForm from "../../../components/forms/LoginForm";
+import Social from "../../../components/Social";
 import Link from "next/link";
 import React from "react";
 
