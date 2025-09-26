@@ -64,6 +64,32 @@ export default function VerifyOTP() {
     }
   };
 
+
+  const handleVerify = async () => {
+    const res = await fetch("/api/verify-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, code: otp }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      // OTP verified → now signIn to NextAuth to create the session
+      await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+      localStorage.removeItem("password");
+      router.replace("/");
+    } else {
+      Swal.fire({
+        title: data.message,
+        icon: "error",
+      });
+    }
+  };
+
   const minutes = String(Math.floor(countdown / 60)).padStart(2, "0");
   const seconds = String(countdown % 60).padStart(2, "0");
   return (
