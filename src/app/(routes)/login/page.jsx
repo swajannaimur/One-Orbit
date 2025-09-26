@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function Login() {
-  return (
+  return ( 
     <div className="h-screen flex flex-col justify-center items-center">
       <LoginForm></LoginForm>
       <div className="flex items-center w-full max-w-xs">

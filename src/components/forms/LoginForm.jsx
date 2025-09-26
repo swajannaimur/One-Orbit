@@ -92,13 +92,7 @@ export default function LoginForm() {
           />
         </div>
 
-        {/* redirecting to register page */}
-        <p className="text-sm text-gray-700 tracking-wide font-semibold">
-          Don't have an account?{" "}
-          <Link href="register" className="text-primary hover:underline">
-            Register
-          </Link>
-        </p>
+        
 
         {/* login button */}
         <button
@@ -112,6 +106,14 @@ export default function LoginForm() {
             "Login"
           )}
         </button>
+
+        {/* redirecting to register page */}
+        <p className="text-sm text-gray-700 tracking-wide font-semibold">
+          Don't have an account?{" "}
+          <Link href="register" className="text-primary hover:underline">
+            Register
+          </Link>
+        </p>
 
         <p className="text-red-500 text-base mb-4">{error && error}</p>
       </form>
