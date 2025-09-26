@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import clientPromise from "../../../../lib/mongodb";
+import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
@@ -80,10 +80,10 @@ export const authOptions = {
       }
       return true;
     },
-    async redirect({ url, baseUrl }) {
-      // Always send user to homepage after login
-      return "/";
-    },
+    // async redirect({ url, baseUrl }) {
+    //   // Always send user to homepage after login
+    //   return "/";
+    // },
   },
 };
 

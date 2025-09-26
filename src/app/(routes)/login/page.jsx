@@ -1,6 +1,5 @@
 import LoginForm from "@/components/forms/LoginForm";
-import Social from "@/components/social";
-import Link from "next/link";
+import Social from "@/components/Social";
 import React from "react";
 
 export default function Login() {
@@ -14,7 +13,7 @@ export default function Login() {
         </span>
         <div className="flex-grow h-px bg-gray-300" />
       </div>
-      <Social></Social>
+      <Social/>
     </div>
   );
 }

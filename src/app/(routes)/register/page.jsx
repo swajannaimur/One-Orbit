@@ -1,5 +1,5 @@
 import RegisterForm from "@/components/forms/RegisterForm";
-import Social from "@/components/social";
+import Social from "@/components/Social";
 import React from "react";
 
 export default function Register() {
