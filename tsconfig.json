@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/api/forget-password/route.js", "src/app/api/reset-password/route.js", "src/app/api/verify-token/route.js"  ],
+, "src/app/api/forget-password/route.js", "src/app/api/reset-password/route.js", "src/app/api/verify-token/route.js", "src/app/forget-password/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]
