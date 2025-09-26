@@ -2,12 +2,23 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../../lib/mongodb";
 import bcrypt from 'bcryptjs';
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 // users collection name 
 const USERS_COLLECTION = "users-data";
 
 export const authOptions = {
     providers: [
+             GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
+
         CredentialsProvider({
             id: "credentials",
             name: "Credentials",
@@ -42,7 +53,7 @@ export const authOptions = {
     callbacks: {
         async signIn({ user, account }) {
             if(account.provider === "credentials") return true;
-            return false;
+            return true; // Allow all providers
         },
 
     },
