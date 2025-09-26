@@ -66,7 +66,8 @@ export default function Navbar() {
         {/* conditional buttons */}
         {!session ? (
           <>
-            <Link
+            <div className=" flex justify-center items-center gap-4">
+              <Link
               href="/login"
               className="btn btn-primary rounded-lg"
             >
@@ -78,6 +79,7 @@ export default function Navbar() {
             >
               Register
             </Link>
+            </div>
           </>
         ) : (
           <>
