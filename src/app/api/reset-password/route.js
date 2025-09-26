@@ -1,30 +1,41 @@
-import User from "@/models/User";
-import connect from "@/utils/db";
+import clientPromise from "../../../lib/mongodb";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
-
 export const POST = async (request) => {
-    const {password, email} = await request.json();
+	try {
+		const { password, email } = await request.json();
 
-    await connect();
+		// Mongo connection
+		const client = await clientPromise;
+		const db = client.db();
+		const usersCollection = db.collection("users-data"); // ✅ তোমার collection
 
-    const existingUser = await User.findOne({email});
+		// check user
+		const existingUser = await usersCollection.findOne({ email });
+		if (!existingUser) {
+			return new NextResponse("User not found", { status: 400 });
+		}
 
-    const hashedPassword = await bcrypt.hash(password,5);
-    existingUser.password = hashedPassword;
+		// hash password
+		const hashedPassword = await bcrypt.hash(password, 5);
 
-    existingUser.resetToken = undefined;
-    existingUser.resetTokenExpiry = undefined;
+		// update user
+		await usersCollection.updateOne(
+			{ email },
+			{
+				$set: {
+					password: hashedPassword,
+				},
+				$unset: {
+					resetToken: "",
+					resetTokenExpiry: "",
+				},
+			}
+		);
 
-
-    try{
-        await existingUser.save();
-        return new NextResponse("User's password is updated", {status: 200});
-    }
-    catch(err){
-        return new NextResponse(err,{status: 500})
-    }
-   
-
-}
+		return new NextResponse("User's password is updated", { status: 200 });
+	} catch (err) {
+		return new NextResponse(err.message, { status: 500 });
+	}
+};
