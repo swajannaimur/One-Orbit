@@ -21,24 +21,64 @@ export default function VerifyOTP() {
       countdown > 0 &&
       setInterval(() => setCountdown((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
-  }, [ countdown ]);
-  
+  }, [countdown]);
+
+  // Auto-send OTP once on mount
+  // useEffect(() =>{
+  //   if (email){
+  //     if (sending) return;
+  //     setSending(true)
+  //     fetch("/api/send-otp", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ email, password }),
+  //     }).then(res=>res.json()).then(data=>{
+  //       if(data.message === "OTP sent"){
+  //         setSending(false)
+  //       }
+  //     })
+  //   }
+  // }, [ email ]);
+
+  // Resend OTP
+  const handleResend = async () => {
+    setSending(true);
+    try {
+      await fetch("/api/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      Swal.fire({
+        title: "OTP sent successfully",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      // 🔹 Reset countdown timer
+      setCountdown(300);
+    } finally {
+      setSending(false);
+    }
+  };
+
   const minutes = String(Math.floor(countdown / 60)).padStart(2, "0");
   const seconds = String(countdown % 60).padStart(2, "0");
   return (
     <div className="flex flex-col w-full max-w-[512px] flex-1 mx-auto min-h-screen pt-20">
       <h2 className="text-3xl font-bold text-center pb-3">Enter the code</h2>
       <p className="text-base font-normal pb-3 pt-1 text-center">
-        We sent a verification code to your email. Please enter it below to
+        We sent a code to your email ({email}). Please enter it below to
         continue.
       </p>
 
-      {/* OTP fields */}
       <div className="flex justify-center px-4 pt-4 mb-10">
         <OtpInput
           value={otp}
-          onChange={handleChange}
-          numInputs={4} // number of OTP boxes
+          onChange={setOtp}
+          numInputs={4}
           inputType="tel"
           renderInput={(props) => (
             <input
@@ -52,7 +92,10 @@ export default function VerifyOTP() {
       </div>
 
       <div className="flex flex-col-reverse sm:flex-row justify-center gap-3 py-3 max-w-[200px] mx-auto">
-        <button className="btn btn-secondary text-black w-full">
+        <button
+          onClick={handleResend}
+          className="btn btn-secondary text-black w-full"
+        >
           Resend Code
         </button>
         <button onClick={handleVerify} className="btn btn-primary w-full">
