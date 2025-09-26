@@ -26,7 +26,7 @@ export async function POST(request) {
 
     // generate a cryptographically strong 4-digit OTP
     const otp = String(Math.floor(1000 + Math.random() * 9000));
-    const hashedOTP = await bcrypt.hash(otp,5);
+    const hashedOTP = await bcrypt.hash(otp, 5);
 
     // save or update OTP in DB
     await db.collection("otps").updateOne(
