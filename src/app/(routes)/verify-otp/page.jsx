@@ -64,7 +64,6 @@ export default function VerifyOTP() {
     }
   };
 
-
   const handleVerify = async () => {
     const res = await fetch("/api/verify-otp", {
       method: "POST",
@@ -92,6 +91,15 @@ export default function VerifyOTP() {
 
   const minutes = String(Math.floor(countdown / 60)).padStart(2, "0");
   const seconds = String(countdown % 60).padStart(2, "0");
+
+  if (sending) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center">
+        <span className="loading loading-spinner loading-xl"></span>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col w-full max-w-[512px] flex-1 mx-auto min-h-screen pt-20">
       <h2 className="text-3xl font-bold text-center pb-3">Enter the code</h2>
