@@ -16,11 +16,9 @@ export default function Navbar() {
             <li>
                 <Link href="/solutions">Solutions</Link>
             </li>
-            
             <li>
                 <Link href="/pricing">Pricing</Link>
             </li>
-            
             <li>
                 <Link href="/create-post">Create Post</Link>
             </li>
