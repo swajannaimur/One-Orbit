@@ -1,51 +1,53 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import clientPromise from "../../../../../lib/mongodb";
-import bcrypt from 'bcryptjs';
+import clientPromise from "../../../../lib/mongodb";
+import bcrypt from "bcryptjs";
 
-// users collection name 
+// users collection name
 const USERS_COLLECTION = "users-data";
 
 export const authOptions = {
-    providers: [
-        CredentialsProvider({
-            id: "credentials",
-            name: "Credentials",
-            credentials: {
-                email: {label: "Email", type: "text"},
-                password: {label: "Password", type: "password"},
-            },
+  providers: [
+    CredentialsProvider({
+      id: "credentials",
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
 
-            async authorize(credentials){
-                try{
-                    const client = await clientPromise;
-                    const db = client.db(process.env.DB_NAME); // database name
-                    const user = await db.collection(USERS_COLLECTION).findOne({email: credentials.email});
-                    
-                    if(!user) return null;
+      async authorize(credentials) {
+        try {
+          const client = await clientPromise;
+          const db = client.db(process.env.DB_NAME); // database name
+          const user = await db
+            .collection(USERS_COLLECTION)
+            .findOne({ email: credentials.email });
 
-                    // password validation
-                    const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
-                    if(!isPasswordCorrect) return null;
+          if (!user) return null;
 
-                    return user; // returns user object of NextAuth
+          // password validation
+          const isPasswordCorrect = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+          if (!isPasswordCorrect) return null;
 
-                }
-                catch(err){
-                    console.error("Authorize error : ", err);
-                    return null;
-                }
-            },
-        }),
-    ],
+          return user; // returns user object of NextAuth
+        } catch (err) {
+          console.error("Authorize error : ", err);
+          return null;
+        }
+      },
+    }),
+  ],
 
-    callbacks: {
-        async signIn({ user, account }) {
-            if(account.provider === "credentials") return true;
-            return false;
-        },
-
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account.provider === "credentials") return true;
+      return false;
     },
+  },
 };
 
 const handler = NextAuth(authOptions);
