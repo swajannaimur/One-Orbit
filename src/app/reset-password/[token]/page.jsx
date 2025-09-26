@@ -1,17 +1,52 @@
 "use client";
 
-import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const ForgetPassword = () => {
+const ResetPassword = ({ params }) => {
+    console.log(params.token);
+
     const router = useRouter();
     const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [verified, setVerified] = useState(false);
+    const [user, setUser] = useState(null);
 
     // const session = useSession();
     const { data: session, status: sessionStatus } = useSession();
+
+    // api to validate the token
+    useEffect(() => {
+        const verifyToken = async () => {
+            try {
+                const res = await fetch("/api/verify-token", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        token: params.token,
+                    }),
+                });
+
+                if (res.status === 400) {
+                    setError("Invalid token or has expired (from useEffect)");
+                    setVerified(true);
+                }
+                if (res.status === 200) {
+                    setError("");
+                    setVerified(true)
+                    const userData = await res.json();
+                    setUser(userData);
+                }
+            } catch (error) {
+                setError("Error , try again");
+                console.log(error);
+            }
+        };
+
+        verifyToken();
+    }, [params.token]);
 
     useEffect(() => {
         if (sessionStatus === "authenticated") {
@@ -19,38 +54,28 @@ const ForgetPassword = () => {
         }
     }, [sessionStatus, router]);
 
-    const isValidEmail = (email) => {
-        const emailRegx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-        return emailRegx.test(email);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // console.log(e.target[0].value)  // -- email
 
-        const email = e.target[0].value;
-
-
-        if (!isValidEmail(email)) {
-            setError("Email is invalid");
-            return;
-        }
+        const password = e.target[0].value;
 
         // calling the register api
         try {
-            const res = await fetch("/api/forget-password", {
+            const res = await fetch("/api/reset-password", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    email,
+                    password,
+                    email: user?.email,
                 }),
             });
 
             if (res.status === 400) {
-                setError("User with this email is not registered.");
+                setError("Something went wrong.");
             }
             if (res.status === 200) {
                 setError("");
@@ -60,13 +85,10 @@ const ForgetPassword = () => {
             setError("Error , try again");
             console.log(error);
         }
-
-
-
     };
 
-    if (sessionStatus === "loading") {
-        return <h1>Loading....</h1>
+    if (sessionStatus === "loading" || !verified) {
+        return <h1>Loading....</h1>;
     }
 
     return (
@@ -76,36 +98,26 @@ const ForgetPassword = () => {
                 <div className="shadow-md p-6">
 
                     <h2 className="text-center text-xl sm:text-3xl font-semibold">
-                        Forgot your password
+                        Reset your password
                     </h2>
 
-                    {/* forget password form */}
+                    {/* reset password form */}
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-6">
                         {/* email label and input field */}
                         <div className="flex flex-col gap-1">
                             <label className="text-sm md:text-base font-medium text-gray-700">
-                                Email
+                                New Password
                             </label>
                             <input
-                                type="email"
-                                name="email"
-                                placeholder="Enter your email"
+                                type="password"
+                                name="password"
+                                placeholder="Type your new password"
                                 required
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 
                             focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                             />
                         </div>
 
-
-
-                        {/* login redirect link */}
-                        <div>
-                            <p className="text-sm text-gray-700 tracking-wide font-semibold">
-
-                                Remember your password? <Link href="/login" className="text-primary hover:underline">Login</Link>
-
-                            </p>
-                        </div>
 
                         {/* Submit button */}
                         <button
@@ -123,8 +135,8 @@ const ForgetPassword = () => {
 
                         {/* error message showing here */}
                         <p className="text-red-500 text-base mb-4">
-							{error && error}
-						</p>
+                            {error && error}
+                        </p>
 
                     </form>
                 </div>
@@ -133,4 +145,4 @@ const ForgetPassword = () => {
     );
 };
 
-export default ForgetPassword;
+export default ResetPassword;
