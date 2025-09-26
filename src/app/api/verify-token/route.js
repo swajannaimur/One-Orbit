@@ -1,24 +1,37 @@
-import User from "@/models/User";
-import connect from "@/utils/db";
+import clientPromise from "../../../lib/mongodb";
 import crypto from "crypto";
 import { NextResponse } from "next/server";
 
-
 export const POST = async (request) => {
-    const {token} = await request.json();
+	try {
+		const { token } = await request.json();
 
-    await connect();
+		// Mongo connection
+		const client = await clientPromise;
+		const db = client.db();
+		const usersCollection = db.collection("users-data");
 
-    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+		// hash incoming token
+		const hashedToken = crypto
+			.createHash("sha256")
+			.update(token)
+			.digest("hex");
 
-    const user = await User.findOne({
-        resetToken: hashedToken,
-        resetTokenExpiry: { $gt: Date.now()}
-    })
+		// find user with valid token
+		const user = await usersCollection.findOne({
+			resetToken: hashedToken,
+			resetTokenExpiry: { $gt: Date.now() },
+		});
 
-    if(!user) {
-        return new NextResponse("Invalid Token or has expired", {status: 400});
-    }
+		if (!user) {
+			return new NextResponse("Invalid token or token has expired", {
+				status: 400,
+			});
+		}
 
-    return new NextResponse(JSON.stringify(user), {status: 200});
-}
+		// success
+		return new NextResponse(JSON.stringify(user), { status: 200 });
+	} catch (err) {
+		return new NextResponse(err.message, { status: 500 });
+	}
+};
