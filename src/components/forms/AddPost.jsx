@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 
 const AddPost = () => {
   const [deadline, setDeadline] = useState(new Date());
@@ -14,7 +15,7 @@ const AddPost = () => {
     const data = {
       projectName: formData.get("projectName"),
       projectType: formData.get("projectType"),
-      budget: formData.get("budget"), 
+      budget: formData.get("budget"),
       deadline,
     };
 
@@ -27,9 +28,15 @@ const AddPost = () => {
 
       const result = await res.json();
       console.log("Saved to MongoDB:", result);
-      alert("✅ Post saved!");
+      Swal.fire({
+        title: "Post Added!",
+        text: "Your project has been saved successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
     } catch (err) {
-      console.error("❌ Error saving:", err);
+      console.error(" Error saving:", err);
     }
   };
 
