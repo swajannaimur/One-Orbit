@@ -25,3 +25,20 @@ export async function POST(req) {
     });
   }
 }
+
+export async function GET() {
+  try {
+    const client = await clientPromise;
+    const db = client.db(process.env.DB_NAME);
+    const collection = db.collection("posts");
+
+    const posts = await collection.find({}).sort({ createdAt: -1 }).toArray();
+
+    return new Response(JSON.stringify(posts), { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return new Response(JSON.stringify({ success: false, error }), {
+      status: 500,
+    });
+  }
+}

@@ -11,7 +11,7 @@ export default function Navbar() {
     const navItem = (
         <>
             <li>
-                <Link href="/product">Product</Link>
+                <Link href="/projects">All Projects</Link>
             </li>
             <li>
                 <Link href="/solutions">Solutions</Link>
