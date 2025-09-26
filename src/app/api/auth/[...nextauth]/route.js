@@ -1,14 +1,28 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../../lib/mongodb";
+<<<<<<< HEAD
+import bcrypt from "bcryptjs";
+=======
 import bcrypt from 'bcryptjs';
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
+>>>>>>> bff8d313186af4c2023ccf42ab75ebf49f84457f
 
-// users collection name 
+// users collection name
 const USERS_COLLECTION = "users-data";
 
 export const authOptions = {
+<<<<<<< HEAD
+  providers: [
+    CredentialsProvider({
+      id: "credentials",
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+=======
     providers: [
              GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -26,21 +40,40 @@ export const authOptions = {
                 email: {label: "Email", type: "text"},
                 password: {label: "Password", type: "password"},
             },
+>>>>>>> bff8d313186af4c2023ccf42ab75ebf49f84457f
 
-            async authorize(credentials){
-                try{
-                    const client = await clientPromise;
-                    const db = client.db(process.env.DB_NAME); // database name
-                    const user = await db.collection(USERS_COLLECTION).findOne({email: credentials.email});
-                    
-                    if(!user) return null;
+      async authorize(credentials) {
+        try {
+          const client = await clientPromise;
+          const db = client.db(process.env.DB_NAME); // database name
+          const user = await db
+            .collection(USERS_COLLECTION)
+            .findOne({ email: credentials.email });
 
-                    // password validation
-                    const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
-                    if(!isPasswordCorrect) return null;
+          if (!user) return null;
 
-                    return user; // returns user object of NextAuth
+          // password validation
+          const isPasswordCorrect = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+          if (!isPasswordCorrect) return null;
 
+<<<<<<< HEAD
+          return user; // returns user object of NextAuth
+        } catch (err) {
+          console.error("Authorize error : ", err);
+          return null;
+        }
+      },
+    }),
+  ],
+
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account.provider === "credentials") return true;
+      return false;
+=======
                 }
                 catch(err){
                     console.error("Authorize error : ", err);
@@ -75,7 +108,9 @@ export const authOptions = {
             }
             return true;
         },
+>>>>>>> bff8d313186af4c2023ccf42ab75ebf49f84457f
     },
+  },
 };
 
 const handler = NextAuth(authOptions);
