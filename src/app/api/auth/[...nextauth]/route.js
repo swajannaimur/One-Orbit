@@ -51,11 +51,30 @@ export const authOptions = {
     ],
 
     callbacks: {
-        async signIn({ user, account }) {
-            if(account.provider === "credentials") return true;
-            return true; // Allow all providers
-        },
+        async signIn({ user, account, profile }) {
+            if (account.provider === "credentials") return true;
 
+            // For Google & GitHub, save user to DB if not exists
+            try {
+                const client = await clientPromise;
+                const db = client.db(process.env.DB_NAME);
+                const existingUser = await db.collection(USERS_COLLECTION).findOne({ email: user.email });
+                if (!existingUser) {
+                    await db.collection(USERS_COLLECTION).insertOne({
+                        name: user.name,
+                        email: user.email,
+                        image: user.image,
+                        provider: account.provider,
+                        createdAt: new Date(),
+                    });
+                }
+            } catch (err) {
+                console.error("Social login DB error:", err);
+                // Optionally, you can block sign-in if DB fails
+                // return false;
+            }
+            return true;
+        },
     },
 };
 
