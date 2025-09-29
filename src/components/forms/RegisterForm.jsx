@@ -65,7 +65,7 @@ export default function RegisterForm() {
             // otherwise
             if (res.status === 200) {
                 setError("");
-                router.push("/solutions");
+                router.push("/login");
             }
         }
         catch (err) {
