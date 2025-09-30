@@ -37,7 +37,7 @@ export default async function RootLayout({ children }) {
 
                 <SessionProvider session={session}>
 
-                    <header className="border-b-2 border-[#E5E8EB] sticky top-0 z-50 bg-white">
+                    <header className="">
                         <Navbar />
                     </header>
                     <main className="max-w-8xl mx-auto px-2 xl:px-0">
