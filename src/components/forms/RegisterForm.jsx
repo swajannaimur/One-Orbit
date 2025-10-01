@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 
 export default function RegisterForm() {
@@ -10,13 +11,13 @@ export default function RegisterForm() {
     const [error, setError] = useState("");
     const router = useRouter();
 
-    const { data: session, status: sessionStatus } = useSession();
+    // const { data: session, status: sessionStatus } = useSession();
 
-    useEffect(() => {
-        if (sessionStatus === "authenticated") {
-            router.replace("/pricing");
-        }
-    }, [sessionStatus, router]);
+    // useEffect(() => {
+    //     if (sessionStatus === "authenticated") {
+    //         router.replace("/pricing");
+    //     }
+    // }, [sessionStatus, router]);
 
     // email validation function with regx
     const isValidEmail = (email) => {
@@ -58,6 +59,8 @@ export default function RegisterForm() {
 
             // if server returns any error
             if (res.status === 400) {
+                
+                toast.error("This email already registered.")
                 setError("This email is already registered");
                 return;
             }
@@ -65,24 +68,34 @@ export default function RegisterForm() {
             // otherwise
             if (res.status === 200) {
                 setError("");
-                router.push("/login");
+
+                // after successful register , then direct login
+                const result = await signIn("credentials", { redirect: false, email, password });
+                if (!result.error) {
+                    toast.success("Welcome to OneOrbit")
+                    router.push("/");
+                }
+                else {
+                    toast.error("Login failed after registration");
+                    setError("Login failed after Registration");
+                }
+
             }
         }
         catch (err) {
+            toast.error("Some Error Happend!")
             setError("Error, try again");
-            console.error(err);
+            // console.error(err);
         }
 
 
     };
 
-    if (sessionStatus === "loading") {
-        return <h1>Loading....</h1>;
-    }
+    // if (sessionStatus === "loading") {
+    //     return <h1>Loading....</h1>;
+    // }
 
-    return sessionStatus !== "authenticated" && (
-
-
+    return (
 
         <div className="w-9/12 sm:w-7/12 md:max-w-md mx-auto rounded-lg p-6 bg-white">
 
@@ -100,7 +113,7 @@ export default function RegisterForm() {
                         name="name"
                         placeholder="Your full name"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 
-                   focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                        focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                 </div>
 
@@ -112,7 +125,7 @@ export default function RegisterForm() {
                         name="email"
                         placeholder="Enter your email"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 
-                   focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                        focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                 </div>
 
@@ -137,7 +150,7 @@ export default function RegisterForm() {
                 <button
                     type="submit"
                     className="w-full py-2 cursor-pointer bg-primary text-white tracking-wider rounded-md
-                 hover:bg-primary/90"
+                    hover:bg-primary/90"
                 >
                     Register
                 </button>
@@ -148,5 +161,6 @@ export default function RegisterForm() {
 
             </form>
         </div>
-    ) 
+
+    )
 }

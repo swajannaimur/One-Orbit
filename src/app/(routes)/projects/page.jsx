@@ -1,7 +1,16 @@
 "use client";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const AllPosts = () => {
+const AllPosts = async () => {
+
+    const session = await getServerSession();
+
+    if (!session) {
+        redirect("/login");
+    }
+
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {

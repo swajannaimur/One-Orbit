@@ -1,7 +1,15 @@
+import { getServerSession } from 'next-auth';
 import AddPost from '../../../components/forms/AddPost';
 import React from 'react';
+import { redirect } from 'next/navigation';
 
-const page = () => {
+const page = async() => {
+
+    const session = await getServerSession();
+
+    if (!session) {
+        redirect("/login");
+    }
 
 
     return (
