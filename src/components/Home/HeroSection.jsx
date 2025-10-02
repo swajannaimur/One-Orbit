@@ -18,7 +18,7 @@ export default function HeroSection() {
             <h2 className="text-white text-sm font-normal leading-normal sm:text-base">
               OneOrbit is the all-in-one platform for project management and
               team collaboration. Boost productivity, enhance communication, and
-              achieve your goals faster.
+              achieve your goals faster..
             </h2>
           </div>
 
