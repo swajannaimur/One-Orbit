@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { 
-  FiMenu, 
-  FiX, 
-  FiUser, 
+import {
+  FiMenu,
+  FiX,
+  FiUser,
   FiLogOut,
   FiSettings,
   FiHelpCircle,
@@ -15,12 +15,12 @@ import {
   FiSun,
   FiChevronDown
 } from 'react-icons/fi';
-import { 
+import {
   HiOutlineSparkles,
   HiOutlineDocumentText,
   HiOutlineCurrencyDollar
 } from 'react-icons/hi';
-import { 
+import {
   RiRocketLine,
   RiLightbulbFlashLine
 } from 'react-icons/ri';
@@ -52,9 +52,8 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navItems = [
-    { href: "/product", label: "Product", icon: HiOutlineSparkles, badge: "New" },
+    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
     { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
-    { href: "/resources", label: "Resources", icon: HiOutlineDocumentText },
     { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
   ];
 
@@ -67,17 +66,16 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg' 
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg'
           : 'bg-transparent'
-      }`}>
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            
+
             {/* Logo Section */}
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="flex items-center space-x-3 group flex-shrink-0"
             >
               <div className="relative">
@@ -119,7 +117,7 @@ export default function Navbar() {
 
             {/* Right Actions */}
             <div className="flex items-center space-x-2 lg:space-x-3">
-              
+
               {/* Theme Toggle */}
               <button
                 onClick={() => setDarkMode(!darkMode)}
@@ -136,17 +134,17 @@ export default function Navbar() {
               {/* Authentication Section */}
               {!session ? (
                 <div className="hidden sm:flex items-center space-x-2 lg:space-x-3">
-                  <Link 
+                  <Link
                     href="/login"
                     className="px-4 py-2 lg:px-6 lg:py-2.5 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700 text-sm lg:text-base"
                   >
                     Sign In
                   </Link>
-                  <Link 
+                  <Link
                     href="/register"
                     className="group relative px-4 py-2 lg:px-8 lg:py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden text-sm lg:text-base"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 btn btn-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <span className="relative flex items-center gap-1 lg:gap-2">
                       <RiRocketLine className="w-3 h-3 lg:w-4 lg:h-4" />
                       <span className="hidden lg:inline">Get Started</span>
@@ -157,9 +155,9 @@ export default function Navbar() {
               ) : (
                 /* User Profile Section */
                 <div className="hidden lg:flex items-center space-x-4">
-                  
+
                   {/* Upgrade Button */}
-                  <Link 
+                  <Link
                     href="/upgrade"
                     className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
                   >
@@ -169,7 +167,7 @@ export default function Navbar() {
 
                   {/* User Avatar */}
                   <div className="relative group">
-                    <button 
+                    <button
                       className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
                       onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                     >
@@ -184,15 +182,14 @@ export default function Navbar() {
                           Pro Plan
                         </span>
                       </div>
-                      <FiChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
-                        isUserDropdownOpen ? 'rotate-180' : ''
-                      }`} />
+                      <FiChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isUserDropdownOpen ? 'rotate-180' : ''
+                        }`} />
                     </button>
 
                     {/* Dropdown Menu */}
                     {isUserDropdownOpen && (
                       <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-50">
-                        
+
                         {/* User Info */}
                         <div className="p-4 border-b border-gray-100 dark:border-gray-700">
                           <div className="flex items-center space-x-3">
@@ -250,7 +247,7 @@ export default function Navbar() {
               {/* Mobile Authentication Buttons - Show on small screens */}
               {!session && (
                 <div className="flex sm:hidden items-center space-x-2">
-                  <Link 
+                  <Link
                     href="/login"
                     className="px-3 py-2 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 border border-gray-200 dark:border-gray-700 text-sm"
                   >
@@ -285,11 +282,10 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${
-          isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'
-        }`}>
+        <div className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'
+          }`}>
           <div className="px-4 py-6 space-y-4">
-            
+
             {/* Navigation Items */}
             <div className="grid gap-2">
               {navItems.map((item) => {
@@ -339,7 +335,7 @@ export default function Navbar() {
                   <p className="text-sm font-semibold text-gray-900 dark:text-white">{session.user?.name}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">{session.user?.email}</p>
                 </div>
-                
+
                 {/* User Menu Items */}
                 <div className="grid gap-2">
                   {userMenuItems.map((item) => {
@@ -359,7 +355,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Upgrade Button for Mobile */}
-                <Link 
+                <Link
                   href="/upgrade"
                   className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gradient-to-r from-amber-400 to-orange-500 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -387,7 +383,7 @@ export default function Navbar() {
 
       {/* Backdrop Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -395,7 +391,7 @@ export default function Navbar() {
 
       {/* Overlay for user dropdown */}
       {isUserDropdownOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-30"
           onClick={() => setIsUserDropdownOpen(false)}
         />

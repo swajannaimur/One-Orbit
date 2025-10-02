@@ -45,7 +45,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
+    <div className="relative min-h-screen ">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Grid Pattern */}
