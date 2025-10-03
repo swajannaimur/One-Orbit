@@ -11,7 +11,6 @@
   "dependencies": {
     "@sendgrid/mail": "^8.1.6",
     "bcryptjs": "^3.0.2",
-    "daisyui": "^5.1.12",
     "dotenv": "^17.2.2",
     "lottie-react": "^2.4.1",
     "mongodb": "^6.20.0",
@@ -28,12 +27,12 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/postcss": "^4.1.14",
     "@types/node": "24.5.2",
     "@types/react": "19.1.13",
-    "daisyui": "^5.1.12",
+    "daisyui": "^5.1.26",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4.1.14"
   }
 }

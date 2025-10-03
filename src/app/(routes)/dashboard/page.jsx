@@ -18,6 +18,8 @@ export default async function DashboardHome() {
 
 
             <h2 className="text-xl font-semibold my-5 p-6">Welcome to Dashboard Home as Client</h2>
+
+            <button className="btn">DaisyUI button</button>
         </div>
     )
 }
