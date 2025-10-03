@@ -96,7 +96,7 @@ export default function Pricing() {
               </span>
             </p>
 
-            <button className="btn bg-secondary">
+            <button className="btn btn-gradient">
               {plan.button}
             </button>
 

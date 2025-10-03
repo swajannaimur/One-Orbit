@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import { Toaster } from "react-hot-toast";
-import AuthProvider from "../lib/SessionProvider";
+import AuthProvider from "@/lib/SessionProvider";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -33,24 +33,19 @@ export default async function RootLayout({ children }) {
 	return (
 		<html lang="en" data-theme="light">
 			<body className={poppins.className}>
-				{/* <SessionProvider session={session}> */}
-                    <AuthProvider session={session}>
+				<AuthProvider session={session}>
 
-
-                        <Toaster></Toaster>
-						<header className="border-b-2 border-[#E5E8EB] sticky top-0 z-50 bg-white">
-							<Navbar />
-						</header>
-						<main className="max-w-7xl mx-auto px-2 xl:px-0">
-                            
-
+                    <Toaster></Toaster>
+					<header className="">
+						<Navbar />
+					</header>
+					<div className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
+						<main className="max-w-7xl mx-auto px-2 xl:px-0 ">
 							{children}
-                        
 						</main>
-						<Footer />
-				
-                    </AuthProvider>
-				{/* </SessionProvider> */}
+					</div>
+					<Footer />
+				</AuthProvider>
 			</body>
 		</html>
 	);
