@@ -134,6 +134,31 @@ export default function Navbar() {
                                 )}
                             </button>
 
+                            {/* Conditional Auth Buttons by Yasin Arafat */}
+                            {
+                                session ? (<><button
+                                    onClick={() => {
+                                        signOut({ callbackUrl: "/" });
+                                    }}
+                                    className="btn btn-primary px-3 py-2 rounded-md cursor-pointer"
+                                >
+                                    Logout
+                                </button></>) : (<><div className=" flex justify-center items-center gap-4">
+                                    <Link
+                                        href="/login"
+                                        className="btn btn-primary rounded-lg"
+                                    >
+                                        Log In
+                                    </Link>
+                                    <Link
+                                        href="/register"
+                                        className="btn bg-secondary text-primary rounded-lg hidden sm:flex"
+                                    >
+                                        Register
+                                    </Link>
+                                </div></>)
+                            }
+
                             {/* Authentication Section */}
                             {!session ? (
                                 <div className="hidden sm:flex items-center space-x-2 lg:space-x-3">
@@ -151,7 +176,7 @@ export default function Navbar() {
                                     </Link>
 
 
-                                    
+
                                     <Link
                                         href="/register"
                                         className="group relative px-4 py-2 lg:px-8 lg:py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden text-sm lg:text-base"
@@ -257,6 +282,7 @@ export default function Navbar() {
                                     </div>
                                 </div>
                             )}
+
 
                             {/* Mobile Authentication Buttons - Show on small screens */}
                             {/* {!session && (
