@@ -8,16 +8,14 @@ import Reviews from "@/components/Home/Reviews";
 import WhyChooseUs from "@/components/Home/WhyChoseUs";
 
 export default function Home() {
-  return (
-    <div>
-
-      <HeroSection />
-      <Carousel />
-      <WhyChooseUs />
-      <FaqSection />
-      <Reviews />
-      <NewsletterSection />
-
-    </div>
-  );
+	return (
+		<div>
+			<HeroSection />
+			<Carousel />
+			<WhyChooseUs />
+			<FaqSection />
+			<Reviews />
+			<NewsletterSection />
+		</div>
+	);
 }
