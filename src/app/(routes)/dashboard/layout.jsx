@@ -4,7 +4,7 @@ import { FaHome, FaUser, FaCog, FaChartBar } from 'react-icons/fa'
 
 export default function DashboardLayout({ children }) {
     return (
-        <div className="flex min-h-screen bg-gray-100">
+        <div className="flex min-h-screen bg-gray-100 py-16">
 
             {/* Sidebar */}
             <div className="w-64 bg-white shadow-lg p-5">

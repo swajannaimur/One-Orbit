@@ -11,13 +11,6 @@ export default function RegisterForm() {
     const [error, setError] = useState("");
     const router = useRouter();
 
-    // const { data: session, status: sessionStatus } = useSession();
-
-    // useEffect(() => {
-    //     if (sessionStatus === "authenticated") {
-    //         router.replace("/pricing");
-    //     }
-    // }, [sessionStatus, router]);
 
     // email validation function with regx
     const isValidEmail = (email) => {
