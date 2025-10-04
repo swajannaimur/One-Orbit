@@ -7,18 +7,16 @@ export const POST = async (request) => {
 	try {
 		const { email } = await request.json();
 
-		// Mongo connection
 		const client = await clientPromise;
-		const db = client.db(); // default DB from URI
+		const db = client.db(process.env.DB_NAME);
 		const usersCollection = db.collection("users-data");
 
-		// check user
 		const existingUser = await usersCollection.findOne({ email });
 		if (!existingUser) {
 			return new NextResponse("Email doesn't exist", { status: 400 });
 		}
 
-		// token generate
+		// 1. Generate tokens
 		const resetToken = crypto.randomBytes(20).toString("hex");
 		const passwordResetToken = crypto
 			.createHash("sha256")
@@ -26,7 +24,7 @@ export const POST = async (request) => {
 			.digest("hex");
 		const passwordResetExpires = Date.now() + 3600000; // 1 hour
 
-		// DB update
+		// 2. Update DB
 		await usersCollection.updateOne(
 			{ email },
 			{
@@ -37,34 +35,34 @@ export const POST = async (request) => {
 			}
 		);
 
+		// 3. Send email
 		const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
-		const body = `Reset your password by clicking the link: ${resetUrl}`;
-
-		// send email
-		sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 		const msg = {
 			to: email,
-			from: "yasinarafat1396@gmail.com", // must be verified sender
-			subject: "Reset Password",
-			text: body,
+			from: "yasinarafat1396@gmail.com", // verified sender
+			subject: "Reset Password in OneOrbit",
+			text: `Reset your password by clicking this link: ${resetUrl}`,
 		};
+
+		sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
 		try {
 			await sgMail.send(msg);
-			return new NextResponse("Reset password email sent", {
+			return new NextResponse("Reset Password Email Sent.", {
 				status: 200,
 			});
 		} catch (error) {
-			// rollback if email fails
+			// rollback token if failed
 			await usersCollection.updateOne(
 				{ email },
 				{ $unset: { resetToken: "", resetTokenExpiry: "" } }
 			);
-			return new NextResponse("Failed sending email. Try again.", {
+			return new NextResponse("Failed to send Email. Try Again.", {
 				status: 400,
 			});
 		}
 	} catch (error) {
+		console.error(error);
 		return new NextResponse(error.message, { status: 500 });
 	}
 };

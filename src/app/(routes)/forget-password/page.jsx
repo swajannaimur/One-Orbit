@@ -4,6 +4,9 @@ import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import LoadingSpinner from "@/components/common/LoadingSpinner";    
+
 
 const ForgetPassword = () => {
     const router = useRouter();
@@ -12,6 +15,7 @@ const ForgetPassword = () => {
 
     // const session = useSession();
     const { data: session, status: sessionStatus } = useSession();
+
 
     useEffect(() => {
         if (sessionStatus === "authenticated") {
@@ -26,10 +30,10 @@ const ForgetPassword = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
 
-        // console.log(e.target[0].value)  // -- email
-
-        const email = e.target[0].value;
+        console.log('forget pass email : ', email);
 
 
         if (!isValidEmail(email)) {
@@ -37,7 +41,7 @@ const ForgetPassword = () => {
             return;
         }
 
-        // calling the register api
+        // calling the forget-password api
         try {
             const res = await fetch("/api/forget-password", {
                 method: "POST",
@@ -50,6 +54,7 @@ const ForgetPassword = () => {
             });
 
             if (res.status === 400) {
+                toast.error("User not exists")
                 setError("User with this email is not registered.");
             }
             if (res.status === 200) {
@@ -57,8 +62,9 @@ const ForgetPassword = () => {
                 router.push("/login");
             }
         } catch (error) {
+            toast.error("Error, try again")
             setError("Error , try again");
-            console.log(error);
+            // console.log(error);
         }
 
 
@@ -66,14 +72,14 @@ const ForgetPassword = () => {
     };
 
     if (sessionStatus === "loading") {
-        return <h1>Loading....</h1>
+        return <LoadingSpinner></LoadingSpinner>
     }
 
     return (
         sessionStatus !== "authenticated" && (
-            <div className="w-9/12 sm:w-7/12 md:max-w-md mx-auto rounded-lg p-6 bg-white flex flex-col min-h-screen justify-center">
+            <div className="w-9/12 sm:w-7/12 md:max-w-md mx-auto rounded-xl p-6  flex flex-col min-h-screen justify-center">
                 {/* title */}
-                <div className="shadow-md p-6">
+                <div className="shadow-2xl p-6">
 
                     <h2 className="text-center text-xl sm:text-3xl font-semibold">
                         Forgot your password
@@ -91,7 +97,7 @@ const ForgetPassword = () => {
                                 name="email"
                                 placeholder="Enter your email"
                                 required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-700 text-gray-800 
                             focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                             />
                         </div>

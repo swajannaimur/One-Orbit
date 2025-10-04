@@ -1,17 +1,16 @@
-import clientPromise from "../../../lib/mongodb";
+import clientPromise from "@/lib/mongodb";
 import crypto from "crypto";
 import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
 	try {
 		const { token } = await request.json();
-
 		// Mongo connection
 		const client = await clientPromise;
-		const db = client.db();
+		const db = client.db(process.env.DB_NAME);
 		const usersCollection = db.collection("users-data");
 
-		// hash incoming token
+		// hash the incoming token
 		const hashedToken = crypto
 			.createHash("sha256")
 			.update(token)

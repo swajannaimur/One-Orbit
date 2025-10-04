@@ -1,4 +1,4 @@
-import clientPromise from "../../../lib/mongodb";
+import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
@@ -6,10 +6,10 @@ export const POST = async (request) => {
 	try {
 		const { password, email } = await request.json();
 
-		// Mongo connection
+		// Mongodb connection
 		const client = await clientPromise;
-		const db = client.db();
-		const usersCollection = db.collection("users-data"); // ✅ তোমার collection
+		const db = client.db(process.env.DB_NAME);
+		const usersCollection = db.collection("users-data");
 
 		// check user
 		const existingUser = await usersCollection.findOne({ email });
@@ -17,7 +17,7 @@ export const POST = async (request) => {
 			return new NextResponse("User not found", { status: 400 });
 		}
 
-		// hash password
+		// hashing the password
 		const hashedPassword = await bcrypt.hash(password, 5);
 
 		// update user
