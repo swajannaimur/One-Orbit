@@ -1,10 +1,10 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
-import SessionProvider from "../lib/SessionProvider";
-
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
+import { Toaster } from "react-hot-toast";
+import AuthProvider from "@/lib/SessionProvider";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -28,14 +28,14 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-
 	const session = await getServerSession();
 
 	return (
 		<html lang="en" data-theme="light">
-			<body className={poppins.className} >
+			<body className={poppins.className}>
+				<AuthProvider session={session}>
 
-				<SessionProvider session={session}>
+                    <Toaster></Toaster>
 					<header className="">
 						<Navbar />
 					</header>
@@ -45,9 +45,7 @@ export default async function RootLayout({ children }) {
 						</main>
 					</div>
 					<Footer />
-
-				</SessionProvider>
-
+				</AuthProvider>
 			</body>
 		</html>
 	);

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import clientPromise from "../../../lib/mongodb";
+import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 
 // collection name
@@ -29,6 +29,9 @@ export const POST = async (request)=>{
             name,
             email,
             password: hashedPassword,
+            role: "client",
+            createdAt: new Date(),
+            updatedAt: new Date(),
         });
 
         return new NextResponse("User is Registered Successfully.", {status: 200});
