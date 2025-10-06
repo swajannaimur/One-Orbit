@@ -57,6 +57,7 @@ export default function Navbar() {
     { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
     { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
     { href: "/chat", label: "Message", icon: HiOutlineChatBubbleOvalLeftEllipsis },
+    { href: "/create-post", label: "Create Post", icon: HiOutlineChatBubbleOvalLeftEllipsis },
   ];
 
   const userMenuItems = [
