@@ -11,7 +11,6 @@ const page = async() => {
         redirect("/login");
     }
 
-
     return (
         <div className='min-h-screen'>
             <div className=" p-8 w-full">
