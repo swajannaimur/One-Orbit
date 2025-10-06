@@ -1,10 +1,10 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
-import SessionProvider from "../lib/SessionProvider";
-
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
+import { Toaster } from "react-hot-toast";
+import AuthProvider from "@/lib/SessionProvider";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -28,25 +28,24 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-	
-    const session = await getServerSession();
+	const session = await getServerSession();
 
-    return (
+	return (
 		<html lang="en" data-theme="light">
 			<body className={poppins.className}>
+				<AuthProvider session={session}>
 
-                <SessionProvider session={session}>
-
-                    <header className="border-b-2 border-[#E5E8EB] sticky top-0 z-50 bg-white">
-                        <Navbar />
-                    </header>
-                    <main className="max-w-7xl mx-auto px-2 xl:px-0">
-                        {children}
-                    </main>
-                    <Footer />
-
-                </SessionProvider>
-
+                    <Toaster></Toaster>
+					<header className="">
+						<Navbar />
+					</header>
+					<div className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
+						<main className="max-w-11/12 mx-auto px-2 xl:px-0 ">
+							{children}
+						</main>
+					</div>
+					<Footer />
+				</AuthProvider>
 			</body>
 		</html>
 	);
