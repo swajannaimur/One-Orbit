@@ -5,23 +5,58 @@ import Link from "next/link";
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
-  const navItem = (
-    <>
-      <li>
-        <Link href="/projects">All Projects</Link>
-      </li>
-      <li>
-        <Link href="/solutions">Solutions</Link>
-      </li>
-      <li>
-        <Link href="/pricing">Pricing</Link>
-      </li>
-      <li>
-        <Link href="/create-post">Create Post</Link>
-      </li>
-    </>
-  );
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMobileMenuOpen &&
+        !event.target.closest(".mobile-menu") &&
+        !event.target.closest(".hamburger-button")
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  const navItems = [
+    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
+    { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
+    { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
+    {
+      href: "/chat",
+      label: "Message",
+      icon: HiOutlineChatBubbleOvalLeftEllipsis,
+    },
+    {
+      href: "/create-post",
+      label: "Create Post",
+      icon: HiOutlineChatBubbleOvalLeftEllipsis,
+    },
+  ];
+
+  const userMenuItems = [
+    { href: "/profile", label: "My Profile", icon: FiUser },
+    { href: "/dashboard", label: "Dashboard", icon: HiOutlineSparkles },
+    { href: "/billing", label: "Billing", icon: FiCreditCard },
+    { href: "/settings", label: "Settings", icon: FiSettings },
+    { href: "/support", label: "Support", icon: FiHelpCircle },
+  ];
+
   return (
     <div className="navbar xl:px-0 max-w-7xl mx-auto ">
       <div className="navbar-start w-auto">

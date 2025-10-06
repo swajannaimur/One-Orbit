@@ -20,43 +20,32 @@ export default function AllProjects() {
 
     return (
         <div className="px-10 py-6 min-h-screen">
-            <h2 className="text-3xl font-bold text-center text-primary mb-6">
-                All Projects
-            </h2>
-            {/* table */}
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Project Name</th>
-                            <th>Type</th>
-                            <th>Budget</th>
-                            <th>Deadline</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {posts.length > 0 ? (
-                            posts.map((post, index) => (
-                                <tr key={post._id} className="hover:bg-base-100">
-                                    <td>{index + 1}</td>
-                                    <td>{post.projectName}</td>
-                                    <td>{post.projectType}</td>
-                                    <td>${post.budget}</td>
-                                    <td>{new Date(post.deadline).toLocaleDateString()}</td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="5" className="text-center py-4 text-gray-500">
-                                    No posts found
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+            
+            {/* card */}
+            <div className='grid grid-cols-3 space-y-8'>
+                {posts.length > 0 ? (
+                    posts.map((post) => (
+                        <div key={post._id} className="card bg-base-100 w-96 shadow-sm flex ">
+                            <div className="card-body">
+                                <h2 className="card-title">
+                                    {post.projectName}
+                                </h2>
+                                <h2 className="text-sm font-semibold">
+                                    {post.projectType}
+                                </h2>
+                                <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+                                <div className="card-actions justify-end">
+                                    <div className="badge badge-outline">Fashion</div>
+                                    <div className="badge badge-outline">Products</div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div>
+                        <p className=''>No posts found</p>
+                    </div>
+                )}
             </div>
         </div>
     )
