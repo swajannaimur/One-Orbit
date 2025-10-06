@@ -8,7 +8,7 @@ export default function Navbar() {
 
   const navItem = (
     <>
-   <li>
+      <li>
         <Link href="/projects">All Projects</Link>
       </li>
       <li>
@@ -67,18 +67,15 @@ export default function Navbar() {
         {!session ? (
           <>
             <div className=" flex justify-center items-center gap-4">
+              <Link href="/login" className="btn btn-primary rounded-lg">
+                Log In
+              </Link>
               <Link
-              href="/login"
-              className="btn btn-primary rounded-lg"
-            >
-              Log In
-            </Link>
-            <Link
-              href="/register"
-              className="btn bg-secondary text-primary rounded-lg hidden sm:flex"
-            >
-              Register
-            </Link>
+                href="/register"
+                className="btn bg-secondary text-primary rounded-lg hidden sm:flex"
+              >
+                Register
+              </Link>
             </div>
           </>
         ) : (
