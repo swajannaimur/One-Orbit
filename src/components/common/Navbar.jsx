@@ -26,7 +26,7 @@ export default function Navbar() {
   const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export default function Navbar() {
             {/* Right Actions */}
             <div className="flex items-center space-x-2 lg:space-x-3">
               {/* Theme Toggle */}
-              <button
+              {/* <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="p-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-all duration-300 group"
                 aria-label="Toggle theme"
@@ -139,7 +139,7 @@ export default function Navbar() {
                 ) : (
                   <FiMoon className="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 dark:text-gray-300 group-hover:text-purple-500" />
                 )}
-              </button>
+              </button> */}
 
               {/* Authentication Section */}
               {!session ? (

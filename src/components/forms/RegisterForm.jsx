@@ -90,7 +90,7 @@ export default function RegisterForm() {
 
     return (
 
-        <div className="w-9/12 sm:w-7/12 md:max-w-md mx-auto rounded-lg p-6 bg-white">
+        <div className=" mx-auto w-full rounded-lg p-6 bg-white">
 
             {/* title */}
             <h2 className='text-center text-xl sm:text-3xl font-semibold'>Register to One Orbit</h2>
