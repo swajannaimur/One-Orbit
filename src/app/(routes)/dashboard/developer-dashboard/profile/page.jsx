@@ -84,7 +84,7 @@ export default function DeveloperProfilePage() {
         <h2 className="text-3xl font-bold text-gray-800 mb-4 sm:mb-0">
           My Profile
         </h2>
-        <Link href="/developerDashboard/settings">
+        <Link href="/dashboard/developer-dashboard/settings">
           <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200">
             <HiOutlineCog6Tooth className="w-5 h-5" />
             Settings
