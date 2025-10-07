@@ -26,7 +26,6 @@ export default function Navbar() {
   const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -57,6 +56,7 @@ export default function Navbar() {
     { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
     { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
     { href: "/chat", label: "Message", icon: HiOutlineChatBubbleOvalLeftEllipsis },
+    { href: "/create-post", label: "Create Post", icon: HiOutlineChatBubbleOvalLeftEllipsis },
   ];
 
   const userMenuItems = [
@@ -70,11 +70,10 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
-            : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
@@ -127,19 +126,6 @@ export default function Navbar() {
 
             {/* Right Actions */}
             <div className="flex items-center space-x-2 lg:space-x-3">
-              {/* Theme Toggle */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-all duration-300 group"
-                aria-label="Toggle theme"
-              >
-                {darkMode ? (
-                  <FiSun className="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 dark:text-gray-300 group-hover:text-yellow-500" />
-                ) : (
-                  <FiMoon className="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 dark:text-gray-300 group-hover:text-purple-500" />
-                )}
-              </button>
-
               {/* Authentication Section */}
               {!session ? (
                 <div className="hidden sm:flex items-center space-x-2 lg:space-x-3">
@@ -193,9 +179,8 @@ export default function Navbar() {
                         </span>
                       </div>
                       <FiChevronDown
-                        className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
-                          isUserDropdownOpen ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isUserDropdownOpen ? "rotate-180" : ""
+                          }`}
                       />
                     </button>
 
@@ -297,11 +282,10 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${
-            isMobileMenuOpen
-              ? "translate-y-0 opacity-100"
-              : "-translate-y-4 opacity-0 pointer-events-none"
-          }`}
+          className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${isMobileMenuOpen
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
+            }`}
         >
           <div className="px-4 py-6 space-y-4">
             {/* Navigation Items */}
