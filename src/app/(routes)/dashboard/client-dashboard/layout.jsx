@@ -1,0 +1,88 @@
+import Link from 'next/link'
+import React from 'react'
+import {
+    FaHome,
+    FaUser,
+    FaCog,
+    FaChartBar,
+} from "react-icons/fa";
+import { FiCreditCard, FiInbox } from 'react-icons/fi';
+import { HiOutlineViewGrid } from 'react-icons/hi';
+
+export default function DashboardLayout({ children }) {
+    return (
+        <div className="flex min-h-screen mt-20">
+
+            {/* Sidebar */}
+            <div className="w-64 dark:text-gray-300 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden shadow-lg p-5">
+                <Link href="/" className="text-2xl font-bold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent mb-8">OneOrbit</Link>
+
+                {/* dashboard links */}
+                <ul className="space-y-4 mt-4">
+                    <li>
+                        <Link
+                            href="/dashboard/"
+                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
+                        >
+                            <FaHome /> Home
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            href="/dashboard/"
+                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
+                        >
+                            <HiOutlineViewGrid /> Overview
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            href="/dashboard/reports"
+                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
+                        >
+                            <FaChartBar /> Reports
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            href="/dashboard/inbox"
+                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
+                        >
+                            <FiInbox /> Inbox
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            href="/dashboard/payment"
+                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
+                        >
+                            <FiCreditCard /> Payment
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            href="/dashboard/profile"
+                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
+                        >
+                            <FaUser /> Profile
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            href="/dashboard/settings"
+                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
+                        >
+                            <FaCog /> Settings
+                        </Link>
+                    </li>
+                </ul>
+
+            </div>
+
+            {/* Main Content */}
+            <div className="flex-1">{children}</div>
+        </div>
+    );
+}

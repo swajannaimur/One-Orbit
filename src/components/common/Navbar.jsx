@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { IoCreateOutline } from "react-icons/io5";
 import Link from "next/link";
 import {
   FiMenu,
@@ -15,10 +16,7 @@ import {
   FiSun,
   FiChevronDown,
 } from "react-icons/fi";
-import {
-  HiOutlineSparkles,
-  HiOutlineCurrencyDollar,
-} from "react-icons/hi";
+import { HiOutlineSparkles, HiOutlineCurrencyDollar } from "react-icons/hi";
 import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 import { RiRocketLine, RiLightbulbFlashLine } from "react-icons/ri";
 
@@ -26,7 +24,6 @@ export default function Navbar() {
   const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -56,7 +53,12 @@ export default function Navbar() {
     { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
     { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
     { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
-    { href: "/chat", label: "Message", icon: HiOutlineChatBubbleOvalLeftEllipsis },
+    {
+      href: "/chat",
+      label: "Message",
+      icon: HiOutlineChatBubbleOvalLeftEllipsis,
+    },
+    { href: "/create-post", label: "Create Post", icon: IoCreateOutline },
   ];
 
   const userMenuItems = [
@@ -127,19 +129,6 @@ export default function Navbar() {
 
             {/* Right Actions */}
             <div className="flex items-center space-x-2 lg:space-x-3">
-              {/* Theme Toggle */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-all duration-300 group"
-                aria-label="Toggle theme"
-              >
-                {darkMode ? (
-                  <FiSun className="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 dark:text-gray-300 group-hover:text-yellow-500" />
-                ) : (
-                  <FiMoon className="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 dark:text-gray-300 group-hover:text-purple-500" />
-                )}
-              </button>
-
               {/* Authentication Section */}
               {!session ? (
                 <div className="hidden sm:flex items-center space-x-2 lg:space-x-3">

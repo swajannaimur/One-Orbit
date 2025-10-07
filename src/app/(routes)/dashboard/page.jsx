@@ -1,27 +1,39 @@
-import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation';
-import React from 'react'
+"use client";
 
-export default async function DashboardHome() {
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-    const session = await getServerSession();
+export default function DashboardRedirect() {
+    const { data: session, status } = useSession();
+    const router = useRouter();
 
-    if(!session) {
-        redirect("/login");
-    }
-    
+    useEffect(() => {
+        if (status === "loading") return;
+
+        if (!session) {
+            router.push("/login");
+            return;
+        }
+
+        const role = session?.user?.role;
+        console.log("User role:", role);
+
+        if (role === "admin") {
+            router.push("/dashboard/admin-dashboard");
+        } else if (role === "developer") {
+            router.push("/dashboard/developer-dashboard");
+        } else if (role === "client") {
+            router.push("/dashboard/client-dashboard");
+        }
+        else {
+            router.push("/unauthorized");
+        }
+    }, [session, status, router]);
 
     return (
-        // main div
-        <div className="border-4">
-            
-
-
-            <h2 className="text-xl font-semibold my-5 p-6">Welcome to Dashboard Home as Client</h2>
-
-            <button className="btn">DaisyUI button</button>
-
-            <button className="btn btn-primary">Click</button>
+        <div className="flex justify-center items-center h-screen text-gray-600">
+            Redirecting to your dashboard...
         </div>
-    )
+    );
 }

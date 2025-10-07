@@ -1,22 +1,55 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
+import { 
+  FiDollarSign, 
+  FiCalendar, 
+  FiTag, 
+  FiCode, 
+  FiFileText, 
+  FiClock,
+  FiSend,
+  FiUser
+} from "react-icons/fi";
 
 const AddPost = () => {
+  const { data: session } = useSession();
   const [deadline, setDeadline] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(false);
+
+  const categories = [
+    "Web design",
+    "Web development",
+    "SEO",
+    "Graphic design",
+    "AI prompt engineering",
+    "Web design with CMS",
+    "Logo design",
+  ];
 
   const handleAddPost = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     const formData = new FormData(e.target);
+
+    const userName = session?.user?.name || "Guest";
+    const userEmail = session?.user?.email || "guest@example.com";
 
     const data = {
       projectName: formData.get("projectName"),
-      projectType: formData.get("projectType"),
+      category: formData.get("category"),
       budget: formData.get("budget"),
+      skills: formData.get("skills"),
+      summary: formData.get("summary"),
       deadline,
+      postedDate: new Date(),
+      clientName: userName,
+      clientEmail: userEmail,
     };
 
     try {
@@ -27,81 +60,215 @@ const AddPost = () => {
       });
 
       const result = await res.json();
-      console.log("Saved to MongoDB:", result);
-      Swal.fire({
-        title: "Post Added!",
-        text: "Your project has been saved successfully.",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
-
+      
+      if (res.ok) {
+        Swal.fire({
+          title: "Success!",
+          text: "Your project has been posted successfully.",
+          icon: "success",
+          confirmButtonText: "Continue",
+          confirmButtonColor: "#3B82F6",
+        });
+        e.target.reset();
+        setDeadline(new Date());
+      } else {
+        throw new Error(result.message || "Failed to create post");
+      }
     } catch (err) {
-      console.error(" Error saving:", err);
+      console.error("Error saving:", err);
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to create project. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#EF4444",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  const InputField = ({ icon: Icon, label, name, type = "text", required = true, ...props }) => (
+    <div className="space-y-2">
+      <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+        <Icon className="text-primary" size={16} />
+        {label}
+        {required && <span className="text-red-500">*</span>}
+      </label>
+      {type === "select" ? (
+        <div className="relative">
+          <select
+            name={name}
+            required={required}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-white appearance-none"
+            {...props}
+          >
+            <option value="" disabled>Select {label.toLowerCase()}</option>
+            {categories.map((cat, index) => (
+              <option key={index} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+            <FiTag size={16} />
+          </div>
+        </div>
+      ) : type === "date" ? (
+        <div className="relative">
+          <DatePicker
+            selected={deadline}
+            onChange={(date) => setDeadline(date)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+            dateFormat="MMMM d, yyyy"
+            minDate={new Date()}
+            {...props}
+          />
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+            <FiCalendar size={16} />
+          </div>
+        </div>
+      ) : (
+        <input
+          type={type}
+          name={name}
+          required={required}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+          {...props}
+        />
+      )}
+    </div>
+  );
+
   return (
-    <div className="mb-10">
-      <form onSubmit={handleAddPost} className="rounded-2xl px-32 py-8">
-        <div className="grid grid-cols-2 gap-8">
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend text-lg text-primary">
-              Project Name
-            </legend>
-            <input
-              type="text"
-              name="projectName"
-              required
-              className="input w-full border-2 border-secondary"
-              placeholder="Enter your project name"
-            />
-          </fieldset>
+    <div className="max-w-6xl mx-auto">
+      {/* Client Info Card */}
+      <div className="btn-gradient rounded-xl p-6 mb-8 text-white">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-white/20 rounded-full">
+              <FiUser size={24} />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">
+                {session?.user?.name || "Guest User"}
+              </h3>
+              <p className="text-blue-100">
+                {session?.user?.email || "guest@example.com"}
+              </p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-blue-100">Posting as</p>
+            <p className="font-semibold">Client</p>
+          </div>
+        </div>
+      </div>
 
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend text-lg text-primary">
-              Project Type
-            </legend>
-            <input
-              type="text"
-              name="projectType"
-              required
-              className="input w-full border-2 border-secondary"
-              placeholder="Enter your project type"
-            />
-          </fieldset>
-
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend text-lg text-primary">
-              Deadline
-            </legend>
-            <DatePicker
-              selected={deadline}
-              onChange={(date) => setDeadline(date)}
-              className="input w-full border-2 border-secondary"
-              dateFormat="dd/MM/yyyy"
-            />
-          </fieldset>
-
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend text-lg text-primary">
-              Budget
-            </legend>
-            <input
-              type="number"
-              name="budget"
-              required
-              className="input w-full border-2 border-secondary"
-              placeholder="Enter your budget"
-            />
-          </fieldset>
+      {/* Project Form */}
+      <form onSubmit={handleAddPost} className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        {/* Form Header */}
+        <div className="border-b border-gray-200 bg-gray-50 px-8 py-6">
+          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            <FiFileText className="text-primary" />
+            Project Details
+          </h2>
+          <p className="text-gray-600 mt-1">
+            Fill in all the required information to post your project
+          </p>
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary w-full text-lg my-4"
-        >
-          Add Post
-        </button>
+        {/* Form Content */}
+        <div className="p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Project Name */}
+            <InputField
+              icon={FiFileText}
+              label="Project Name"
+              name="projectName"
+              placeholder="Enter your project title"
+            />
+
+            {/* Category */}
+            <InputField
+              icon={FiTag}
+              label="Project Category"
+              name="category"
+              type="select"
+            />
+
+            {/* Required Skills */}
+            <InputField
+              icon={FiCode}
+              label="Required Skills"
+              name="skills"
+              placeholder="e.g., React, Node.js, Figma"
+            />
+
+            {/* Budget */}
+            <InputField
+              icon={FiDollarSign}
+              label="Budget ($)"
+              name="budget"
+              type="number"
+              placeholder="Enter your budget amount"
+              min="0"
+            />
+
+            {/* Deadline */}
+            <InputField
+              icon={FiClock}
+              label="Project Deadline"
+              name="deadline"
+              type="date"
+            />
+
+            {/* Project Summary */}
+            <div className="lg:col-span-2 space-y-2">
+              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                <FiFileText className="text-primary" size={16} />
+                Project Summary
+                <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                name="summary"
+                required
+                rows={4}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 resize-none"
+                placeholder="Describe your project requirements, goals, and any specific details..."
+              />
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full lg:w-auto px-8 py-4 btn-gradient cursor-pointer text-white font-semibold rounded-lg  focus:ring-4 focus:ring-primary/20 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 mx-auto min-w-[200px]"
+            >
+              {isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                  Posting Project...
+                </>
+              ) : (
+                <>
+                  <FiSend size={18} />
+                  Post Project
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Form Help Text */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-500">
+              Your project will be visible to our community of professionals. 
+              Make sure all information is accurate and complete.
+            </p>
+          </div>
+        </div>
       </form>
     </div>
   );
