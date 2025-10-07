@@ -12,11 +12,11 @@ export default async function DashboardHome() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 p-8">
+        <div className="min-h-screen  mt-14 p-8">
             {/* Header */}
             <div className="flex items-center gap-3 mb-8">
-                <FaHome className="text-3xl text-blue-600" />
-                <h1 className="text-2xl font-bold text-gray-800">Dashboard Home</h1>
+                <FaHome className="text-3xl text-blue-600 dark:text-gray-200" />
+                <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Dashboard Home</h1>
             </div>
 
             {/* Welcome Card */}
