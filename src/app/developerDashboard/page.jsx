@@ -74,16 +74,13 @@ export default function DeveloperDashboard() {
         </div>
 
         <nav className="flex-1 px-2 py-4 space-y-2">
-          <a
-            href="#"
+          <Link
+            href="/developerDashboard/myprojects"
             className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200"
           >
             <FaProjectDiagram />
-            {/* {isSidebarOpen && <span>My Projects</span>} */}
-            {isSidebarOpen && (
-              <Link href="/developerDashboard/myprojects">My Projects</Link>
-            )}
-          </a>
+            {isSidebarOpen && <span>My Projects</span>}
+          </Link>
           <a
             href="#"
             className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200"
