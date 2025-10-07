@@ -14,6 +14,7 @@ import {
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: session } = useSession();
+  const [remoteUser, setRemoteUser] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const router = useRouter();
@@ -30,8 +31,26 @@ export default function DeveloperDashboard() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [dropdownRef]);
 
+  // load remote user so updates are reflected in UI
+  useEffect(() => {
+    let mounted = true;
+    async function load() {
+      try {
+        const res = await fetch("/api/users/me");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!mounted) return;
+        setRemoteUser(data.user || null);
+      } catch (err) {
+        // ignore
+      }
+    }
+    load();
+    return () => (mounted = false);
+  }, []);
+
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 mt-20">
       {/* Sidebar */}
       <div
         className={`${
@@ -60,7 +79,10 @@ export default function DeveloperDashboard() {
             className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200"
           >
             <FaProjectDiagram />
-            {isSidebarOpen && <span>My Projects</span>}
+            {/* {isSidebarOpen && <span>My Projects</span>} */}
+            {isSidebarOpen && (
+              <Link href="/developerDashboard/myprojects">My Projects</Link>
+            )}
           </a>
           <a
             href="#"
@@ -100,17 +122,21 @@ export default function DeveloperDashboard() {
                 aria-expanded={isDropdownOpen}
               >
                 <div className="text-sm text-gray-700 dark:text-gray-200">
-                  {session?.user?.name ? (
+                  {remoteUser?.name || session?.user?.name ? (
                     <span className="font-medium">
-                      {session.user.name.split(" ")[0]}
+                      {(remoteUser?.name || session.user.name).split(" ")[0]}
                     </span>
                   ) : (
                     <span className="text-gray-500">Guest</span>
                   )}
                 </div>
                 <img
-                  src={session?.user?.image || "https://i.pravatar.cc/40"}
-                  alt={session?.user?.name || "Profile"}
+                  src={
+                    remoteUser?.image ||
+                    session?.user?.image ||
+                    "https://i.pravatar.cc/40"
+                  }
+                  alt={remoteUser?.name || session?.user?.name || "Profile"}
                   className="w-9 h-9 rounded-full"
                 />
               </button>

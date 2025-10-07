@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
 
 const solutionsData = [
@@ -82,7 +83,7 @@ const solutionsData = [
 
 const Solutions = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12 mt-20">
       <h1 className="text-4xl font-bold mb-4">Solutions</h1>
       <p className="text-[#4D7399] mb-12">
        One Orbit is a versatile platform that adapts to the unique needs of various industries. Explore how our features can streamline your workflows and enhance collaboration.
@@ -100,7 +101,9 @@ const Solutions = () => {
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
               >
                <div className="flex justify-center items-center">
-                 <img
+                 <Image
+                 height={305}
+                 width={305}
                   src={item.image}
                   alt={item.title}
                   
