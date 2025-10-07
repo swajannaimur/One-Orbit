@@ -44,7 +44,13 @@ export const authOptions = {
           );
           if (!isPasswordCorrect) return null;
 
-          return user; // returns user object of NextAuth
+          return {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            role: user.role,
+          };
+
         } catch (err) {
           console.error("Authorize error : ", err);
           return null;
@@ -54,37 +60,43 @@ export const authOptions = {
   ],
 
   callbacks: {
-    async signIn({ user, account, profile }) {
-      if (account.provider === "credentials") return true;
-
-      // For Google & GitHub, save user to DB if not exists
-      try {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role; 
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.role = token.role;
+      return session;
+    },
+    async signIn({ user, account }) {
+      if (account.provider !== "credentials") {
         const client = await clientPromise;
         const db = client.db(process.env.DB_NAME);
         const existingUser = await db
           .collection(USERS_COLLECTION)
           .findOne({ email: user.email });
+
         if (!existingUser) {
           await db.collection(USERS_COLLECTION).insertOne({
             name: user.name,
             email: user.email,
             image: user.image,
             provider: account.provider,
+            role: "client",
             createdAt: new Date(),
           });
+        } else if (!existingUser.role) {
+          await db
+            .collection(USERS_COLLECTION)
+            .updateOne({ email: user.email }, { $set: { role: "client" } });
         }
-      } catch (err) {
-        console.error("Social login DB error:", err);
-        // Optionally, you can block sign-in if DB fails
-        // return false;
       }
       return true;
     },
-    // async redirect({ url, baseUrl }) {
-    //   // Always send user to homepage after login
-    //   return "/";
-    // },
   },
+
 };
 
 const handler = NextAuth(authOptions);
