@@ -30,14 +30,14 @@ export default async function DashboardHome() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap gap-4">
+            {/* <div className="flex flex-wrap gap-4">
                 <button className="btn btn-primary">
-                    Primary Action
+                    View All Post
                 </button>
                 <button className="btn btn-outline btn-blue">
-                    Secondary Action
+                    Create Post
                 </button>
-            </div>
+            </div> */}
 
             {/* Example Overview Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
