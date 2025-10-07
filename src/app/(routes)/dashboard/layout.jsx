@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
 import {
-  FaHome,
-  FaUser,
-  FaCog,
-  FaChartBar,
+    FaHome,
+    FaUser,
+    FaCog,
+    FaChartBar,
 } from "react-icons/fa";
 import { FiCreditCard, FiInbox } from 'react-icons/fi';
 import { HiOutlineViewGrid } from 'react-icons/hi';
@@ -35,7 +35,7 @@ export default function DashboardLayout({ children }) {
                             <HiOutlineViewGrid /> Overview
                         </Link>
                     </li>
-                    
+
                     <li>
                         <Link
                             href="/dashboard/reports"
@@ -44,7 +44,7 @@ export default function DashboardLayout({ children }) {
                             <FaChartBar /> Reports
                         </Link>
                     </li>
-                   
+
                     <li>
                         <Link
                             href="/dashboard/inbox"
@@ -81,8 +81,8 @@ export default function DashboardLayout({ children }) {
 
             </div>
 
-        {/* Main Content */}
-        <div className="flex-1">{children}</div>
-      </div>
+            {/* Main Content */}
+            <div className="flex-1">{children}</div>
+        </div>
     );
 }
