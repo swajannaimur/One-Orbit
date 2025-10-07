@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { IoCreateOutline } from "react-icons/io5";
 import Link from "next/link";
 import {
   FiMenu,
@@ -56,7 +57,7 @@ export default function Navbar() {
     { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
     { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
     { href: "/chat", label: "Message", icon: HiOutlineChatBubbleOvalLeftEllipsis },
-    { href: "/create-post", label: "Create Post", icon: HiOutlineChatBubbleOvalLeftEllipsis },
+    { href: "/create-post", label: "Create Post", icon: IoCreateOutline  },
   ];
 
   const userMenuItems = [
