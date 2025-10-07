@@ -14,24 +14,38 @@ import {
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: session } = useSession();
+  const [remoteUser, setRemoteUser] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const router = useRouter();
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsDropdownOpen(false);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [dropdownRef]);
 
+  useEffect(() => {
+    let mounted = true;
+    async function load() {
+      try {
+        const res = await fetch("/api/users/me");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!mounted) return;
+        setRemoteUser(data.user || null);
+      } catch (err) {}
+    }
+    load();
+    return () => (mounted = false);
+  }, []);
+
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-50 mt-20 max-w-11/12 mx-auto">
       {/* Sidebar */}
       <div
         className={`${
@@ -42,9 +56,9 @@ export default function DeveloperDashboard() {
           <h2
             className={`${
               isSidebarOpen ? "block" : "hidden"
-            } text-xl font-bold`}
+            } text-xl font-semibold text-gray-800`}
           >
-            Dev Panel
+            Developer Panel
           </h2>
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -55,35 +69,35 @@ export default function DeveloperDashboard() {
         </div>
 
         <nav className="flex-1 px-2 py-4 space-y-2">
+          <Link
+            href="/developerDashboard/myprojects"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
+          >
+            <FaProjectDiagram className="text-blue-500" />
+            {isSidebarOpen && <span className="font-medium">My Projects</span>}
+          </Link>
           <a
             href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
           >
-            <FaProjectDiagram />
-            {isSidebarOpen && <span>My Projects</span>}
+            <FaTasks className="text-yellow-500" />
+            {isSidebarOpen && <span className="font-medium">My Tasks</span>}
           </a>
           <a
             href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
           >
-            <FaTasks />
-            {isSidebarOpen && <span>My Tasks</span>}
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200"
-          >
-            <FaUsers />
-            {isSidebarOpen && <span>Team Members</span>}
+            <FaUsers className="text-green-500" />
+            {isSidebarOpen && <span className="font-medium">Team Members</span>}
           </a>
         </nav>
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col">
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col bg-gray-50">
         {/* Top Navbar */}
-        <header className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-gray-800">
+        <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-gray-800">
             Developer Dashboard
           </h1>
           <div className="flex items-center gap-4">
@@ -99,49 +113,45 @@ export default function DeveloperDashboard() {
                 aria-haspopup="true"
                 aria-expanded={isDropdownOpen}
               >
-                <div className="text-sm text-gray-700 dark:text-gray-200">
-                  {session?.user?.name ? (
-                    <span className="font-medium">
-                      {session.user.name.split(" ")[0]}
-                    </span>
-                  ) : (
-                    <span className="text-gray-500">Guest</span>
-                  )}
+                <div className="text-sm text-gray-700">
+                  {(remoteUser?.name || session?.user?.name)?.split(" ")[0] ??
+                    "Guest"}
                 </div>
                 <img
-                  src={session?.user?.image || "https://i.pravatar.cc/40"}
-                  alt={session?.user?.name || "Profile"}
+                  src={
+                    remoteUser?.image ||
+                    session?.user?.image ||
+                    "https://i.pravatar.cc/40"
+                  }
+                  alt="Profile"
                   className="w-9 h-9 rounded-full"
                 />
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 border rounded-md shadow-lg z-50 py-1">
+                <div className="absolute right-0 mt-2 w-44 bg-white border rounded-lg shadow-lg py-1 z-50">
                   <button
                     onClick={() => {
                       setIsDropdownOpen(false);
-                      router.push("/developerDashboard/profile");
+                      router.push("/dashboard/developer-dashboard/profile");
                     }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
                   >
                     Profile
                   </button>
                   <button
                     onClick={() => {
                       setIsDropdownOpen(false);
-                      router.push("/developerDashboard/settings");
+                      router.push("/dashboard/developer-dashboard/settings");
                     }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
                   >
                     Settings
                   </button>
                   <div className="border-t my-1" />
                   <button
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      signOut({ callbackUrl: "/" });
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 rounded-md"
                   >
                     Logout
                   </button>
@@ -153,24 +163,33 @@ export default function DeveloperDashboard() {
 
         {/* Dashboard Content */}
         <main className="p-6 overflow-y-auto">
-          <h2 className="text-lg font-semibold mb-4">
-            Welcome back,
-            <span className="text-lg font-semibold mb-4">
-              {session?.user?.name ?? "Developer"}
-            </span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white shadow-md rounded-lg p-4">
-              <h3 className="text-gray-600 font-semibold">Active Projects</h3>
-              <p className="text-3xl font-bold mt-2 text-blue-500">3</p>
+          <div className="bg-white rounded-xl shadow p-6 mb-6 border-l-4 border-blue-600">
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              Welcome, {session?.user?.name || "Developer"}!
+            </h2>
+            <p className="text-gray-600">
+              Here’s a quick overview of your dashboard and activities.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white rounded-xl shadow p-5 border-l-4 border-green-500">
+              <h3 className="font-semibold text-gray-700 mb-2">
+                Active Projects
+              </h3>
+              <p className="text-2xl font-bold text-gray-900">3</p>
             </div>
-            <div className="bg-white shadow-md rounded-lg p-4">
-              <h3 className="text-gray-600 font-semibold">Pending Tasks</h3>
-              <p className="text-3xl font-bold mt-2 text-yellow-500">7</p>
+            <div className="bg-white rounded-xl shadow p-5 border-l-4 border-yellow-500">
+              <h3 className="font-semibold text-gray-700 mb-2">
+                Pending Tasks
+              </h3>
+              <p className="text-2xl font-bold text-gray-900">7</p>
             </div>
-            <div className="bg-white shadow-md rounded-lg p-4">
-              <h3 className="text-gray-600 font-semibold">Completed Tasks</h3>
-              <p className="text-3xl font-bold mt-2 text-green-500">15</p>
+            <div className="bg-white rounded-xl shadow p-5 border-l-4 border-red-500">
+              <h3 className="font-semibold text-gray-700 mb-2">
+                Completed Tasks
+              </h3>
+              <p className="text-2xl font-bold text-gray-900">15</p>
             </div>
           </div>
         </main>
