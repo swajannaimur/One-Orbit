@@ -24,64 +24,54 @@ export default function RegisterForm() {
         const name = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
+        const role = e.target[3].value;
 
-        // console.log(name, email, password);
+        // validation checks
+        if (!role) {
+            setError("Please select a role");
+            return;
+        }
 
-        // email validation
         if (!isValidEmail(email)) {
             setError("Email is Invalid");
             return;
         }
 
-        // password validation
         if (!password || password.length < 8) {
-            setError("Password is Invalid");
+            setError("Password must be at least 8 characters");
             return;
         }
 
-
-        // calling the api and sending form data
         try {
             const res = await fetch("/api/register", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ name, email, password, role }), // include role
             });
 
-            // if server returns any error
             if (res.status === 400) {
-                
-                toast.error("This email already registered.")
+                toast.error("This email already registered.");
                 setError("This email is already registered");
                 return;
             }
 
-            // otherwise
             if (res.status === 200) {
                 setError("");
-
-                // after successful register , then direct login
                 const result = await signIn("credentials", { redirect: false, email, password });
                 if (!result.error) {
-                    toast.success("Welcome to OneOrbit")
+                    toast.success("Welcome to OneOrbit");
                     router.push("/");
-                }
-                else {
+                } else {
                     toast.error("Login failed after registration");
                     setError("Login failed after Registration");
                 }
-
             }
-        }
-        catch (err) {
-            toast.error("Some Error Happend!")
+        } catch (err) {
+            toast.error("Some Error Happened!");
             setError("Error, try again");
-            // console.error(err);
         }
-
-
     };
 
     // if (sessionStatus === "loading") {
@@ -132,6 +122,26 @@ export default function RegisterForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                 </div>
+
+                {/* role selection */}
+                <div className="flex flex-col gap-1">
+                    <label className="text-sm md:text-base font-medium text-gray-700">
+                        Register as
+                    </label>
+                    <select
+                        name="role"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-800 
+    focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                        defaultValue=""
+                    >
+                        <option value="" disabled>
+                            Select your role
+                        </option>
+                        <option value="client">Client</option>
+                        <option value="developer">Developer</option>
+                    </select>
+                </div>
+
 
                 {/* redirecting to Login page */}
                 <p className="text-sm text-gray-700 tracking-wide font-semibold">

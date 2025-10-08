@@ -154,7 +154,7 @@ const Solutions = () => {
           </h1>
           
           <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            One Orbit adapts to your industry's unique needs with specialized tools and workflows 
+            One Orbit adapts to your industry unique needs with specialized tools and workflows 
             that enhance collaboration and drive productivity across your organization.
           </p>
         </div>
