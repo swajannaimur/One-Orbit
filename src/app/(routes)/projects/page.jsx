@@ -9,12 +9,7 @@ const AllPosts = async () => {
     if (!session) {
         redirect("/login");
     }
-
-
     return <AllProjects/>
-    
-
-    
 };
 
 export default AllPosts;

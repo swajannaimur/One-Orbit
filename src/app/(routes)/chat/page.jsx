@@ -149,8 +149,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { io } from "socket.io-client";
-import Sidebar from "./components/sidebar";
+import Sidebar from "./components/Sidebar";
 
 export default function ChatPage() {
   const [users, setUsers] = useState([]);
@@ -364,19 +363,17 @@ export default function ChatPage() {
     <div className="flex h-[calc(100vh-5rem)] bg-base-200 mt-20">
       {/* Connection Status */}
       <div
-        className={`absolute top-4 right-4 px-3 py-1 rounded text-sm ${
-          isConnected ? "bg-green-500 text-white" : "bg-red-500 text-white"
-        }`}
+        className={`absolute top-4 right-4 px-3 py-1 rounded text-sm ${isConnected ? "bg-green-500 text-white" : "bg-red-500 text-white"
+          }`}
       >
         {isConnected ? "Connected" : "Disconnected"}
       </div>
 
       {/* Sidebar */}
-      <Sidebar
-        users={users}
+      <Sidebar users={users}
         selectedFriend={selectedFriend}
-        setSelectedFriend={setSelectedFriend}
-      />
+        setSelectedFriend={setSelectedFriend}>
+      </Sidebar>
 
       {/* Chat Area */}
       {selectedFriend === null ? (
@@ -409,9 +406,8 @@ export default function ChatPage() {
             {messages[selectedFriend._id]?.map((msg) => (
               <div
                 key={msg._id}
-                className={`chat ${
-                  msg.sender === "user" ? "chat-end" : "chat-start"
-                }`}
+                className={`chat ${msg.sender === "user" ? "chat-end" : "chat-start"
+                  }`}
               >
                 <div className="chat-bubble">{msg.text}</div>
               </div>
@@ -432,15 +428,15 @@ export default function ChatPage() {
               }}
               placeholder={`Message ${selectedFriend.name}...`}
               className="input input-bordered flex-1"
-              // disabled={!isConnected}
+            // disabled={!isConnected}
             />
             <button
               type="submit"
               className="btn btn-primary"
-              // disabled={!newMsg.trim() || !isConnected}
+            // disabled={!newMsg.trim() || !isConnected}
             >
-                {/* {isConnected ? "Send" : "Connecting..."} */}
-                Send
+              {/* {isConnected ? "Send" : "Connecting..."} */}
+              Send
             </button>
           </form>
         </div>

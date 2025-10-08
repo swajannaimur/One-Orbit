@@ -265,18 +265,23 @@ export default function AllProjects() {
                             </div>
                           </div>
                         </div>
-
-                        <button className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all duration-300 group">
-                          View Details
-                          <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                        </button>
                       </div>
+
                     </div>
 
                     {/* Posted Date */}
-                    <div className="mt-4 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                      <FiCalendar className="w-3 h-3" />
-                      Posted {formatDate(post.postedDate)}
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="mt-4 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                        <FiCalendar className="w-3 h-3" />
+                        Posted {formatDate(post.postedDate)}
+                      </div>
+                      
+                      <div>
+                        <button className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all duration-300 group">
+                          Details
+                          <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
