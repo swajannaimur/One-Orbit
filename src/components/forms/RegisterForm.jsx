@@ -20,11 +20,12 @@ export default function RegisterForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const form = e.target;
 
-        const name = e.target[0].value;
-        const email = e.target[1].value;
-        const password = e.target[2].value;
-        const role = e.target[3].value;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const role = form.role.value;
 
         // validation checks
         if (!role) {
