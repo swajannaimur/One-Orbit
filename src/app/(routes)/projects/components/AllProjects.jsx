@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {
   FiCalendar,
@@ -277,10 +278,10 @@ export default function AllProjects() {
                       </div>
                       
                       <div>
-                        <button className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all duration-300 group">
+                        <Link href={`projects/${post._id}`}><button className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all duration-300 group">
                           Details
                           <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                        </button>
+                        </button></Link>
                       </div>
                     </div>
                   </div>
