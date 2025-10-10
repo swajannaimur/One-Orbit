@@ -1,4 +1,5 @@
 "use client";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {
@@ -14,13 +15,12 @@ import {
   FiTrendingUp,
 } from "react-icons/fi";
 import {
-  HiOutlineComputerDesktop,
-  HiOutlineCurrencyDollar,
-  HiOutlineCalendarDays,
+  HiOutlineComputerDesktop, HiOutlineCurrencyDollar, HiOutlineCalendarDays,
 } from "react-icons/hi2";
 
 export default function AllProjects() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
 
@@ -32,6 +32,8 @@ export default function AllProjects() {
         setPosts(data);
       } catch (err) {
         console.error("Error fetching posts:", err);
+      } finally {
+        setLoading(false)
       }
     };
     fetchPosts();
@@ -85,6 +87,8 @@ export default function AllProjects() {
     ...new Set(posts.map((post) => post.category).filter(Boolean)),
   ];
 
+  if (loading) return <LoadingSpinner></LoadingSpinner>
+  
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -276,7 +280,7 @@ export default function AllProjects() {
                         <FiCalendar className="w-3 h-3" />
                         Posted {formatDate(post.postedDate)}
                       </div>
-                      
+
                       <div>
                         <Link href={`projects/${post._id}`}><button className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all duration-300 group">
                           Details
