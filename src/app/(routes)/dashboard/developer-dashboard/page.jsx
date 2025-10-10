@@ -38,7 +38,7 @@ export default function DeveloperDashboard() {
         const data = await res.json();
         if (!mounted) return;
         setRemoteUser(data.user || null);
-      } catch (err) { }
+      } catch (err) {}
     }
     load();
     return () => (mounted = false);
@@ -53,8 +53,9 @@ export default function DeveloperDashboard() {
       >
         <div className="flex items-center justify-between px-4 py-4 border-b">
           <h2
-            className={`${isSidebarOpen ? "block" : "hidden"
-              } text-xl font-semibold text-gray-800`}
+            className={`${
+              isSidebarOpen ? "block" : "hidden"
+            } text-xl font-semibold text-gray-800`}
           >
             Developer Panel
           </h2>
@@ -128,6 +129,15 @@ export default function DeveloperDashboard() {
 
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-44 bg-white border rounded-lg shadow-lg py-1 z-50">
+                  <button
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      router.push("/dashboard/developer-dashboard/profile");
+                    }}
+                    className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+                  >
+                    Profile
+                  </button>
                   <button
                     onClick={() => {
                       setIsDropdownOpen(false);
