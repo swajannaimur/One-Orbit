@@ -143,8 +143,8 @@ export default function ChatPage() {
         usersList={usersList}
         userId={clientId}
         selectedFriend={selectedFriend}
-        setSelectedFriend={setSelectedFriend}
-      />
+        setSelectedFriend={setSelectedFriend}>
+      </Sidebar>
 
       {selectedFriend === null ? (
         <div className="flex items-center mx-auto">
