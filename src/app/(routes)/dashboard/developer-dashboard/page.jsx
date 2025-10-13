@@ -48,9 +48,8 @@ export default function DeveloperDashboard() {
     <div className="flex h-screen bg-gray-50 mt-20 max-w-11/12 mx-auto">
       {/* Sidebar */}
       <div
-        className={`${
-          isSidebarOpen ? "w-64" : "w-16"
-        } bg-white shadow-md transition-all duration-300 flex flex-col`}
+        className={`${isSidebarOpen ? "w-64" : "w-16"
+          } bg-white shadow-md transition-all duration-300 flex flex-col`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b">
           <h2
