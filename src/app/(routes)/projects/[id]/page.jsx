@@ -87,6 +87,10 @@ export default function ProjectDetails() {
               {post.category}
             </span>
           </div>
+          {/* Request button */}
+          <div>
+    
+          </div>
         </div>
 
         {/* Main Card */}
