@@ -65,4 +65,3 @@ export const AblyProvider = ({ children }) => {
 
 export const useAbly = () => useContext(AblyContext);
 export const useCurrentUser = () => useContext(CurrentUserContext);
-
