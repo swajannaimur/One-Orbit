@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation';
 import React from 'react'
 import { FaHome, FaBell, FaQuestionCircle, FaCalendarAlt, FaLifeRing, FaClipboardList } from 'react-icons/fa';
+import Chart from "@/app/(routes)/dashboard/client-dashboard/components/Chart";
 
 export default async function DashboardHome() {
     const session = await getServerSession();
@@ -45,6 +46,11 @@ export default async function DashboardHome() {
                     <p className="text-2xl font-bold">8</p>
                 </div>
             </div>
+
+            {/* charts */}
+            <section className="py-6 max-w-2xl">
+                <Chart></Chart>
+            </section>
 
             {/* Notifications Section */}
             <div className="mt-10 bg-white rounded-xl shadow p-6">
