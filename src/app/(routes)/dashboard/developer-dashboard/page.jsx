@@ -10,6 +10,8 @@ import {
   FaBell,
   FaBars,
 } from "react-icons/fa";
+
+import KanbanBoard from "./kanban/KanbanBoard";
 import InviteForm from "@/app/api/users/invite/InviteForm";
 
 export default function DeveloperDashboard() {
@@ -200,6 +202,10 @@ export default function DeveloperDashboard() {
               <p className="text-2xl font-bold text-gray-900">15</p>
             </div>
           </div>
+          <div className="mt-8">
+            <KanbanBoard />
+          </div>
+
           <div className="mt-8">
             <InviteForm />
           </div>
