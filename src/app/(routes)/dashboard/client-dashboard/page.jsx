@@ -95,27 +95,7 @@ export default async function DashboardHome() {
                 </div>
             </div>
 
-            {/* FAQ Section */}
-            <div className="mt-10 bg-white  rounded-xl shadow p-6">
-                <div className="flex items-center gap-2 mb-4">
-                    <FaQuestionCircle className="text-xl text-yellow-500" />
-                    <h2 className="text-xl font-bold text-gray-800 ">FAQ</h2>
-                </div>
-                <ul className="space-y-3 text-gray-700 ">
-                    <li>
-                        <strong>Q:</strong> How can I update my profile? <br />
-                        <span className="text-gray-500">👉 Go to Settings &gt; Edit Profile.</span>
-                    </li>
-                    <li>
-                        <strong>Q:</strong> How do I reset my password? <br />
-                        <span className="text-gray-500">👉 Click on “Forgot Password” on the login page.</span>
-                    </li>
-                    <li>
-                        <strong>Q:</strong> Can I contact support 24/7? <br />
-                        <span className="text-gray-500">👉 Yes! Our support team is available all the time.</span>
-                    </li>
-                </ul>
-            </div>
+            
 
             {/* Recent Activity */}
             <div className="mt-10 bg-white  rounded-xl shadow p-6">
