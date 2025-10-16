@@ -4,10 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginForm() {
     const router = useRouter();
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     // email validation function with regx
@@ -40,46 +42,49 @@ export default function LoginForm() {
             return;
         }
 
+
+        // login comment by sazzad
+
         // calling next-auth "signIn" function
-        const result = await signIn("credentials", { redirect: false, email, password });
+        // const result = await signIn("credentials", { redirect: false, email, password });
 
-        console.log('after login : ', result);
+        // console.log('after login : ', result);
 
-        if (result?.error) {
-            toast.error("Invalid Email or Password");
-            setError("Invalid Email or Password");
-            setIsLoading(false);
-        }
-        else {
-            form.reset();
-            toast.success("Login Successfull");
-            setError("");
-            router.push("/dashboard");
-
-        }
-
-        // OTP - Commented by Yasin Arafat
-
-        // const res = await fetch("/api/send-otp", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({ email, password }),
-        // });
-
-        // if (res.ok) {
-        //     //   localStorage.setItem("password", password);
+        // if (result?.error) {
+        //     toast.error("Invalid Email or Password");
+        //     setError("Invalid Email or Password");
         //     setIsLoading(false);
-        //     router.push("/");
+        // }
+        // else {
+        //     form.reset();
+        //     toast.success("Login Successfull");
+        //     setError("");
+        //     router.push("/dashboard");
+
         // }
 
+        // OTP - commented by Yasin Arafat
 
-        // if (!res.ok) {
-        //   const data = await res.json();
-        //   setError(data.message);
-        //   setIsLoading(false);
-        // } else {
-        //   router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
-        // }
+        const res = await fetch("/api/send-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        if (res.ok) {
+            localStorage.setItem("password", password);
+            setIsLoading(false);
+            router.push("/");
+        }
+
+
+        if (!res.ok) {
+            const data = await res.json();
+            setError(data.message);
+            setIsLoading(false);
+        } else {
+            router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
+        }
     };
 
     return (
@@ -109,14 +114,22 @@ export default function LoginForm() {
                     <label className="text-sm md:text-base font-medium text-gray-700">
                         Password
                     </label>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md 
+
+                    <div className="relative flex items-center">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            placeholder="Enter your password"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md 
                    placeholder-gray-400 text-gray-800
                    focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                    />
+                        />
+
+                        <button type="button" onClick={()=> setShowPassword(!showPassword)} className="absolute right-3 text-gray-500 cursor-pointer">
+                            {showPassword ? <FaEyeSlash size={18}/> : <FaEye size={18}/>}
+                        </button>
+                    </div>
+
                 </div>
 
                 {/* showing form error */}

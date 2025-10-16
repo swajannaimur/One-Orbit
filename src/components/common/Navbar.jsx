@@ -58,7 +58,7 @@ export default function Navbar() {
       label: "Message",
       icon: HiOutlineChatBubbleOvalLeftEllipsis,
     },
-    { href: "/create-post", label: "Create Post", icon: IoCreateOutline },
+    { href: "/create-post", label: "Create Project", icon: IoCreateOutline },
   ];
 
   const userMenuItems = [
