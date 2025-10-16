@@ -150,7 +150,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
-import Sidebar from "./components/sidebar";
+import Sidebar from "./components/Sidebar.jsx";
+
 
 export default function ChatPage() {
   const [users, setUsers] = useState([]);
@@ -261,43 +262,43 @@ export default function ChatPage() {
   }, []);
 
   // Fetch messages when friend is selected
-  useEffect(() => {
-    if (selectedFriend) {
-      const fetchMessages = async () => {
-        try {
-          const res = await fetch(
-            `/api/messages?userId=current-user-id&friendId=${selectedFriend._id}`
-          );
+  // useEffect(() => {
+  //   if (selectedFriend) {
+  //     const fetchMessages = async () => {
+  //       try {
+  //         const res = await fetch(
+  //           `/api/messages?userId=current-user-id&friendId=${selectedFriend._id}`
+  //         );
 
-          if (!res.ok) throw new Error("Failed to fetch messages");
+  //         if (!res.ok) throw new Error("Failed to fetch messages");
 
-          const messagesData = await res.json();
-          console.log("Fetched messages:", messagesData);
+  //         const messagesData = await res.json();
+  //         console.log("Fetched messages:", messagesData);
 
-          setMessages((prev) => ({
-            ...prev,
-            [selectedFriend._id]: messagesData.map((msg) => ({
-              _id: msg._id,
-              sender: msg.senderId === "current-user-id" ? "user" : "bot",
-              text: msg.text,
-              createdAt: msg.createdAt,
-            })),
-          }));
-        } catch (error) {
-          console.log("Failed to fetch messages:", error);
-        }
-      };
+  //         setMessages((prev) => ({
+  //           ...prev,
+  //           [selectedFriend._id]: messagesData.map((msg) => ({
+  //             _id: msg._id,
+  //             sender: msg.senderId === "current-user-id" ? "user" : "bot",
+  //             text: msg.text,
+  //             createdAt: msg.createdAt,
+  //           })),
+  //         }));
+  //       } catch (error) {
+  //         console.log("Failed to fetch messages:", error);
+  //       }
+  //     };
 
-      fetchMessages();
-    }
-  }, [selectedFriend]);
+  //     fetchMessages();
+  //   }
+  // }, [selectedFriend]);
 
   // Join room when socket is connected and friend is selected
-  useEffect(() => {
-    if (socket && isConnected && selectedFriend) {
-      socket.emit("join_user", "current-user-id");
-    }
-  }, [socket, isConnected, selectedFriend]);
+  // useEffect(() => {
+  //   if (socket && isConnected && selectedFriend) {
+  //     socket.emit("join_user", "current-user-id");
+  //   }
+  // }, [socket, isConnected, selectedFriend]);
 
   // Auto-scroll to bottom
   useEffect(() => {

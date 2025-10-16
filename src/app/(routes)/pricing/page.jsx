@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { 
-  FiCheck, 
+import { FiCheck, 
   FiStar, 
   FiZap, 
   FiUsers, 
