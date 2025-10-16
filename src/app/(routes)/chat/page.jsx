@@ -1,7 +1,8 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Sidebar from "./components/sidebar";
+import Sidebar from "./components/Sidebar";
 import { useSession } from "next-auth/react";
 // import { useRealtime, useCurrentUser } from "@/lib/AblyProvider";
 import { useAbly, useCurrentUser } from "@/lib/AblyProvider";
