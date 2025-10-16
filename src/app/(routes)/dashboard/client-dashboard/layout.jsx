@@ -55,7 +55,7 @@ export default function DashboardLayout({ children }) {
                     </li>
                     <li>
                         <Link
-                            href="/dashboard/payment"
+                            href="/dashboard/client-dashboard/payment"
                             className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
                         >
                             <FiCreditCard /> Payment

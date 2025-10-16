@@ -8,6 +8,8 @@ export default function DashboardRedirect() {
     const { data: session, status } = useSession();
     const router = useRouter();
 
+    console.log(session);
+
     useEffect(() => {
         if (status === "loading") return;
 
