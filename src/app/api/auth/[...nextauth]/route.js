@@ -50,7 +50,6 @@ export const authOptions = {
             email: user.email,
             role: user.role,
           };
-
         } catch (err) {
           console.error("Authorize error : ", err);
           return null;
@@ -62,11 +61,13 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role; 
+        token.id = user.id || user._id?.toString(); // ✅ store MongoDB _id
+        token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
+      session.user.id = token.id; // ✅ attach id to session
       session.user.role = token.role;
       return session;
     },
@@ -79,7 +80,7 @@ export const authOptions = {
           .findOne({ email: user.email });
 
         if (!existingUser) {
-          await db.collection(USERS_COLLECTION).insertOne({
+          const result = await db.collection(USERS_COLLECTION).insertOne({
             name: user.name,
             email: user.email,
             image: user.image,
@@ -87,10 +88,13 @@ export const authOptions = {
             role: "client",
             createdAt: new Date(),
           });
+          user.id = result.insertedId.toString(); // ✅ ensure new users get _id
         } else if (!existingUser.role) {
           await db
             .collection(USERS_COLLECTION)
             .updateOne({ email: user.email }, { $set: { role: "client" } });
+        }else {
+          user.id = existingUser._id.toString(); // ✅ set id for existing users
         }
       }
       return true;
