@@ -7,15 +7,16 @@ import {
   FiUsers,
   FiDatabase,
   FiHeadphones,
-  FiCrown,
   FiAward,
   FiTrendingUp,
   FiShield,
   FiGlobe,
 } from 'react-icons/fi';
 
+import { FaCrown } from "react-icons/fa";
+
 import {
-  HiOutlineLightningBolt,
+  HiOutlineLightBulb,
   HiOutlineChartBar,
   HiOutlineCog,
   HiOutlineServer,
@@ -54,7 +55,7 @@ export default function Pricing() {
       color: "from-blue-500 to-purple-600",
       features: [
         { text: "Up to 50 team members", icon: FiUsers },
-        { text: "Advanced task management", icon: HiOutlineLightningBolt },
+        { text: "Advanced task management", icon: HiOutlineLightBulb },
         { text: "1TB storage", icon: FiDatabase },
         { text: "Priority support", icon: FiHeadphones },
         { text: "Advanced analytics", icon: HiOutlineChartBar },
@@ -71,7 +72,7 @@ export default function Pricing() {
       period: "/month",
       button: "Contact sales",
       popular: false,
-      icon: FiCrown,
+      icon: FaCrown,
       color: "from-amber-500 to-orange-500",
       features: [
         { text: "Unlimited team members", icon: FiUsers },
@@ -79,7 +80,7 @@ export default function Pricing() {
         { text: "Unlimited storage", icon: FiDatabase },
         { text: "24/7 dedicated support", icon: FiHeadphones },
         { text: "Custom analytics", icon: HiOutlineChartBar },
-        { text: "Advanced automation", icon: HiOutlineLightningBolt },
+        { text: "Advanced automation", icon: HiOutlineLightBulb },
         { text: "SLA guarantee", icon: FiAward },
         { text: "Custom onboarding", icon: FiTrendingUp },
         { text: "Multi-region deployment", icon: FiGlobe },

@@ -9,6 +9,9 @@ export async function POST(req) {
     const body = await req.json();
     const result = await collection.insertOne({
       ...body,
+      assigned: false,
+      members: [],
+      reminderSent: false,
       deadline: new Date(body.deadline),
       createdAt: new Date(),
     });
