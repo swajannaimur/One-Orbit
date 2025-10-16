@@ -5,11 +5,11 @@ import convertToSubcurrency from "@/lib/convertToSubcurrency";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
-	throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
+if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC === undefined) {
+	throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC is not defined");
 }
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC);
 
 export default function Payment() {
 	const amount = 49.99;

@@ -58,6 +58,8 @@ export default function LoginForm() {
 
         }
 
+        // OTP - Commented by Yasin Arafat
+
         // const res = await fetch("/api/send-otp", {
         //     method: "POST",
         //     headers: { "Content-Type": "application/json" },
@@ -70,7 +72,6 @@ export default function LoginForm() {
         //     router.push("/");
         // }
 
-        // commented by Yasin Arafat for frequent authentication in dev mode
 
         // if (!res.ok) {
         //   const data = await res.json();
