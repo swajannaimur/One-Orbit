@@ -49,7 +49,7 @@ export default function RegisterForm() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name, email, password, role }), // include role
+                body: JSON.stringify({ name, email, password, role })
             });
 
             if (res.status === 400) {
