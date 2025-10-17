@@ -86,13 +86,14 @@ export default function RegisterForm() {
             const res = await fetch("/api/register", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ name, email, password, image: imageUrl, role }),
             });
         
 
             if (res.status === 400) {
+                toast.error("This email already registered.");
                 toast.error("This email already registered.");
                 setError("This email is already registered");
                 setLoading(false);
@@ -107,6 +108,7 @@ export default function RegisterForm() {
                 if (!result.error) {
                     router.push("/");
                 } else {
+               
                     toast.error("Login failed after registration");
                 }
             }
