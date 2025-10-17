@@ -16,11 +16,15 @@ import {
   HiOutlineCalendarDays,
   HiOutlineCurrencyDollar,
 } from "react-icons/hi2";
+import { useSession } from "next-auth/react";
 
 export default function ProjectDetails() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { data: session } = useSession()
+
+  const role = session?.user?.role;
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -73,6 +77,11 @@ export default function ProjectDetails() {
   const daysRemaining = getDaysRemaining(post.deadline);
   const isUrgent = daysRemaining < 7;
 
+  const handleBidButton=()=>{
+    console.log('hello');
+    
+  }
+
   return (
     <div className="min-h-screen mt-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,7 +98,15 @@ export default function ProjectDetails() {
           </div>
           {/* Request button */}
           <div>
-    
+            {role === "developer" && (
+              <div className="mt-6">
+                <button
+                  onClick={handleBidButton}
+                  className="px-6 py-3 btn-gradient btn-hover text-white font-semibold rounded-xl shadow-md">
+                  Bid Now
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
@@ -201,7 +218,7 @@ export default function ProjectDetails() {
             {/* Footer */}
             <div className="mt-10 flex justify-between text-sm text-gray-500 dark:text-gray-400">
               <span>Posted on {formatDate(post.postedDate)}</span>
-             
+
             </div>
           </div>
         </div>
