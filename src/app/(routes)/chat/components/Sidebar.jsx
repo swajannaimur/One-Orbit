@@ -4,7 +4,7 @@ import { BiSolidContact } from "react-icons/bi";
 import { FaUserFriends } from "react-icons/fa";
 
 export default function Sidebar({friendsList, contactsList, selectedFriend, setSelectedFriend}) {
-  const [ category, setCategory ] = useState("friends");
+  const [ category, setCategory ] = useState(friendsList.length === 0 ? "contact" : "friends");
 
   return (
     <aside className="w-72 bg-base-300 border-r border-base-200">

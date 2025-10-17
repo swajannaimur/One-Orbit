@@ -15,6 +15,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState({}); // { [friendId]: [msgs] }
   const scrollRef = useRef(null);
   const { data: session } = useSession();
+  const [addedFriend, setAddedFriend] = useState(false);
 
   // Set clientId from NextAuth session
   useEffect(() => {
@@ -106,7 +107,7 @@ export default function ChatPage() {
       }
     };
     fetchUsers();
-  }, [setUsersList]);
+  }, [addedFriend]);
 
   // Autoscroll
   useEffect(() => {
@@ -144,6 +145,7 @@ export default function ChatPage() {
             receiverId: selectedFriend._id,
           }),
         });
+        setAddedFriend(!addedFriend)
       }
 
     } catch (err) {
@@ -205,31 +207,29 @@ export default function ChatPage() {
                         msg.senderId === clientId ? "chat-end" : "chat-start"
                       }`}
                     >
-                      <div className="flex items-center gap-2.5">
-                        {msg.senderId !== clientId && (
-                          <div className="avatar">
-                            <div className="w-5 rounded-full">
-                              {selectedFriend?.image ? (
-                                <img
-                                  src={selectedFriend.image}
-                                  alt={selectedFriend.name}
-                                />
-                              ) : (
-                                <img
-                                  src={`https://api.dicebear.com/9.x/initials/svg?seed=${selectedFriend?.name}`}
-                                  alt={selectedFriend?.name}
-                                />
-                              )}
-                            </div>
+                      {msg.senderId !== clientId && (
+                        <div className="chat-image avatar">
+                          <div className="w-10 rounded-full">
+                            {selectedFriend?.image ? (
+                              <img
+                                src={selectedFriend.image}
+                                alt={selectedFriend.name}
+                              />
+                            ) : (
+                              <img
+                                src={`https://api.dicebear.com/9.x/initials/svg?seed=${selectedFriend?.name}`}
+                                alt={selectedFriend?.name}
+                              />
+                            )}
                           </div>
-                        )}
-                        <div
-                          className={`chat-bubble ${
-                            msg.senderId === clientId ? "bg-blue-300" : ""
-                          }`}
-                        >
-                          {msg.text}
                         </div>
+                      )}
+                      <div
+                        className={`chat-bubble${
+                          msg.senderId === clientId ? "bg-blue-300" : ""
+                        }`}
+                      >
+                        {msg.text}
                       </div>
                     </div>
                   )
