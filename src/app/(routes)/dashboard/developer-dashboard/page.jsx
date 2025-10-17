@@ -11,6 +11,9 @@ import {
   FaBars,
 } from "react-icons/fa";
 
+import KanbanBoard from "./kanban/KanbanBoard";
+import InviteForm from "@/app/api/users/invite/InviteForm";
+
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: session } = useSession();
@@ -48,8 +51,9 @@ export default function DeveloperDashboard() {
     <div className="flex h-screen bg-gray-50 mt-20 max-w-11/12 mx-auto">
       {/* Sidebar */}
       <div
-        className={`${isSidebarOpen ? "w-64" : "w-16"
-          } bg-white shadow-md transition-all duration-300 flex flex-col`}
+        className={`${
+          isSidebarOpen ? "w-64" : "w-16"
+        } bg-white shadow-md transition-all duration-300 flex flex-col`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b">
           <h2
@@ -88,6 +92,13 @@ export default function DeveloperDashboard() {
           >
             <FaUsers className="text-green-500" />
             {isSidebarOpen && <span className="font-medium">Team Members</span>}
+          </a>
+          <a
+            href="#"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
+          >
+            <FaUsers className="text-green-500" />
+            {isSidebarOpen && <span className="font-medium">Board</span>}
           </a>
         </nav>
       </div>
@@ -190,6 +201,13 @@ export default function DeveloperDashboard() {
               </h3>
               <p className="text-2xl font-bold text-gray-900">15</p>
             </div>
+          </div>
+          <div className="mt-8">
+            <KanbanBoard />
+          </div>
+
+          <div className="mt-8">
+            <InviteForm />
           </div>
         </main>
       </div>
