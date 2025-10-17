@@ -225,7 +225,7 @@ export default function ChatPage() {
                         </div>
                       )}
                       <div
-                        className={`chat-bubble${
+                        className={`chat-bubble ${
                           msg.senderId === clientId ? "bg-blue-300" : ""
                         }`}
                       >

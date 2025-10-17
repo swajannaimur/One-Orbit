@@ -17,9 +17,9 @@ export default function Payment() {
 	return (
 		<main className="max-w-6xl mx-auto p-10 text-center text-white m-10 rounded-md bg-gradient-to-tr from-blue-500 to-purple-500">
 			<div className="mb-10">
-				<h1 className="text-4xl font-extrabold">Sonny</h1>
+				<h1 className="text-4xl font-extrabold">Naimur</h1>
 				<h2 className="text-2xl">
-					has requested <span className="font-bold">${amount}</span>
+					paying <span className="font-bold">${amount}</span>
 				</h2>
 			</div>
 
