@@ -30,6 +30,8 @@ export const POST = async (request) => {
             email,
             password: hashedPassword,
             role,
+            friends: [],
+            status: offline,
             createdAt: new Date(),
             updatedAt: new Date(),
         });

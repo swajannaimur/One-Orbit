@@ -19,7 +19,7 @@ export const AblyProvider = ({ children }) => {
 
     const init = async () => {
       try {
-        // ✅ Use authUrl, not manual fetch — Ably handles token refresh automatically
+        // Use authUrl, not manual fetch — Ably handles token refresh automatically
         realtime = new Ably.Realtime({
           authUrl: "/api/ably/token?clientId=" + clientId,
           echoMessages: false, // optional
