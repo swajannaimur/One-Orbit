@@ -22,6 +22,7 @@ import { RiRocketLine, RiLightbulbFlashLine } from "react-icons/ri";
 
 export default function Navbar() {
   const { data: session } = useSession();
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -34,6 +35,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const imagehh = session?.user?.image;
+  
+
+   
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -68,6 +73,7 @@ export default function Navbar() {
     { href: "/settings", label: "Settings", icon: FiSettings },
     { href: "/support", label: "Support", icon: FiHelpCircle },
   ];
+  
 
   return (
     <>
