@@ -77,7 +77,7 @@ export default function KanbanBoard() {
 
         if (!res.ok) {
           const text = await res.text().catch(() => "");
-          console.error("Failed to update task: ", res.status, text);
+          // console.error("Failed to update task: ", res.status, text);
           // Try to recover locally by updating UI with the submitted task
           const fallback = { ...task, _id: id };
           setTasksByStatus((prev) => {

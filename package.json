@@ -9,6 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fullcalendar/daygrid": "^6.1.19",
+    "@fullcalendar/interaction": "^6.1.19",
+    "@fullcalendar/list": "^6.1.19",
+    "@fullcalendar/react": "^6.1.19",
+    "@fullcalendar/timegrid": "^6.1.19",
     "@sendgrid/mail": "^8.1.6",
     "@stripe/react-stripe-js": "^5.2.0",
     "@stripe/stripe-js": "^8.0.0",
