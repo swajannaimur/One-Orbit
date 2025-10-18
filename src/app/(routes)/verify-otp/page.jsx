@@ -57,7 +57,7 @@ export default function VerifyOTP() {
         timer: 1500,
       });
 
-      // 🔹 Reset countdown timer
+      // Reset countdown timer
       setCountdown(300);
     } finally {
       setSending(false);
@@ -101,45 +101,47 @@ export default function VerifyOTP() {
   }
 
   return (
-    <div className="flex flex-col w-full max-w-[512px] flex-1 mx-auto min-h-screen pt-20">
-      <h2 className="text-3xl font-bold text-center pb-3">Enter the code</h2>
-      <p className="text-base font-normal pb-3 pt-1 text-center">
-        We sent a code to your email ({email}). Please enter it below to
-        continue.
-      </p>
+    <div className="flex items-center justify-center w-full max-w-[512px] flex-1 mx-auto h-[100vh] pt-20">
+      <div>
+        <h2 className="text-3xl font-bold text-center pb-3">Enter the code</h2>
+        <p className="text-base font-normal pb-3 pt-1 text-center">
+          We sent a code to your email ({email}). Please enter it below to
+          continue. <b>Also check in spam folder</b>
+        </p>
 
-      <div className="flex justify-center px-4 pt-4 mb-10">
-        <OtpInput
-          value={otp}
-          onChange={setOtp}
-          numInputs={4}
-          inputType="tel"
-          renderInput={(props) => (
-            <input
-              {...props}
-              autoFocus
-              className="flex h-14 w-12 text-center focus:outline-none border-0 border-b-2 border-secondary focus:border-primary text-3xl font-normal"
-            />
-          )}
-          containerStyle="relative flex gap-16"
-        />
+        <div className="flex justify-center px-4 pt-4 mb-10">
+          <OtpInput
+            value={otp}
+            onChange={setOtp}
+            numInputs={4}
+            inputType="tel"
+            renderInput={(props, index) => (
+              <input
+                {...props}
+                autoFocus={index === 0}
+                className="flex h-14 w-12 text-center focus:outline-none border-0 border-b-2 border-secondary focus:border-primary text-3xl font-normal"
+              />
+            )}
+            containerStyle="relative flex gap-16"
+          />
+        </div>
+
+        <div className="flex flex-col-reverse sm:flex-row justify-center gap-3 py-3 max-w-[200px] mx-auto">
+          <button
+            onClick={handleResend}
+            className="btn btn-secondary text-black w-full"
+          >
+            Resend Code
+          </button>
+          <button onClick={handleVerify} className="btn btn-primary w-full">
+            Verify
+          </button>
+        </div>
+
+        <p className="text-primary text-sm pt-5 text-center">
+          Code expires in {minutes}:{seconds}
+        </p>
       </div>
-
-      <div className="flex flex-col-reverse sm:flex-row justify-center gap-3 py-3 max-w-[200px] mx-auto">
-        <button
-          onClick={handleResend}
-          className="btn btn-secondary text-black w-full"
-        >
-          Resend Code
-        </button>
-        <button onClick={handleVerify} className="btn btn-primary w-full">
-          Verify
-        </button>
-      </div>
-
-      <p className="text-primary text-sm pt-5 text-center">
-        Code expires in {minutes}:{seconds}
-      </p>
     </div>
   );
 }
