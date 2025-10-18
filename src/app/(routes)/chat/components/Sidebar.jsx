@@ -1,19 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import { BiSolidContact } from "react-icons/bi";
-import { FaUserFriends } from "react-icons/fa";
 
-export default function Sidebar({friendsList, contactsList, selectedFriend, setSelectedFriend}) {
+export default function Sidebar({friendsList, contactsList, selectedFriend, setSelectedFriend, sidebarOpen, setSidebarOpen}) {
   const [ category, setCategory ] = useState(friendsList.length === 0 ? "contact" : "friends");
-
+  console.log(sidebarOpen)
   return (
-    <aside className="w-72 bg-base-300 border-r border-base-200">
-      <div className="flex">
+    <aside
+      className={`md:w-72 w-full bg-base-300 border-r border-base-200 md:static z-50 absolute ${
+        sidebarOpen ? "left-0" : "-left-195"
+      }`}
+    >
+      <div className="flex border-b border-black/10">
         <button
           onClick={() => setCategory("friends")}
-          className={`btn cursor-pointer w-1/2 ${
+          className={`py-3 cursor-pointer w-1/2 ${
             category === "friends"
-              ? "text-black font-bold"
+              ? "text-purple-600 font-bold border-b-2 border-purple-600"
               : "font-normal text-black/60"
           }`}
         >
@@ -21,9 +23,9 @@ export default function Sidebar({friendsList, contactsList, selectedFriend, setS
         </button>
         <button
           onClick={() => setCategory("contact")}
-          className={`btn cursor-pointer w-1/2 ${
+          className={`py-3 cursor-pointer w-1/2 ${
             category === "contact"
-              ? "text-black font-bold"
+              ? "text-purple-600 font-bold border-b-2 border-purple-600"
               : "font-normal text-black/60"
           }`}
         >
@@ -35,12 +37,18 @@ export default function Sidebar({friendsList, contactsList, selectedFriend, setS
           ? friendsList.map((user) => (
               <div
                 key={user._id}
-                onClick={() => setSelectedFriend(user)}
+              onClick={() => { setSelectedFriend(user); setSidebarOpen(!sidebarOpen)}}
                 className={`p-4 flex items-center gap-3 cursor-pointer hover:bg-base-200 ${
                   selectedFriend?._id === user._id ? "bg-base-200" : ""
                 }`}
               >
-                <div className="avatar">
+                <div
+                  className={`avatar ${
+                    selectedFriend?.status === "online"
+                      ? "avatar-online"
+                      : "avatar-offline"
+                  }`}
+                >
                   <div className="w-10 rounded-full">
                     {user.image ? (
                       <img src={user.image} alt={user.name} />
@@ -58,12 +66,21 @@ export default function Sidebar({friendsList, contactsList, selectedFriend, setS
           : contactsList.map((user) => (
               <div
                 key={user._id}
-                onClick={() => setSelectedFriend(user)}
+                onClick={() => {
+                  setSelectedFriend(user);
+                  setSidebarOpen(!sidebarOpen);
+                }}
                 className={`p-4 flex items-center gap-3 cursor-pointer hover:bg-base-200 ${
                   selectedFriend?._id === user._id ? "bg-base-200" : ""
                 }`}
               >
-                <div className="avatar">
+                <div
+                  className={`avatar ${
+                    selectedFriend?.status === "online"
+                      ? "avatar-online"
+                      : "avatar-offline"
+                  }`}
+                >
                   <div className="w-10 rounded-full">
                     {user.image ? (
                       <img src={user.image} alt={user.name} />

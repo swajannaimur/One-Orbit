@@ -1,21 +1,11 @@
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/lib/SessionProvider";
-import {AblyProvider} from "@/lib/AblyProvider"
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { AblyProvider } from "@/lib/AblyProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -41,7 +31,7 @@ export default async function RootLayout({ children }) {
               <Navbar />
             </header>
             <div className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
-              <main className=" mx-auto px-2 xl:px-0 ">{children}</main>
+              <main className="max-w-7xl mx-auto px-2 xl:px-0">{children}</main>
             </div>
             <Footer />
           </AblyProvider>
