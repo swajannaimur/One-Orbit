@@ -49,7 +49,7 @@ const ResetPassword = ({ params }) => {
         verifyToken();
     }, [token]);
 
-    // ✅ redirect authenticated users
+    // redirect authenticated users
     useEffect(() => {
         if (sessionStatus === "authenticated") {
             router.replace("/dashboard");

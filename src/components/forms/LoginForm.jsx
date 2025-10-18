@@ -4,10 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginForm() {
     const router = useRouter();
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     // email validation function with regx
@@ -42,7 +44,6 @@ export default function LoginForm() {
 
 
         // login comment by sazzad
-
         // calling next-auth "signIn" function
         const result = await signIn("credentials", { redirect: false, email, password });
 
@@ -60,8 +61,9 @@ export default function LoginForm() {
             router.push("/dashboard");
 
         }
-        
-        // commented by Yasin Arafat for frequent authentication in dev mode
+
+        // OTP - commented by Yasin Arafat
+
         // const res = await fetch("/api/send-otp", {
         //     method: "POST",
         //     headers: { "Content-Type": "application/json" },
@@ -76,11 +78,11 @@ export default function LoginForm() {
 
 
         // if (!res.ok) {
-        //   const data = await res.json();
-        //   setError(data.message);
-        //   setIsLoading(false);
+        //     const data = await res.json();
+        //     setError(data.message);
+        //     setIsLoading(false);
         // } else {
-        //   router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
+        //     router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
         // }
     };
 
@@ -111,14 +113,22 @@ export default function LoginForm() {
                     <label className="text-sm md:text-base font-medium text-gray-700">
                         Password
                     </label>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md 
+
+                    <div className="relative flex items-center">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            placeholder="Enter your password"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md 
                    placeholder-gray-400 text-gray-800
                    focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                    />
+                        />
+
+                        <button type="button" onClick={()=> setShowPassword(!showPassword)} className="absolute right-3 text-gray-500 cursor-pointer">
+                            {showPassword ? <FaEyeSlash size={18}/> : <FaEye size={18}/>}
+                        </button>
+                    </div>
+
                 </div>
 
                 {/* showing form error */}
