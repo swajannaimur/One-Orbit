@@ -11,9 +11,10 @@ export default function VerifyOTP() {
   const email = params.get("email");
   const password = localStorage.getItem("password");
   const [sending, setSending] = useState(false);
-
   const [otp, setOtp] = useState("");
-  const [countdown, setCountdown] = useState(300); // 5 minutes
+  const [ countdown, setCountdown ] = useState(300); // 5 minutes
+  const [ verifying, setVerifying ] = useState(false);
+  const [error, setError] = useState("")
 
   // Countdown timer
   useEffect(() => {
@@ -65,6 +66,11 @@ export default function VerifyOTP() {
   };
 
   const handleVerify = async () => {
+    if(otp === "") {
+      setError("Please enter an OTP")
+      return
+    }
+    setVerifying(true);
     const res = await fetch("/api/verify-otp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -81,24 +87,19 @@ export default function VerifyOTP() {
       });
       localStorage.removeItem("password");
       router.replace("/");
+      setVerifying(false)
     } else {
       Swal.fire({
         title: data.message,
         icon: "error",
       });
+      setVerifying(false);
     }
   };
 
   const minutes = String(Math.floor(countdown / 60)).padStart(2, "0");
   const seconds = String(countdown % 60).padStart(2, "0");
 
-  if (sending) {
-    return (
-      <div className="w-full min-h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-xl"></span>
-      </div>
-    );
-  }
 
   return (
     <div className="relative flex min-h-[100vh] w-full flex-col items-center justify-center px-3 py-24">
@@ -135,6 +136,7 @@ export default function VerifyOTP() {
             )}
           />
         </div>
+        {error && <p className="text-red-500">{error}</p>}
 
         {/* Timer and Buttons */}
         <div className="w-full mt-6 flex flex-col gap-4">
@@ -149,14 +151,22 @@ export default function VerifyOTP() {
             onClick={handleVerify}
             className="btn rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-light text-lg hover:from-blue-600 hover:to-purple-700 border-none transition-colors shadow-sm py-6"
           >
-            Verify
+            {verifying ? (
+              <span className="loading loading-spinner loading-xl"></span>
+            ) : (
+              "Verify"
+            )}
           </button>
 
           <button
             onClick={handleResend}
             className="btn bg-white/30 shadow-sm border border-white/30 text-black hover:bg-white/20 transition-all rounded-2xl py-6 font-light text-lg"
           >
-            Resend Code
+            {sending ? (
+              <span className="loading loading-spinner loading-xl"></span>
+            ) : (
+              "Resend Code"
+            )}
           </button>
         </div>
       </div>

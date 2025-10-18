@@ -20,6 +20,7 @@ export default function DashboardRedirect() {
 
         const role = session?.user?.role;
         console.log("User role:", role);
+        // console.log('User email : ', session?.user?.email);
 
         if (role === "admin") {
             router.push("/dashboard/admin-dashboard");

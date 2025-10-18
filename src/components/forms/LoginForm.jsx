@@ -4,19 +4,23 @@ import { useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export default function LoginForm() {
+export default function LoginForm()
+{
     const router = useRouter();
-    const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [ error, setError ] = useState("");
+    const [ showPassword, setShowPassword ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(false);
 
     // email validation function with regx
-    const isValidEmail = (email) => {
+    const isValidEmail = (email) =>
+    {
         const emailRegx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         return emailRegx.test(email);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) =>{
         e.preventDefault();
         const form = e.target;
         const email = e.target.email.value;
@@ -25,7 +29,7 @@ export default function LoginForm() {
         setIsLoading(true);
 
         // email validation
-        if (!isValidEmail(email)) {
+        if (!isValidEmail(email)){
             toast.error("Email is Invalid");
             setError("Email is Invalid");
             setIsLoading(false);
@@ -33,7 +37,7 @@ export default function LoginForm() {
         }
 
         // password validation
-        if (!password || password.length < 8) {
+        if (!password || password.length < 8){
             toast.error("Password should be at least 8 characters")
             setError("Password is less then 8");
             setIsLoading(false);
@@ -42,7 +46,6 @@ export default function LoginForm() {
 
 
         // login comment by sazzad
-
         // calling next-auth "signIn" function
         // const result = await signIn("credentials", { redirect: false, email, password });
 
@@ -59,30 +62,29 @@ export default function LoginForm() {
         //     setError("");
         //     router.push("/dashboard");
 
-        // }
-        
-        // commented by Yasin Arafat for frequent authentication in dev mode
+        // OTP - commented by Yasin Arafat
+    
         const res = await fetch("/api/send-otp", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
         });
-
-        if (res.ok) {
+    
+        if (res.ok){
             localStorage.setItem("password", password);
             setIsLoading(false);
             router.push("/");
         }
-
-
+    
         if (!res.ok) {
-          const data = await res.json();
-          setError(data.message);
-          setIsLoading(false);
+            const data = await res.json();
+            setError(data.message);
+            setIsLoading(false);
         } else {
-          router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
+            router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
         }
-    };
+    }
+
 
     return (
         <div className="w-full  mx-auto rounded-lg p-6 bg-white">
@@ -111,14 +113,22 @@ export default function LoginForm() {
                     <label className="text-sm md:text-base font-medium text-gray-700">
                         Password
                     </label>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md 
+
+                    <div className="relative flex items-center">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            placeholder="Enter your password"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md 
                    placeholder-gray-400 text-gray-800
                    focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                    />
+                        />
+
+                        <button type="button" onClick={()=> setShowPassword(!showPassword)} className="absolute right-3 text-gray-500 cursor-pointer">
+                            {showPassword ? <FaEyeSlash size={18}/> : <FaEye size={18}/>}
+                        </button>
+                    </div>
+
                 </div>
 
                 {/* showing form error */}
