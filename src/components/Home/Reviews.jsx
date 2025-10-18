@@ -194,7 +194,7 @@ const Reviews = () => {
         <div className="grid lg:grid-cols-4 gap-8 mb-16">
           
           {/* Stats Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 top-0">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 sticky top-8">
               
               {/* Overall Rating */}

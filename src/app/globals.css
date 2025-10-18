@@ -27,3 +27,7 @@ body {
 .gradient-text {
   @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent
 }
+
+.btn-hover{
+  @apply hover:scale-110 transition-transform duration-300
+}
