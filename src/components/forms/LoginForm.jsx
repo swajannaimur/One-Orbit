@@ -61,26 +61,9 @@ export default function LoginForm() {
             router.push("/dashboard");
 
         }
-<<<<<<< HEAD
-=======
-        
-        // commented by Yasin Arafat for frequent authentication in dev mode
-        // const res = await fetch("/api/send-otp", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({ email, password }),
-        // });
-
-        // if (res.ok) {
-        //     localStorage.setItem("password", password);
-        //     setIsLoading(false);
-        //     router.push("/");
-        // }
->>>>>>> bfe904e2f181a036d3fa8503eb17c83ebad3dcdd
 
         // OTP - commented by Yasin Arafat
 
-<<<<<<< HEAD
         // const res = await fetch("/api/send-otp", {
         //     method: "POST",
         //     headers: { "Content-Type": "application/json" },
@@ -100,14 +83,6 @@ export default function LoginForm() {
         //     setIsLoading(false);
         // } else {
         //     router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
-=======
-        // if (!res.ok) {
-        //   const data = await res.json();
-        //   setError(data.message);
-        //   setIsLoading(false);
-        // } else {
-        //   router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
->>>>>>> bfe904e2f181a036d3fa8503eb17c83ebad3dcdd
         // }
     };
 

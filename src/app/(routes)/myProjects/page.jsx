@@ -8,39 +8,61 @@ export default function MyProjects() {
     const { data: session } = useSession();
 
     const email = session?.user?.email;
-    
-    useEffect(()=>{
-        const fetchMyProjects = async () => {
-            const res = await fetch("/api/myProjects", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    email: email,
-                },
-            });
 
-            const data = await res.json();
-            setProjects(data);
+    useEffect(() => {
+        const fetchMyProjects = async () => {
+
+            try {
+                const res = await fetch("/api/totalBids", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        clientEmail: email,
+                    },
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    setProjects(data.data);
+                }
+                else {
+                    console.log("Error: ", data.error)
+                }
+            }
+
+            catch (error) {
+                console.log("Error fetching total bids", error);
+            }
         };
-        if(email) fetchMyProjects();
+
+        if (email) fetchMyProjects();
     }, [email])
 
 
     return (
         <div>
-            <h2 className="my-20 text-2xl text-center">My projects</h2>
+            <h2 className="my-20 text-2xl text-center">My Projects</h2>
 
-            
-            {
-                projects.length > 0 ? (
-                    projects.map((project) => (
-                        <div key={project._id} className="border p-2 rounded-md gap-2 mb-4">
-                            <h3>{project.projectName}</h3>
-                            <h4>Owner : {project.clientEmail}</h4>
-                        </div>
-                    ))
-                ) : (<p>No projects found in this client email : {email}</p>)
-            }
+            {projects.length > 0 ? (
+                projects.map((project, idx) => (
+                    <div
+                        key={idx} // projectName unique na hole index use
+                        className="border p-2 rounded-md gap-2 mb-4"
+                    >
+                        <h3>Project: {project.projectName}</h3>
+                        <h4>Developers & Bids:</h4>
+                        <ul className="ml-4 list-disc">
+                            {project.developerEmails.map((dev, i) => (
+                                <li key={i}>
+                                    {dev} - Bid: {project.bids[i]}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            ) : (
+                <p>No projects found for this client email: {email}</p>
+            )}
         </div>
     )
 }
