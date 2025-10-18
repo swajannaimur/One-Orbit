@@ -101,46 +101,64 @@ export default function VerifyOTP() {
   }
 
   return (
-    <div className="flex items-center justify-center w-full max-w-[512px] flex-1 mx-auto h-[100vh] pt-20">
-      <div>
-        <h2 className="text-3xl font-bold text-center pb-3">Enter the code</h2>
-        <p className="text-base font-normal pb-3 pt-1 text-center">
-          We sent a code to your email ({email}). Please enter it below to
-          continue. <b>Also check in spam folder</b>
-        </p>
+    <div className="relative flex min-h-[100vh] w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#87CEEB]/40 to-[#8A2BE2]/40 px-3 py-24">
+      {/* Background animation blobs */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob"></div>{" "}
+      <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-2000"></div>{" "}
+      <div className="absolute bottom-1/4 right-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-4000"></div>
+      {/* OTP Card */}
+      <div className="z-10 flex flex-col items-center justify-center p-8 bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 w-full max-w-md">
+        {/* Heading */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-black mb-2">Enter the Code</h1>
+          <p className="text-black text-base font-normal pb-3 pt-1">
+            We sent a code to your email ({email}). Please enter it below to
+            continue. <b>Also check in spam folder</b>
+          </p>
+        </div>
 
-        <div className="flex justify-center px-4 pt-4 mb-10">
+        {/* OTP Inputs */}
+        <div className="flex justify-center py-4">
           <OtpInput
             value={otp}
             onChange={setOtp}
             numInputs={4}
             inputType="tel"
+            containerStyle="relative flex gap-5"
             renderInput={(props, index) => (
               <input
                 {...props}
                 autoFocus={index === 0}
-                className="flex h-14 w-12 text-center focus:outline-none border-0 border-b-2 border-secondary focus:border-primary text-3xl font-normal"
+                style={{ width: "3rem" }}
+                className="h-14 text-center text-white bg-white/10 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
               />
             )}
-            containerStyle="relative flex gap-16"
           />
         </div>
 
-        <div className="flex flex-col-reverse sm:flex-row justify-center gap-3 py-3 max-w-[200px] mx-auto">
+        {/* Timer and Buttons */}
+        <div className="w-full mt-6 flex flex-col gap-4">
+          <p className="text-black/70 text-sm text-center">
+            Code expires in{" "}
+            <span className="font-semibold">
+              {minutes}:{seconds}
+            </span>
+          </p>
+
+          <button
+            onClick={handleVerify}
+            className="btn rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-light text-lg hover:from-blue-600 hover:to-purple-700 border-none transition-colors shadow-sm py-6"
+          >
+            Verify
+          </button>
+
           <button
             onClick={handleResend}
-            className="btn btn-secondary text-black w-full"
+            className="btn bg-white/30 shadow-sm border border-white/30 text-black hover:bg-white/20 transition-all rounded-2xl py-6 font-light text-lg"
           >
             Resend Code
           </button>
-          <button onClick={handleVerify} className="btn btn-primary w-full">
-            Verify
-          </button>
         </div>
-
-        <p className="text-primary text-sm pt-5 text-center">
-          Code expires in {minutes}:{seconds}
-        </p>
       </div>
     </div>
   );
