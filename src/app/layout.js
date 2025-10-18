@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
 import Navbar from "../components/common/Navbar";
@@ -6,16 +6,6 @@ import Footer from "../components/common/Footer";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/lib/SessionProvider";
 import {AblyProvider} from "@/lib/AblyProvider"
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const poppins = Poppins({
   subsets: ["latin"],
