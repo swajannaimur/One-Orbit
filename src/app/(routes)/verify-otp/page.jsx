@@ -101,7 +101,7 @@ export default function VerifyOTP() {
   }
 
   return (
-    <div className="relative flex min-h-[100vh] w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#87CEEB]/40 to-[#8A2BE2]/40 px-3 py-24">
+    <div className="relative flex min-h-[100vh] w-full flex-col items-center justify-center px-3 py-24">
       {/* Background animation blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob"></div>{" "}
       <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-2000"></div>{" "}
@@ -130,7 +130,7 @@ export default function VerifyOTP() {
                 {...props}
                 autoFocus={index === 0}
                 style={{ width: "3rem" }}
-                className="h-14 text-center text-white bg-white/10 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
+                className="h-14 text-center text-2xl bg-white/10 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
               />
             )}
           />
