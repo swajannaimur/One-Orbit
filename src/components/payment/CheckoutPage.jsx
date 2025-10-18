@@ -45,19 +45,11 @@ const CheckoutPage = ({ amount } ) => {
         };
 
         const { error } = await stripe.confirmPayment({
-<<<<<<< HEAD
-            elements,
-            clientSecret,
-            confirmParams: {
-                return_url: `${process.env.NEXTAUTH_URL}/payment-success?amount=${amount}`,
-            },
-=======
           elements,
           clientSecret,
           confirmParams: {
             return_url: `https://one-orbit.vercel.app/payment-success?amount=${amount}`,
           },
->>>>>>> 55a0fb1534783cd8c69e431f214cf0490b173542
         });
 
         if(error) {
