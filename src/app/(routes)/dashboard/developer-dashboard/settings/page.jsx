@@ -45,7 +45,6 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { FaUser, FaEnvelope, FaSave, FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
-import InviteForm from "@/app/api/users/invite/InviteForm";
 
 export default function DeveloperSettingsPage() {
   const { data: session } = useSession();
@@ -328,10 +327,6 @@ export default function DeveloperSettingsPage() {
           </div>
         )}
       </form>
-
-      <div className="mt-8">
-        <InviteForm />
-      </div>
     </div>
   );
 }

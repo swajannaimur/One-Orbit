@@ -21,6 +21,7 @@ import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 import { RiRocketLine, RiLightbulbFlashLine } from "react-icons/ri";
 
 export default function Navbar() {
+<<<<<<< HEAD
     const { data: session } = useSession();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -80,6 +81,90 @@ export default function Navbar() {
                     ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
                     : "bg-transparent"
                     }`}
+=======
+  const { data: session } = useSession();
+  
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+
+  const role = session?.user?.role;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const imagehh = session?.user?.image;
+  
+
+   
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMobileMenuOpen &&
+        !event.target.closest(".mobile-menu") &&
+        !event.target.closest(".hamburger-button")
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  const navItems = [
+    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
+    { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
+    { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
+
+  ];
+
+  const secureItems = [
+    {
+      href: "/chat",
+      label: "Message",
+      icon: HiOutlineChatBubbleOvalLeftEllipsis,
+    },
+  ];
+
+  // Only show “Create Project” if role is client
+  if (role === "client") {
+    secureItems.push({
+      href: "/create-post",
+      label: "Create Project",
+      icon: IoCreateOutline,
+    });
+  }
+
+  const userMenuItems = [
+    { href: "/profile", label: "My Profile", icon: FiUser },
+    { href: "/dashboard", label: "Dashboard", icon: HiOutlineSparkles },
+    { href: "/billing", label: "Billing", icon: FiCreditCard },
+    { href: "/settings", label: "Settings", icon: FiSettings },
+    { href: "/support", label: "Support", icon: FiHelpCircle },
+  ];
+  
+
+  return (
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
+          }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            {/* Logo Section */}
+            <Link
+              href="/"
+              className="flex items-center space-x-3 group flex-shrink-0"
+>>>>>>> bfe904e2f181a036d3fa8503eb17c83ebad3dcdd
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16 lg:h-20">
@@ -311,6 +396,7 @@ export default function Navbar() {
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 {/* Mobile Menu */}
                 <div
                     className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${isMobileMenuOpen
@@ -341,6 +427,115 @@ export default function Navbar() {
                                 );
                             })}
                         </div>
+=======
+            {/* Desktop Navigation - Hidden on mobile */}
+            <div className="hidden lg:flex items-center space-x-1">
+              {/* Public Nav Items */}
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
+                  >
+                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    {item.label}
+                    {item.badge && (
+                      <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
+                        {item.badge}
+                      </span>
+                    )}
+                    <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-4/5 group-hover:left-1/10"></div>
+                  </Link>
+                );
+              })}
+
+              {/* Secure Nav Items - Only show when session exists */}
+              {session &&
+                secureItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
+                    >
+                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      {item.label}
+                      {item.badge && (
+                        <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
+                          {item.badge}
+                        </span>
+                      )}
+                      <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-4/5 group-hover:left-1/10"></div>
+                    </Link>
+                  );
+                })}
+
+            </div>
+
+
+            {/* Right Actions */}
+            <div className="flex items-center space-x-2 lg:space-x-3">
+              {/* Authentication Section */}
+              {!session ? (
+                <div className="hidden sm:flex items-center space-x-2 lg:space-x-3">
+                  <Link
+                    href="/login"
+                    className="items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="group relative px-4 py-2 lg:px-8 lg:py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden text-sm lg:text-base"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span className="relative flex items-center gap-1 lg:gap-2">
+                      <RiRocketLine className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <span className="hidden lg:inline">Get Started</span>
+                      <span className="lg:hidden">Start</span>
+                    </span>
+                  </Link>
+                </div>
+              ) : (
+                /* User Profile Section */
+                <div className="hidden lg:flex items-center space-x-4">
+                  {/* Upgrade Button */}
+                  <Link
+                    href="/pricing"
+                    className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                  >
+                    <FiStar className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                    Upgrade
+                  </Link>
+
+                  {/* User Avatar */}
+                  <div className="relative group">
+                    <button
+                      className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
+                      onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+                    >
+                      <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-semibold shadow-lg">
+                        {session.user?.name?.[0] ||
+                          session.user?.email?.[0] ||
+                          "U"}
+                      </div>
+                      <div className="hidden md:flex flex-col items-start">
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                          {session.user?.name?.split(" ")[0] || "User"}
+                        </span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          Pro Plan
+                        </span>
+                      </div>
+                      <FiChevronDown
+                        className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isUserDropdownOpen ? "rotate-180" : ""
+                          }`}
+                      />
+                    </button>
+>>>>>>> bfe904e2f181a036d3fa8503eb17c83ebad3dcdd
 
                         {/* Mobile Authentication */}
                         {!session ? (
@@ -418,14 +613,72 @@ export default function Navbar() {
                 </div>
             </nav>
 
+<<<<<<< HEAD
             {/* Backdrop Overlay */}
             {isMobileMenuOpen && (
                 <div
                     className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 lg:hidden"
+=======
+              {/* Mobile Authentication Buttons - Show on small screens */}
+              {!session && (
+                <div className="flex sm:hidden items-center space-x-2">
+                  <Link
+                    href="/login"
+                    className="px-3 py-2 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 border border-gray-200 dark:border-gray-700 text-sm"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+              )}
+
+              {/* Mobile User Avatar - Show on small screens when logged in */}
+              {session && (
+                <div className="flex lg:hidden">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-semibold shadow-lg">
+                    {session.user?.name?.[0] || session.user?.email?.[0] || "U"}
+                  </div>
+                </div>
+              )}
+
+              {/* Hamburger Menu Button - Always visible on mobile */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden p-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-gradient-to-br from-blue-500 to-purple-600 hover:shadow-md transition-all duration-300 hamburger-button"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? (
+                  <FiX className="w-5 h-5 text-gray-200" />
+                ) : (
+                  <FiMenu className="w-5 h-5 text-gray-200" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${isMobileMenuOpen
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
+            }`}
+        >
+          <div className="px-4 py-6 space-y-4">
+            {/* Navigation Items */}
+            <div className="grid gap-2">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center gap-4 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all duration-300 group font-medium"
+>>>>>>> bfe904e2f181a036d3fa8503eb17c83ebad3dcdd
                     onClick={() => setIsMobileMenuOpen(false)}
                 />
             )}
 
+<<<<<<< HEAD
             {/* Overlay for user dropdown */}
             {isUserDropdownOpen && (
                 <div
@@ -436,3 +689,23 @@ export default function Navbar() {
         </>
     );
 }
+=======
+      {/* Backdrop Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Overlay for user dropdown */}
+      {isUserDropdownOpen && (
+        <div
+          className="fixed inset-0 z-30"
+          onClick={() => setIsUserDropdownOpen(false)}
+        />
+      )}
+    </>
+  );
+}
+>>>>>>> bfe904e2f181a036d3fa8503eb17c83ebad3dcdd
