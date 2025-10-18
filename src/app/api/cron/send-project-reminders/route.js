@@ -3,6 +3,7 @@ import { getDueProjects, markProjectReminderSent } from "@/lib/projects";
 import { sendEmail } from "@/utils/sendEmail";
 
 export async function GET(request) {
+  // Add cron secret for security
   // const secret = request.headers.get("x-cron-secret");
   // if (secret !== process.env.CRON_SECRET) {
   //   return NextResponse.json({ error: "unauthorized" }, { status: 401 });

@@ -1,25 +1,20 @@
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 
-export const sendEmail = async (to, subject, text, html) => {
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+export async function sendEmail({ to, subject, text, html }) {
+  const msg = {
+    to,
+    from: process.env.EMAIL_FROM,
+    subject,
+    text,
+    html,
+  };
+
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"From OneOrbit" <${process.env.EMAIL_USER}>`,
-      to,
-      subject,
-      text,
-      html
-    });
-
-    console.log("✅ Email sent successfully to", to);
+    await sgMail.send(msg);
+    console.log("✅ Email sent successfully to:", to);
   } catch (error) {
-    console.error("❌ Email sending failed:", error);
+    console.error("❌ Email send failed:", error.response?.body || error);
   }
-};
+}
