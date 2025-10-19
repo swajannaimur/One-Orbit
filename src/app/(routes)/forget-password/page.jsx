@@ -61,7 +61,7 @@ const ForgetPassword = () => {
             if (res.status === 200) {
                 setError("");
                 toast.success("Password reset link sent to your email. Please check your inbox.");
-                // form.reset();
+                
             }
         } catch (error) {
             toast.error("Error, try again")
