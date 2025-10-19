@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { CopilotPopup } from "@copilotkit/react-ui";
+import { useFrontendTool } from "@copilotkit/react-core";
 
 const COLUMNS = [
   { key: "todo", title: "To Do" },
@@ -62,6 +64,68 @@ export default function KanbanBoard() {
     }
   }
 
+  // AI task add
+  useFrontendTool({
+    name: "addTodoItem",
+    description: "Add a new todo item to the Kanban board",
+    parameters: [
+      {
+        name: "title",
+        type: "string",
+        description: "The title of the todo item",
+        required: true,
+      },
+      {
+        name: "description",
+        type: "string",
+        description: "Optional description",
+        required: false,
+      },
+    ],
+    handler: async ({ title, description }) => {
+      if (!title) return;
+
+      const newTask = {
+        title,
+        description: description || "",
+        status: "todo",
+      };
+
+      await saveTask(newTask);
+    },
+  });
+
+
+  // Delete Todo 
+  useFrontendTool({
+    name: "deleteTodoItem",
+    description: "Delete a todo item from the Kanban board",
+    parameters: [
+      {
+        name: "title",
+        type: "string",
+        description: "The title of the todo item to delete",
+        required: true,
+      },
+    ],
+    handler: async ({ title }) => {
+      if (!title) return;
+
+      // Find the task with this title
+      const taskToDelete = Object.values(tasksByStatus)
+        .flat()
+        .find((t) => t.title === title);
+
+      if (!taskToDelete) {
+        console.error("Task not found:", title);
+        return;
+      }
+
+      await deleteTask(taskToDelete._id);
+    },
+  });
+
+
   // ******save and delete task functions
 
   async function saveTask(task) {
@@ -97,9 +161,9 @@ export default function KanbanBoard() {
             const copy = { ...prev };
             Object.keys(copy).forEach(
               (k) =>
-                (copy[k] = copy[k].filter(
-                  (c) => normalizeId(c._id) !== normalizeId(updated._id)
-                ))
+              (copy[k] = copy[k].filter(
+                (c) => normalizeId(c._id) !== normalizeId(updated._id)
+              ))
             );
             copy[updated.status] = [updated, ...copy[updated.status]];
             return copy;
@@ -200,7 +264,7 @@ export default function KanbanBoard() {
     isDraggingRef.current = true;
   }
 
-  // 👇 DragDropContext updated to include beforeCapture
+
   return (
     <div className="p-4">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-4">
@@ -251,9 +315,8 @@ export default function KanbanBoard() {
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className={`min-h-[200px] rounded transition ${
-                      snapshot.isDraggingOver ? "bg-blue-50" : ""
-                    }`}
+                    className={`min-h-[200px] rounded transition ${snapshot.isDraggingOver ? "bg-blue-50" : ""
+                      }`}
                   >
                     {tasksByStatus[col.key]?.map((task, index) => (
                       <Draggable
@@ -305,6 +368,17 @@ export default function KanbanBoard() {
           ))}
         </div>
       </DragDropContext>
+
+      {/* AI Popup */}
+     <div className="z-50 mt-5">
+       <CopilotPopup
+        instructions={"You are assisting the user as best as you can. Answer in the best way possible given the data you have."}
+        labels={{
+          title: "One-Orbit Assistant",
+          initial: "Easily add tasks by pasting your project description",
+        }}
+      />
+     </div>
 
       {/* Modal */}
       {modalOpen && (

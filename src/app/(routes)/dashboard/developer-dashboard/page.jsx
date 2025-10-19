@@ -202,6 +202,7 @@ export default function DeveloperDashboard() {
               <p className="text-2xl font-bold text-gray-900">15</p>
             </div>
           </div>
+          
           <div className="mt-8">
             <KanbanBoard />
           </div>
