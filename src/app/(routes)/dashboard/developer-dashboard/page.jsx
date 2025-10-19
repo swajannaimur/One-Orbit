@@ -11,6 +11,8 @@ import {
   FaBars,
 } from "react-icons/fa";
 import { PiKanban } from "react-icons/pi";
+import { MdOutlineSettingsSuggest } from "react-icons/md";
+import { TbLogout2 } from "react-icons/tb";
 
 import KanbanBoard from "./kanban/KanbanBoard";
 import InviteForm from "@/app/api/users/invite/InviteForm";
@@ -49,7 +51,7 @@ export default function DeveloperDashboard() {
   }, []);
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-100 mt-20">
+    <div className="flex min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-100 ">
       {/* Sidebar */}
       <div
         className={`${
@@ -60,9 +62,9 @@ export default function DeveloperDashboard() {
           <h2
             className={`${
               isSidebarOpen ? "block" : "hidden"
-            } text-lg font-semibold text-orange-500`}
+            } text-xl font-bold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
           >
-            Developer Panel
+            Developer Dashboard
           </h2>
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -81,13 +83,13 @@ export default function DeveloperDashboard() {
             {isSidebarOpen && <span>My Projects</span>}
           </Link>
 
-          <a
+          {/* <a
             href="#"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-yellow-100 text-gray-800 font-medium transition"
           >
             <FaTasks className="text-yellow-500" />
             {isSidebarOpen && <span>My Tasks</span>}
-          </a>
+          </a> */}
 
           <a
             href="#"
@@ -104,15 +106,38 @@ export default function DeveloperDashboard() {
             <PiKanban className="text-purple-500" />
             {isSidebarOpen && <span>Board</span>}
           </a>
+          <a
+            href="#"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-yellow-100 text-gray-800 font-medium transition"
+          >
+            <MdOutlineSettingsSuggest className="text-yellow-500" />
+            <button
+              onClick={() => {
+                // setIsDropdownOpen(false);
+                router.push("/dashboard/developer-dashboard/settings");
+              }}
+            >
+              Settings
+            </button>
+          </a>
+          <a
+            href="#"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
+          >
+            <TbLogout2 className="text-red-500" />
+            <button onClick={() => signOut({ callbackUrl: "/" })}>
+              Logout
+            </button>
+          </a>
         </nav>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-y-auto">
+      <div className="min-h-screen flex-1 flex flex-col pb-5 ">
         {/* Top Navbar */}
         <header className="backdrop-blur-xl bg-white/70 shadow-md border-b border-white/40 px-6 py-4 flex justify-between items-center sticky top-0 z-30">
-          <h1 className="text-2xl font-bold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent">
-            Developer Dashboard
+          <h1 className="text-2xl font-bold bg-gradient-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
+            Overview
           </h1>
           <div className="flex items-center gap-4">
             <button className="text-gray-600 hover:text-indigo-600 transition">
@@ -140,8 +165,9 @@ export default function DeveloperDashboard() {
                 />
               </button>
 
+              {/* ************ */}
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-3 w-44 bg-white shadow-lg rounded-lg border border-gray-100 py-2 z-50">
+                <div>
                   {/* <button
                     onClick={() => {
                       setIsDropdownOpen(false);
@@ -151,7 +177,7 @@ export default function DeveloperDashboard() {
                   >
                     Profile
                   </button> */}
-                  <button
+                  {/* <button
                     onClick={() => {
                       setIsDropdownOpen(false);
                       router.push("/dashboard/developer-dashboard/settings");
@@ -166,9 +192,10 @@ export default function DeveloperDashboard() {
                     className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition"
                   >
                     Logout
-                  </button>
+                  </button> */}
                 </div>
               )}
+              {/* ************ */}
             </div>
           </div>
         </header>

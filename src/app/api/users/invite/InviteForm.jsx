@@ -97,7 +97,7 @@ export default function InviteForm() {
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl shadow-md p-6 border border-indigo-100">
-      <h3 className="text-xl font-semibold text-indigo-700 mb-4 flex items-center gap-2">
+      <h3 className="text-2xl font-bold bg-gradient-to-br from-indigo-700 to-indigo-500 bg-clip-text text-transparent mb-4 flex items-center gap-2">
         <FaUserPlus className="text-indigo-600" /> Invite a Teammate
       </h3>
 

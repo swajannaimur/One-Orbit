@@ -254,8 +254,8 @@ export default function KanbanBoard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-pink-100 p-6 rounded-xl">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
-        <h3 className="text-2xl font-semibold text-amber-400 tracking-wide">
-          Kanban Board
+        <h3 className="text-2xl font-bold bg-gradient-to-br from-indigo-700 to-indigo-500 bg-clip-text text-transparent">
+          Board
         </h3>
         <div className="flex items-center gap-3">
           <button

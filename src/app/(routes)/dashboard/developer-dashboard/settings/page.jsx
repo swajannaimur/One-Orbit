@@ -1,45 +1,3 @@
-// "use client";
-// import React from "react";
-// import Link from "next/link";
-// import { useSession } from "next-auth/react";
-
-// export default function DevelopersSettings() {
-//   const { data: session } = useSession();
-
-//   return (
-//     <div>
-//       <h2 className="text-2xl font-semibold mb-4">Settings</h2>
-
-//       <div className="bg-white shadow rounded-md p-6 max-w-2xl">
-//         <p className="text-sm text-gray-600">
-//           Manage your account settings and preferences.
-//         </p>
-
-//         <div className="mt-6 space-y-4">
-//           <div>
-//             <h4 className="font-medium">Account</h4>
-//             <p className="text-sm text-gray-500">{session?.user?.email}</p>
-//           </div>
-
-//           <div>
-//             <h4 className="font-medium">Preferences</h4>
-//             <p className="text-sm text-gray-500">Theme, notifications, etc.</p>
-//           </div>
-
-//           <div className="pt-2">
-//             <Link
-//               href="/developerDashboard/profile"
-//               className="inline-block px-4 py-2 bg-blue-600 text-white rounded-md"
-//             >
-//               View Profile
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -152,7 +110,7 @@ export default function DeveloperSettingsPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8 mt-20 mb-16">
+    <div className="max-w-4xl mx-auto bg-gradient-to-br from-indigo-100 via-white to-pink-100  shadow-md rounded-lg p-8 mt-20 mb-16">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
           <img
@@ -175,7 +133,7 @@ export default function DeveloperSettingsPage() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-md hover:bg-blue-700 transition"
           >
             {isEditing ? (
               <>
