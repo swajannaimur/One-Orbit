@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link'
 import React from 'react'
 import {
@@ -8,8 +9,23 @@ import {
 } from "react-icons/fa";
 import { FiCreditCard, FiInbox } from 'react-icons/fi';
 import { HiOutlineViewGrid } from 'react-icons/hi';
+import { usePathname } from 'next/navigation';
 
 export default function DashboardLayout({ children }) {
+
+    const pathname = usePathname();
+
+    const links = [
+        { href: "/dashboard/client-dashboard", label: "Home", icon: <FaHome /> },
+        { href: "/dashboard/client-dashboard/overview", label: "Overview X", icon: <HiOutlineViewGrid /> },
+        { href: "/dashboard/client-dashboard/reports", label: "Reports", icon: <FaChartBar /> },
+        { href: "/dashboard/client-dashboard/inbox", label: "Inbox X", icon: <FiInbox /> },
+        { href: "/dashboard/client-dashboard/payment", label: "Payment", icon: <FiCreditCard /> },
+        { href: "/dashboard/client-dashboard/profile", label: "Profile", icon: <FaUser /> },
+        { href: "/dashboard/client-dashboard/settings", label: "Settings", icon: <FaCog /> },
+    ];
+
+
     return (
         <div className="flex min-h-screen mt-20">
 
@@ -19,64 +35,17 @@ export default function DashboardLayout({ children }) {
 
                 {/* dashboard links */}
                 <ul className="space-y-4 mt-4">
-                    <li>
-                        <Link
-                            href="/dashboard/"
-                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
-                        >
-                            <FaHome /> Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href="/dashboard/"
-                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
-                        >
-                            <HiOutlineViewGrid /> Overview
-                        </Link>
-                    </li>
+                    {
+                        links.map((link) => {
+                            const isActive = pathname === link.href;
 
-                    <li>
-                        <Link
-                            href="/dashboard/reports"
-                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
-                        >
-                            <FaChartBar /> Reports
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            href="/dashboard/inbox"
-                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
-                        >
-                            <FiInbox /> Inbox
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href="/dashboard/client-dashboard/payment"
-                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
-                        >
-                            <FiCreditCard /> Payment
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href="/dashboard/profile"
-                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
-                        >
-                            <FaUser /> Profile
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href="/dashboard/settings"
-                            className="flex items-center gap-3 p-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition"
-                        >
-                            <FaCog /> Settings
-                        </Link>
-                    </li>
+                            return (
+                                <li key={link.href}>
+                                    <Link href={link.href} className={`flex items-center gap-3 p-2 rounded-md transition ${isActive ? "bg-blue-100 text-blue-600" : "hover:bg-blue-100 hover:text-blue-600"}`}>{link.icon} {link.label}</Link>
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
 
             </div>
