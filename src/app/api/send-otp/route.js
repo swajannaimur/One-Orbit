@@ -41,26 +41,21 @@ export async function POST(request) {
       { upsert: true }
     );
 
-    // Nodemailer transporter
-    sendEmail(
-      email,
-      "Your OTP Code",
-      `Your verification code is ${otp}. This code will expire in 5 minutes.`
-    );
-    // const transporter = nodemailer.createTransport({
-    //   service: "Gmail",
-    //   auth: {
-    //     user: process.env.EMAIL_USER,
-    //     pass: process.env.EMAIL_PASS,
-    //   },
-    // });
 
-    // await transporter.sendMail({
-    //   from: process.env.EMAIL_USER,
-    //   to: email,
-    //   subject: "Your OTP Code",
-    //   text: `Your verification code is ${otp}. This code will expire in 5 minutes.`,
-    // });
+
+    if (!email) {
+      console.error("❌ Missing 'to' email address");
+      return;
+    }
+
+    sendEmail({
+      to: `${email}`,
+      subject: `Your OTP Code from OneOrbit`,
+      text: `Your verification code is ${otp}. This code will expire in 5 minutes.`,
+      html: `<h3>YOUR OTP</h3>
+            <h1>OTP: ${otp}</h1>
+      `,
+    });
 
     return NextResponse.json({ message: "OTP sent" });
   } catch (err) {
