@@ -17,9 +17,10 @@ const ForgetPassword = () => {
     const { data: session, status: sessionStatus } = useSession();
 
 
+    // if authenticated user tries to access this route via Browser URL
     useEffect(() => {
         if (sessionStatus === "authenticated") {
-            router.replace("/dashboard");
+            router.replace("/");
         }
     }, [sessionStatus, router]);
 
@@ -59,7 +60,8 @@ const ForgetPassword = () => {
             }
             if (res.status === 200) {
                 setError("");
-                router.push("/login");
+                toast.success("Password reset link sent to your email. Please check your inbox.");
+                // form.reset();
             }
         } catch (error) {
             toast.error("Error, try again")
