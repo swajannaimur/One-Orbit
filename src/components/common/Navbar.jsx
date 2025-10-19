@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { IoCreateOutline } from "react-icons/io5";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   FiMenu,
   FiX,
@@ -16,12 +17,13 @@ import {
   FiSun,
   FiChevronDown,
 } from "react-icons/fi";
-import { HiOutlineSparkles, HiOutlineCurrencyDollar } from "react-icons/hi";
-import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
-import { RiRocketLine, RiLightbulbFlashLine } from "react-icons/ri";
+// import { HiOutlineSparkles, HiOutlineCurrencyDollar } from "react-icons/hi";
+// import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
+import { RiRocketLine } from "react-icons/ri";
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const pathname = usePathname();
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,10 +37,8 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const imagehh = session?.user?.image;
-  
+ 
 
-   
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -55,25 +55,32 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navItems = [
-    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
-    { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
-    { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
+    { href: "/projects", label: "All Project" },
+    { href: "/solutions", label: "Solutions" },
+    { href: "/pricing", label: "Pricing" },
     {
       href: "/chat",
-      label: "Message",
-      icon: HiOutlineChatBubbleOvalLeftEllipsis,
+      label: "Message"
+      
     },
-    { href: "/create-post", label: "Create Project", icon: IoCreateOutline },
+    { href: "/create-post", label: "Create Project"},
   ];
 
   const userMenuItems = [
     { href: "/profile", label: "My Profile", icon: FiUser },
-    { href: "/dashboard", label: "Dashboard", icon: HiOutlineSparkles },
+    { href: "/dashboard", label: "Dashboard", icon: FiSettings },
     { href: "/billing", label: "Billing", icon: FiCreditCard },
     { href: "/settings", label: "Settings", icon: FiSettings },
     { href: "/support", label: "Support", icon: FiHelpCircle },
   ];
-  
+
+  // Check if a route is active
+  const isActiveRoute = (href) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
+  };
 
   return (
     <>
@@ -113,21 +120,32 @@ export default function Navbar() {
             {/* Desktop Navigation - Hidden on mobile */}
             <div className="hidden lg:flex items-center space-x-1">
               {navItems.map((item) => {
-                const Icon = item.icon;
+                // const Icon = item.icon;
+                const isActive = isActiveRoute(item.href);
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
+                    className={`relative flex items-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 group font-medium ${
+                      isActive
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    }`}
                   >
-                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    {/* <Icon className={`w-5 h-5 transition-transform ${
+                      isActive ? "scale-110" : "group-hover:scale-110"
+                    }`} /> */}
                     {item.label}
                     {item.badge && (
                       <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
                         {item.badge}
                       </span>
                     )}
-                    <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-4/5 group-hover:left-1/10"></div>
+                    <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ${
+                      isActive 
+                        ? "w-4/5 left-1/10" 
+                        : "group-hover:w-4/5 group-hover:left-1/10"
+                    }`}></div>
                   </Link>
                 );
               })}
@@ -140,16 +158,24 @@ export default function Navbar() {
                 <div className="hidden sm:flex items-center space-x-2 lg:space-x-3">
                   <Link
                     href="/login"
-                    className="px-4 py-2 lg:px-6 lg:py-2.5 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700 text-sm lg:text-base"
+                    className={`px-4 py-2 lg:px-6 lg:py-2.5 font-medium rounded-xl transition-all duration-300 border text-sm lg:text-base ${
+                      isActiveRoute("/login")
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+                        : "text-gray-700 dark:text-gray-300 border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    }`}
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/register"
-                    className="group relative px-4 py-2 lg:px-8 lg:py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden text-sm lg:text-base"
+                    className={`group relative px-4 py-2 lg:px-8 lg:py-2.5 font-medium rounded-xl hover:shadow-xl transition-all duration-300 overflow-hidden text-sm lg:text-base ${
+                      isActiveRoute("/register")
+                        ? "from-blue-700 to-purple-700 shadow-lg scale-105"
+                        : "from-blue-600 to-purple-600 hover:scale-105"
+                    } bg-gradient-to-r`}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="relative flex items-center gap-1 lg:gap-2">
+                    <span className="relative flex items-center gap-1 lg:gap-2 text-white">
                       <RiRocketLine className="w-3 h-3 lg:w-4 lg:h-4" />
                       <span className="hidden lg:inline">Get Started</span>
                       <span className="lg:hidden">Start</span>
@@ -162,16 +188,26 @@ export default function Navbar() {
                   {/* Upgrade Button */}
                   <Link
                     href="/pricing"
-                    className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                    className={`hidden md:flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium hover:shadow-lg transition-all duration-300 ${
+                      isActiveRoute("/pricing")
+                        ? "from-amber-500 to-orange-600 shadow-lg scale-105"
+                        : "from-amber-400 to-orange-500 hover:scale-105"
+                    } bg-gradient-to-r text-white`}
                   >
-                    <FiStar className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                    <FiStar className={`w-4 h-4 transition-transform ${
+                      isActiveRoute("/pricing") ? "rotate-12" : "group-hover:rotate-12"
+                    }`} />
                     Upgrade
                   </Link>
 
                   {/* User Avatar */}
                   <div className="relative group">
                     <button
-                      className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
+                      className={`flex items-center gap-3 p-2 rounded-xl transition-all duration-300 border ${
+                        isUserDropdownOpen
+                          ? "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                          : "border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+                      }`}
                       onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                     >
                       <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-semibold shadow-lg">
@@ -220,14 +256,21 @@ export default function Navbar() {
                         <div className="p-2">
                           {userMenuItems.map((item) => {
                             const Icon = item.icon;
+                            const isActive = isActiveRoute(item.href);
                             return (
                               <Link
                                 key={item.href}
                                 href={item.href}
-                                className="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200 group"
+                                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${
+                                  isActive
+                                    ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                                }`}
                                 onClick={() => setIsUserDropdownOpen(false)}
                               >
-                                <Icon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                                <Icon className={`w-4 h-4 transition-transform ${
+                                  isActive ? "scale-110" : "group-hover:scale-110"
+                                }`} />
                                 {item.label}
                               </Link>
                             );
@@ -258,7 +301,11 @@ export default function Navbar() {
                 <div className="flex sm:hidden items-center space-x-2">
                   <Link
                     href="/login"
-                    className="px-3 py-2 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 border border-gray-200 dark:border-gray-700 text-sm"
+                    className={`px-3 py-2 font-medium rounded-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 text-sm ${
+                      isActiveRoute("/login")
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    }`}
                   >
                     Sign In
                   </Link>
@@ -268,9 +315,11 @@ export default function Navbar() {
               {/* Mobile User Avatar - Show on small screens when logged in */}
               {session && (
                 <div className="flex lg:hidden">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-semibold shadow-lg">
-                    {session.user?.name?.[0] || session.user?.email?.[0] || "U"}
-                  </div>
+                  <Link href="/profile">
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-semibold shadow-lg">
+                      {session.user?.name?.[0] || session.user?.email?.[0] || "U"}
+                    </div>
+                  </Link>
                 </div>
               )}
 
@@ -302,15 +351,22 @@ export default function Navbar() {
             {/* Navigation Items */}
             <div className="grid gap-2">
               {navItems.map((item) => {
-                const Icon = item.icon;
+                // const Icon = item.icon;
+                const isActive = isActiveRoute(item.href);
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-4 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all duration-300 group font-medium"
+                    className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group font-medium ${
+                      isActive
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                    }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    {/* <Icon className={`w-5 h-5 transition-transform ${
+                      isActive ? "scale-110" : "group-hover:scale-110"
+                    }`} /> */}
                     {item.label}
                     {item.badge && (
                       <span className="ml-auto px-2 py-1 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
@@ -327,14 +383,22 @@ export default function Navbar() {
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
                 <Link
                   href="/login"
-                  className="flex items-center justify-center w-full px-4 py-3 text-gray-700 dark:text-gray-300 font-medium rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300"
+                  className={`flex items-center justify-center w-full px-4 py-3 font-medium rounded-xl border transition-all duration-300 ${
+                    isActiveRoute("/login")
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+                      : "text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                  }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  className={`flex items-center justify-center gap-2 w-full px-4 py-3 font-medium rounded-xl hover:shadow-lg transition-all duration-300 ${
+                    isActiveRoute("/register")
+                      ? "from-blue-700 to-purple-700 shadow-lg"
+                      : "from-blue-600 to-purple-600 hover:scale-105"
+                  } bg-gradient-to-r text-white`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <RiRocketLine className="w-4 h-4" />
@@ -357,14 +421,21 @@ export default function Navbar() {
                 <div className="grid gap-2">
                   {userMenuItems.map((item) => {
                     const Icon = item.icon;
+                    const isActive = isActiveRoute(item.href);
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-center gap-4 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all duration-300 group font-medium"
+                        className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group font-medium ${
+                          isActive
+                            ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                            : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                        }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        <Icon className={`w-5 h-5 transition-transform ${
+                          isActive ? "scale-110" : "group-hover:scale-110"
+                        }`} />
                         {item.label}
                       </Link>
                     );
@@ -373,8 +444,12 @@ export default function Navbar() {
 
                 {/* Upgrade Button for Mobile */}
                 <Link
-                  href="/upgrade"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gradient-to-r from-amber-400 to-orange-500 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  href="/pricing"
+                  className={`flex items-center justify-center gap-2 w-full px-4 py-3 font-medium rounded-xl hover:shadow-lg transition-all duration-300 ${
+                    isActiveRoute("/pricing")
+                      ? "from-amber-500 to-orange-600 shadow-lg"
+                      : "from-amber-400 to-orange-500 hover:scale-105"
+                  } bg-gradient-to-r text-white`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <FiStar className="w-4 h-4" />
