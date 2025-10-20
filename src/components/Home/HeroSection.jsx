@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { 
+import {
   FiPlay,
   FiCheck,
   FiUsers,
@@ -10,13 +10,13 @@ import {
   FiShield,
   FiGlobe
 } from 'react-icons/fi';
-import { 
+import {
   HiOutlineLightningBolt,
   HiOutlineTemplate,
   HiOutlineCalendar,
   HiOutlineChatAlt2
 } from 'react-icons/hi';
-import { 
+import {
   RiRocketLine,
   RiTeamLine,
   RiSecurePaymentLine,
@@ -45,21 +45,9 @@ export default function HeroSection() {
   ];
 
   return (
-    <div className="relative min-h-screen ">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.05)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
-        
-        {/* Animated Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-200/30 dark:bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-200/30 dark:bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-indigo-200/30 dark:bg-indigo-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          
+    <div className="relative">
+      <div className="relative max-w-7xl mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-12 items-center py-8">
           {/* Left  */}
           <div className="space-y-8">
             {/* Badge */}
@@ -73,7 +61,7 @@ export default function HeroSection() {
 
             {/* Main Heading */}
             <div className="space-y-6">
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight">
+              <h1 className="text-5xl lg:text-6xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-100 dark:to-purple-100 bg-clip-text text-transparent">
                   Project
                 </span>
@@ -86,7 +74,7 @@ export default function HeroSection() {
                   Perfected
                 </span>
               </h1>
-              
+
               <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
                 Streamline your workflow, enhance team collaboration, and deliver projects faster with our all-in-one platform designed for modern teams.
               </p>
@@ -106,21 +94,15 @@ export default function HeroSection() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link 
-                href="/get-started"
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden"
-              >
+              <Link
+                href="/register"
+                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative flex items-center justify-center gap-3">
                   <RiRocketLine className="w-5 h-5" />
-                  Start Free Trial - 14 Days
+                  Start Free
                 </span>
               </Link>
-              
-              <button className="group px-8 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-2xl hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3">
-                <FiPlay className="w-5 h-5" />
-                Watch Demo (2 mins)
-              </button>
             </div>
 
             {/* Security Badge */}
@@ -134,7 +116,7 @@ export default function HeroSection() {
           <div className="relative">
             {/* Main Dashboard Card */}
             <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/20 p-6 transform rotate-1 hover:rotate-0 transition-transform duration-500">
-              
+
               {/* Dashboard Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -209,7 +191,7 @@ export default function HeroSection() {
         </div>
 
         {/* Stats Section */}
-        <div className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -221,7 +203,7 @@ export default function HeroSection() {
         </div>
 
         {/* Testimonials */}
-        <div className="mt-16">
+        <div className="mt-8">
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
