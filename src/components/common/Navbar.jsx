@@ -57,10 +57,10 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navItems = [
-    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
-    { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
-    { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
-
+    { href: "/projects", label: "All Project" },
+    { href: "/AllDevelopers", label: "All Developers" },
+    { href: "/solutions", label: "Solutions" },
+    { href: "/pricing", label: "Pricing" },
   ];
 
   const secureItems = [
