@@ -19,7 +19,8 @@ import {
   FiUsers,
 } from "react-icons/fi";
 
-import { RiRocketLine } from "react-icons/ri";
+import { RiLightbulbFlashLine, RiRocketLine } from "react-icons/ri";
+import { HiOutlineCurrencyDollar, HiOutlineSparkles } from "react-icons/hi2";
 
 export default function Navbar() {
   const { data: session } = useSession();
