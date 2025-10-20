@@ -61,7 +61,7 @@ export default function HeroSection() {
 
             {/* Main Heading */}
             <div className="space-y-6">
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight">
+              <h1 className="text-5xl lg:text-6xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-100 dark:to-purple-100 bg-clip-text text-transparent">
                   Project
                 </span>
@@ -95,20 +95,14 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
-                href="/get-started"
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden"
-              >
+                href="/register"
+                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative flex items-center justify-center gap-3">
                   <RiRocketLine className="w-5 h-5" />
-                  Start Free Trial - 14 Days
+                  Start Free
                 </span>
               </Link>
-
-              <button className="group px-8 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-2xl hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3">
-                <FiPlay className="w-5 h-5" />
-                Watch Demo (2 mins)
-              </button>
             </div>
 
             {/* Security Badge */}
