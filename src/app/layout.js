@@ -6,6 +6,8 @@ import Footer from "../components/common/Footer";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/lib/SessionProvider";
 import { AblyProvider } from "@/lib/AblyProvider";
+import { CopilotKit } from "@copilotkit/react-core";
+import "@copilotkit/react-ui/styles.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,14 +28,16 @@ export default async function RootLayout({ children }) {
       <body className={poppins.className}>
         <AuthProvider session={session}>
           <AblyProvider>
-            <Toaster></Toaster>
+          <CopilotKit  publicApiKey="ck_pub_c73ee7f55951cccd8e9fbe517711a8a1">
+              <Toaster></Toaster>
             <header className="">
               <Navbar />
             </header>
             <div className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
-              <main className="mx-auto px-2 xl:px-0">{children}</main>
+              <main className="w-full mx-auto px-2 xl:px-0">{children}</main>
             </div>
             <Footer />
+          </CopilotKit>
           </AblyProvider>
         </AuthProvider>
       </body>

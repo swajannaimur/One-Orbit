@@ -51,21 +51,20 @@ export default function LoginForm()
 
         console.log('after login : ', result);
 
-        if (result?.error)
-        {
+        if (result?.error) {
             toast.error("Invalid Email or Password");
             setError("Invalid Email or Password");
             setIsLoading(false);
         }
-        else{
+        else {
             form.reset();
-            toast.success("Login Successful");
+            toast.success("Login Successfull");
             setError("");
-            router.push("/dashboard");
-        }
+            router.push("/dashboard");}
 
         
-        // OTP - commented by Yasin Arafat
+
+        // OTP - commented by Yasin Arafat   
         // const res = await fetch("/api/send-otp", {
         //     method: "POST",
         //     headers: { "Content-Type": "application/json" },

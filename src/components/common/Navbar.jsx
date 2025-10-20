@@ -67,7 +67,6 @@ export default function Navbar() {
     {
       href: "/chat",
       label: "Message",
-      icon: HiOutlineChatBubbleOvalLeftEllipsis,
     },
   ];
 
@@ -76,7 +75,6 @@ export default function Navbar() {
     secureItems.push({
       href: "/create-post",
       label: "Create Project",
-      icon: IoCreateOutline,
     });
   }
 
@@ -92,7 +90,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+        className={`relative top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled
           ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
           : "bg-transparent"
           }`}
@@ -127,14 +125,11 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center space-x-1">
               {/* Public Nav Items */}
               {navItems.map((item) => {
-                const Icon = item.icon;
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
-                  >
-                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium">
                     {item.label}
                     {item.badge && (
                       <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
@@ -149,14 +144,12 @@ export default function Navbar() {
               {/* Secure Nav Items - Only show when session exists */}
               {session &&
                 secureItems.map((item) => {
-                  const Icon = item.icon;
+                
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
-                    >
-                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium">
                       {item.label}
                       {item.badge && (
                         <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
@@ -338,15 +331,13 @@ export default function Navbar() {
             {/* Navigation Items */}
             <div className="grid gap-2">
               {navItems.map((item) => {
-                const Icon = item.icon;
+              
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     className="flex items-center gap-4 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all duration-300 group font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    onClick={() => setIsMobileMenuOpen(false)}>
                     {item.label}
                     {item.badge && (
                       <span className="ml-auto px-2 py-1 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
