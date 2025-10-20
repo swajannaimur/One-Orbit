@@ -27,7 +27,7 @@ export default function ChatPage() {
   }, [session, setClientId]);
 
 
-  const currentUser = usersList.filter(user => user._id === clientId);
+  const currentUser = usersList?.filter(user => user._id === clientId);
 
   const friendsList = usersList.filter((user) => currentUser[0]?.friends?.includes(user._id));
   const contactsList = usersList.filter((user) => !currentUser[0]?.friends?.includes(user._id) && user._id !== clientId);

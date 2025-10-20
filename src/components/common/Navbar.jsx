@@ -15,7 +15,6 @@ import {
   FiMoon,
   FiSun,
   FiChevronDown,
-  FiUsers,
 } from "react-icons/fi";
 import { HiOutlineSparkles, HiOutlineCurrencyDollar } from "react-icons/hi";
 import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
@@ -23,7 +22,7 @@ import { RiRocketLine, RiLightbulbFlashLine } from "react-icons/ri";
 
 export default function Navbar() {
   const { data: session } = useSession();
-
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -39,7 +38,9 @@ export default function Navbar() {
   }, []);
 
   const imagehh = session?.user?.image;
+  
 
+   
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -56,10 +57,17 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navItems = [
+<<<<<<< HEAD
     { href: "/projects", label: "All Project" },
     { href: "/AllDevelopers", label: "All Developers" },
     { href: "/solutions", label: "Solutions" },
     { href: "/pricing", label: "Pricing" },
+=======
+    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
+    { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
+    { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
+
+>>>>>>> f8064855df7c4127b15b1c6de36c908e8f84a319
   ];
 
   const secureItems = [
@@ -84,6 +92,7 @@ export default function Navbar() {
     { href: "/settings", label: "Settings", icon: FiSettings },
     { href: "/support", label: "Support", icon: FiHelpCircle },
   ];
+  
 
   return (
     <>
@@ -158,7 +167,9 @@ export default function Navbar() {
                     </Link>
                   );
                 })}
+
             </div>
+
 
             {/* Right Actions */}
             <div className="flex items-center space-x-2 lg:space-x-3">
