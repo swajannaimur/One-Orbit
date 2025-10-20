@@ -80,7 +80,7 @@ const ErrorPage = ({
         <div className="relative">
           
           {/* Main Error Card */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/20 p-8 sm:p-12 text-center">
+          <div className=" p-8 sm:p-12 text-center">
             
             {/* Error Illustration */}
             <div className="mb-8">
@@ -157,25 +157,7 @@ const ErrorPage = ({
           </div>
 
           {/* Additional Info */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-              <HiOutlineServer className="w-8 h-8 text-blue-500 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Server Status</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">All systems operational</p>
-            </div>
-            
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-              <FiMail className="w-8 h-8 text-green-500 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Support</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">24/7 available</p>
-            </div>
-            
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-              <FiRefreshCw className="w-8 h-8 text-purple-500 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Updates</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Real-time monitoring</p>
-            </div>
-          </div>
+         
         </div>
       </div>
     </div>
