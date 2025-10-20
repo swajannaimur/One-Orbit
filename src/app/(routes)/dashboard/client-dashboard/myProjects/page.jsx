@@ -73,7 +73,7 @@ export default function MyProjects() {
         // </div>
 
 
-        <div className="max-w-4xl mx-auto px-4 my-10">
+        <div className="w-10/11 mx-auto px-4 my-10">
             {/* page header */}
             <h2 className="text-2xl font-semibold text-center mb-8">My Projects by Bids</h2>
 
