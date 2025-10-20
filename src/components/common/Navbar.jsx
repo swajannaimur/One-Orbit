@@ -17,8 +17,7 @@ import {
   FiSun,
   FiChevronDown,
 } from "react-icons/fi";
-// import { HiOutlineSparkles, HiOutlineCurrencyDollar } from "react-icons/hi";
-// import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
+
 import { RiRocketLine } from "react-icons/ri";
 
 export default function Navbar() {
@@ -120,7 +119,7 @@ export default function Navbar() {
             {/* Desktop Navigation - Hidden on mobile */}
             <div className="hidden lg:flex items-center space-x-1">
               {navItems.map((item) => {
-                // const Icon = item.icon;
+                
                 const isActive = isActiveRoute(item.href);
                 return (
                   <Link
@@ -132,9 +131,7 @@ export default function Navbar() {
                         : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     }`}
                   >
-                    {/* <Icon className={`w-5 h-5 transition-transform ${
-                      isActive ? "scale-110" : "group-hover:scale-110"
-                    }`} /> */}
+                  
                     {item.label}
                     {item.badge && (
                       <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
@@ -351,7 +348,7 @@ export default function Navbar() {
             {/* Navigation Items */}
             <div className="grid gap-2">
               {navItems.map((item) => {
-                // const Icon = item.icon;
+                
                 const isActive = isActiveRoute(item.href);
                 return (
                   <Link
@@ -364,9 +361,7 @@ export default function Navbar() {
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    {/* <Icon className={`w-5 h-5 transition-transform ${
-                      isActive ? "scale-110" : "group-hover:scale-110"
-                    }`} /> */}
+                    
                     {item.label}
                     {item.badge && (
                       <span className="ml-auto px-2 py-1 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
