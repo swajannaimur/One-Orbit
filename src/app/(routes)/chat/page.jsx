@@ -164,7 +164,7 @@ export default function ChatPage() {
           <span className="loading loading-spinner loading-xl"></span>
         </div>
       ) : (
-        <div className="flex h-[calc(100vh-5rem)] bg-base-200 mt-20">
+        <div className="flex h-[calc(100vh-5rem)] max-w-7xl mx-auto bg-base-200 mt-20">
           <Sidebar
             friendsList={friendsList}
             contactsList={contactsList}
