@@ -16,6 +16,7 @@ import {
   FiMoon,
   FiSun,
   FiChevronDown,
+  FiUsers,
 } from "react-icons/fi";
 
 import { RiRocketLine } from "react-icons/ri";
@@ -28,6 +29,8 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
+  const role = session?.user?.role;
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -36,7 +39,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
- 
+  const imagehh = session?.user?.image;
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -54,9 +57,17 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navItems = [
-    { href: "/projects", label: "All Project" },
-    { href: "/solutions", label: "Solutions" },
-    { href: "/pricing", label: "Pricing" },
+    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
+    {
+      href: "/AllDevelopers",
+      label: "All Developers",
+      icon: FiUsers,
+    },
+    { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
+    { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
+  ];
+
+  const secureItems = [
     {
       href: "/chat",
       label: "Message"
@@ -64,6 +75,15 @@ export default function Navbar() {
     },
     { href: "/create-post", label: "Create Project"},
   ];
+
+  // Only show “Create Project” if role is client
+  if (role === "client") {
+    secureItems.push({
+      href: "/create-post",
+      label: "Create Project",
+      icon: IoCreateOutline,
+    });
+  }
 
   const userMenuItems = [
     { href: "/profile", label: "My Profile", icon: FiUser },
@@ -84,7 +104,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`relative top-0 left-0 right-0 z-40 transition-all duration-500 ${
           isScrolled
             ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
             : "bg-transparent"
@@ -118,6 +138,7 @@ export default function Navbar() {
 
             {/* Desktop Navigation - Hidden on mobile */}
             <div className="hidden lg:flex items-center space-x-1">
+              {/* Public Nav Items */}
               {navItems.map((item) => {
                 
                 const isActive = isActiveRoute(item.href);
@@ -146,6 +167,28 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+
+              {/* Secure Nav Items - Only show when session exists */}
+              {session &&
+                secureItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
+                    >
+                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      {item.label}
+                      {item.badge && (
+                        <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
+                          {item.badge}
+                        </span>
+                      )}
+                      <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-4/5 group-hover:left-1/10"></div>
+                    </Link>
+                  );
+                })}
             </div>
 
             {/* Right Actions */}

@@ -5,7 +5,8 @@ import { useState, useRef, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import { useSession } from "next-auth/react";
 import { useAbly, useCurrentUser } from "@/lib/AblyProvider";
-import Ably from "ably";
+import { MdOutlineSend } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 
 export default function ChatPage() {
   const ably = useAbly();
@@ -15,7 +16,8 @@ export default function ChatPage() {
   const [messages, setMessages] = useState({}); // { [friendId]: [msgs] }
   const scrollRef = useRef(null);
   const { data: session } = useSession();
-  const [addedFriend, setAddedFriend] = useState(false);
+  const [ addedFriend, setAddedFriend ] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Set clientId from NextAuth session
   useEffect(() => {
@@ -168,6 +170,8 @@ export default function ChatPage() {
             contactsList={contactsList}
             selectedFriend={selectedFriend}
             setSelectedFriend={setSelectedFriend}
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
           ></Sidebar>
 
           {selectedFriend === null ? (
@@ -176,23 +180,39 @@ export default function ChatPage() {
             </div>
           ) : (
             <div className="flex-1 flex flex-col">
-              <div className="p-4 border-b border-base-300 bg-base-100 flex items-center gap-3">
-                <div className="avatar">
-                  <div className="w-10 rounded-full">
-                    {selectedFriend?.image ? (
-                      <img
-                        src={selectedFriend.image}
-                        alt={selectedFriend.name}
-                      />
-                    ) : (
-                      <img
-                        src={`https://api.dicebear.com/9.x/initials/svg?seed=${selectedFriend?.name}`}
-                        alt={selectedFriend?.name}
-                      />
-                    )}
+              <div className="p-4 border-b border-base-300 bg-base-100 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    <div className="w-10 rounded-full">
+                      {selectedFriend?.image ? (
+                        <img
+                          src={selectedFriend.image}
+                          alt={selectedFriend.name}
+                        />
+                      ) : (
+                        <img
+                          src={`https://api.dicebear.com/9.x/initials/svg?seed=${selectedFriend?.name}`}
+                          alt={selectedFriend?.name}
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <h2 className="font-semibold">{selectedFriend?.name}</h2>
+                    <p
+                      className={`${
+                        selectedFriend?.status === "online"
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {selectedFriend?.status}
+                    </p>
                   </div>
                 </div>
-                <h2 className="font-semibold">{selectedFriend?.name}</h2>
+                <button onClick={()=> setSidebarOpen(!sidebarOpen)} className="md:hidden">
+                  <RxCross2 size={30} />
+                </button>
               </div>
 
               <div
@@ -225,7 +245,7 @@ export default function ChatPage() {
                         </div>
                       )}
                       <div
-                        className={`chat-bubble${
+                        className={`chat-bubble ${
                           msg.senderId === clientId ? "bg-blue-300" : ""
                         }`}
                       >
@@ -238,17 +258,20 @@ export default function ChatPage() {
 
               <form
                 onSubmit={sendMessage}
-                className="p-4 border-t border-base-300 bg-base-100 flex gap-2"
+                className="p-4 border-t border-base-300 bg-base-100 flex items-center gap-2"
               >
                 <input
                   type="text"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder={`Message ${selectedFriend?.name}...`}
-                  className="input input-bordered flex-1"
+                  className="input input-bordered flex-1 rounded-full"
                 />
-                <button type="submit" className="btn btn-primary">
-                  Send
+                <button
+                  type="submit"
+                  className="py-2 px-2.5 cursor-pointer btn-gradient rounded-full"
+                >
+                  <MdOutlineSend size={30} />
                 </button>
               </form>
             </div>
