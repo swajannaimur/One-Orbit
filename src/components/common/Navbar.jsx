@@ -56,21 +56,16 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navItems = [
-    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
-    {
-      href: "/AllDevelopers",
-      label: "All Developers",
-      icon: FiUsers,
-    },
-    { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
-    { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
+    { href: "/projects", label: "All Project" },
+    { href: "/AllDevelopers", label: "All Developers" },
+    { href: "/solutions", label: "Solutions" },
+    { href: "/pricing", label: "Pricing" },
   ];
 
   const secureItems = [
     {
       href: "/chat",
       label: "Message",
-      icon: HiOutlineChatBubbleOvalLeftEllipsis,
     },
   ];
 
@@ -79,7 +74,6 @@ export default function Navbar() {
     secureItems.push({
       href: "/create-post",
       label: "Create Project",
-      icon: IoCreateOutline,
     });
   }
 
@@ -94,11 +88,10 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`relative top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          isScrolled
-            ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
-            : "bg-transparent"
-        }`}
+        className={`relative top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
@@ -130,14 +123,11 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center space-x-1">
               {/* Public Nav Items */}
               {navItems.map((item) => {
-                const Icon = item.icon;
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
-                  >
-                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium">
                     {item.label}
                     {item.badge && (
                       <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
@@ -152,14 +142,12 @@ export default function Navbar() {
               {/* Secure Nav Items - Only show when session exists */}
               {session &&
                 secureItems.map((item) => {
-                  const Icon = item.icon;
+                
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
-                    >
-                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium">
                       {item.label}
                       {item.badge && (
                         <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
@@ -227,9 +215,8 @@ export default function Navbar() {
                         </span>
                       </div>
                       <FiChevronDown
-                        className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
-                          isUserDropdownOpen ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isUserDropdownOpen ? "rotate-180" : ""
+                          }`}
                       />
                     </button>
 
@@ -331,25 +318,22 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${
-            isMobileMenuOpen
-              ? "translate-y-0 opacity-100"
-              : "-translate-y-4 opacity-0 pointer-events-none"
-          }`}
+          className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${isMobileMenuOpen
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
+            }`}
         >
           <div className="px-4 py-6 space-y-4">
             {/* Navigation Items */}
             <div className="grid gap-2">
               {navItems.map((item) => {
-                const Icon = item.icon;
+              
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     className="flex items-center gap-4 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all duration-300 group font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    onClick={() => setIsMobileMenuOpen(false)}>
                     {item.label}
                     {item.badge && (
                       <span className="ml-auto px-2 py-1 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
