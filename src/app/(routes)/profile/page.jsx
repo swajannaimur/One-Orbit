@@ -8,6 +8,7 @@ import {
   HiOutlineUserCircle,
 } from "react-icons/hi2";
 import { FiClock, FiBriefcase, FiActivity } from "react-icons/fi";
+import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
 
 export default function DeveloperProfilePage() {
@@ -40,6 +41,13 @@ export default function DeveloperProfilePage() {
       email: "guest@example.com",
       image: "https://i.pravatar.cc/150",
       bio: null,
+      about: null,
+      skills: [],
+      portfolio: null,
+      resume: null,
+      github: null,
+      linkedin: null,
+      facebook: null,
     };
 
   return (
@@ -73,33 +81,83 @@ export default function DeveloperProfilePage() {
             <HiOutlineEnvelope className="w-4 h-4" /> {user.email}
           </p>
 
-          {/* Tags */}
-          <div className="mt-5 flex flex-wrap justify-center gap-2">
-            {["Frontend Developer", "React.js", "Next.js"].map((tag, i) => (
-              <span
-                key={i}
-                className="bg-indigo-50 text-indigo-600 text-xs font-medium px-3 py-1 rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          {/* Skills / Tags */}
+          {user.skills?.length > 0 && (
+            <div className="mt-5 flex flex-wrap justify-center gap-2">
+              {user.skills.map((skill, i) => (
+                <span
+                  key={i}
+                  className="bg-indigo-50 text-indigo-600 text-xs font-medium px-3 py-1 rounded-full"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
 
           {/* Small Divider */}
           <div className="w-full border-t mt-6 mb-4 border-gray-100"></div>
 
-          {/* Quick Contact / Socials (example placeholder) */}
+          {/* Social Links */}
           <div className="flex justify-center gap-4 text-gray-500">
-            <a href="#" className="hover:text-indigo-600 transition">
-              <HiOutlineEnvelope className="w-5 h-5" />
-            </a>
-            <a href="#" className="hover:text-indigo-600 transition">
-              <HiOutlineUserCircle className="w-5 h-5" />
-            </a>
+            {user.github && (
+              <a
+                href={user.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-indigo-600 transition"
+              >
+                <FaGithub className="w-5 h-5" />
+              </a>
+            )}
+            {user.linkedin && (
+              <a
+                href={user.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-indigo-600 transition"
+              >
+                <FaLinkedin className="w-5 h-5" />
+              </a>
+            )}
+            {user.facebook && (
+              <a
+                href={user.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-indigo-600 transition"
+              >
+                <FaFacebook className="w-5 h-5" />
+              </a>
+            )}
+          </div>
+
+          {/* Portfolio & Resume Links */}
+          <div className="mt-4 flex flex-col gap-2">
+            {user.portfolio && (
+              <a
+                href={user.portfolio}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium hover:bg-indigo-100 transition text-center"
+              >
+                View Portfolio
+              </a>
+            )}
+            {user.resume && (
+              <a
+                href={user.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100 transition text-center"
+              >
+                Download Resume
+              </a>
+            )}
           </div>
         </div>
 
-        {/* Right Side: About, Stats, and Activity */}
+        {/* Right Side: About, Bio, Stats, and Activity */}
         <div className="md:col-span-2 flex flex-col gap-8">
           {/* About */}
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
@@ -108,12 +166,22 @@ export default function DeveloperProfilePage() {
               About
             </h4>
             <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-              A passionate developer dedicated to building scalable,
-              collaborative, and user-focused tools. Experienced in React,
-              Node.js, and modern frontend frameworks. Strives for clean UI,
-              optimized code, and team synergy.
+              {user.about || "No details added yet."}
             </p>
           </div>
+
+          {/* Bio */}
+          {user.bio && (
+            <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+              <h4 className="text-lg font-semibold flex items-center gap-2 text-gray-800 mb-3">
+                <FiActivity className="w-5 h-5 text-indigo-500" />
+                Bio
+              </h4>
+              <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+                {user.bio}
+              </p>
+            </div>
+          )}
 
           {/* Quick Stats */}
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">

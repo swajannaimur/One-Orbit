@@ -34,7 +34,7 @@ export default async function RootLayout({ children }) {
               <Navbar />
             </header>
             <div className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
-              <main className="max-w-7xl mx-auto px-2 xl:px-0">{children}</main>
+              <main className="w-full mx-auto px-2 xl:px-0">{children}</main>
             </div>
             <Footer />
           </CopilotKit>
