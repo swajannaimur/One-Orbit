@@ -16,13 +16,19 @@ export async function GET() {
     const client = await clientPromise;
     const db = client.db(process.env.DB_NAME);
 
-    const invites = await db
+    const invitesCursor = db
       .collection("users-invites")
       .find({ inviterEmail: session.user.email })
-      .sort({ createdAt: -1 })
-      .toArray();
+      .sort({ createdAt: -1 });
 
-    return new Response(JSON.stringify({ invites }), {
+    const invites = await invitesCursor.toArray();
+    // convert ObjectId to string for client stability
+    const safe = invites.map((inv) => ({
+      ...inv,
+      _id: inv._id?.toString?.() ?? inv._id,
+    }));
+
+    return new Response(JSON.stringify({ invites: safe }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
@@ -73,11 +79,13 @@ export async function POST(req) {
       expiresAt,
     };
 
-    await db.collection("users-invites").insertOne(invite);
+    const res = await db.collection("users-invites").insertOne(invite);
+    const inserted = await db.collection("users-invites").findOne({ _id: res.insertedId });
+    const safeInserted = { ...inserted, _id: inserted._id.toString() };
 
     // NOTE: sending email is out-of-scope here. The token is returned so dev can test.
 
-    return new Response(JSON.stringify({ invite }), {
+    return new Response(JSON.stringify({ invite: safeInserted }), {
       status: 201,
       headers: { "Content-Type": "application/json" },
     });
