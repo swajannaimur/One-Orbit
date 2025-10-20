@@ -1,11 +1,18 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
 export default function DetailsAccordion({ project }) {
 
     const [selectedDeveloper, setSelectedDeveloper] = useState(null);
+    const [assignedEmails, setAssignedEmails] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+    if (selectedDeveloper && !loading) {
+        document.getElementById("developer_modal").showModal();
+    }
+}, [selectedDeveloper, loading]);
 
     const fetchDeveloper = async (email) => {
         try {
@@ -21,8 +28,9 @@ export default function DetailsAccordion({ project }) {
             const data = await res.json();
             if (res.ok) {
                 setSelectedDeveloper(data);
-                console.log("selected Developer : ", selectedDeveloper);
-                document.getElementById("developer_modal").showModal();
+                // console.log("selected Developer : ", selectedDeveloper);
+                console.log('Selected Developerrr : ', data);
+                // document.getElementById("developer_modal").showModal();
             }
             else {
                 toast.error("Developer not found!");
@@ -34,6 +42,43 @@ export default function DetailsAccordion({ project }) {
         }
         finally {
             setLoading(false);
+        }
+    }
+
+    const handleAssign = async (email) => {
+        // console.log("Email received : ", email);
+        try {
+
+            const res = await fetch("/api/assign-project", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "projectId": project.projectDetails._id,
+                    "projectName": project.projectName,
+                    "devEmail": email,
+                }
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                if (data.alreadyAssigned) // alreadyAssigned is coming from api response
+                {
+                    toast(`Developer already assigned to this project`);
+                }
+                else {
+                    toast.success("Developer Successfully assigned!");
+                    setAssignedEmails((prev) => [...prev, email]);
+                }
+
+            }
+            else {
+                toast.error(`Error: ${data.error || "Something went wrong"}`);
+            }
+        }
+        catch (error) {
+            console.log("Error : ", error);
+            toast.error("Failed to assign developer")
         }
     }
 
@@ -83,6 +128,21 @@ export default function DetailsAccordion({ project }) {
                             </p> */}
 
                             <p className="text-sm">Rating: No value</p>
+
+                            {/* Assign Button - TODO: make a different Component */}
+                            <p className="mt-4">
+                                <button
+                                    className={`px-3 py-1 rounded-md ${assignedEmails.includes(selectedDeveloper?.email)
+                                            ? "bg-gray-300 cursor-not-allowed"
+                                            : "bg-blue-400 cursor-pointer"
+                                        }`}
+                                    onClick={() => handleAssign(selectedDeveloper?.email)}
+                                    disabled={assignedEmails.includes(selectedDeveloper?.email)}
+                                >
+                                    {assignedEmails.includes(selectedDeveloper?.email) ? "Already Assigned" : "Assign"}
+                                </button>
+                            </p>
+
                         </div>
                     ) : (
                         <p className="text-center text-gray-500">No data found</p>
