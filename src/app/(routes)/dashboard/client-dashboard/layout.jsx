@@ -17,9 +17,8 @@ export default function DashboardLayout({ children }) {
 
     const links = [
         { href: "/dashboard/client-dashboard", label: "Home", icon: <FaHome /> },
-        { href: "/dashboard/client-dashboard/overview", label: "Overview X", icon: <HiOutlineViewGrid /> },
         { href: "/dashboard/client-dashboard/reports", label: "Reports", icon: <FaChartBar /> },
-        { href: "/dashboard/client-dashboard/inbox", label: "Inbox X", icon: <FiInbox /> },
+        { href: "/dashboard/client-dashboard/myProjects", label: "My Projects", icon: <FaChartBar /> },
         { href: "/dashboard/client-dashboard/payment", label: "Payment", icon: <FiCreditCard /> },
         { href: "/dashboard/client-dashboard/profile", label: "Profile", icon: <FaUser /> },
         { href: "/dashboard/client-dashboard/settings", label: "Settings", icon: <FaCog /> },

@@ -22,6 +22,7 @@ export default function MyProjects() {
                 });
 
                 const data = await res.json();
+                console.log(data)
                 if (data.success) {
                     setProjects(data.data);
                 }
@@ -45,6 +46,7 @@ export default function MyProjects() {
 
             {projects.length > 0 ? (
                 projects.map((project, idx) => (
+                    
                     <div
                         key={idx} // projectName unique na hole index use
                         className="border p-2 rounded-md gap-2 mb-4"
