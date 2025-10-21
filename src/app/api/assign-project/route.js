@@ -87,3 +87,26 @@ export const POST = async (req) => {
         return NextResponse.json({ success: false, error: error.message });
     }
 };
+
+
+
+export async function GET(req) {
+  try {
+    const client = await clientPromise;
+    const db = client.db(process.env.DB_NAME);
+    const collection = db.collection("assigned"); 
+
+    const projects = await collection.find().toArray();
+
+    return new Response(JSON.stringify(projects), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Error fetching assigned projects:", error);
+    return new Response(
+      JSON.stringify({ error: "Failed to fetch assigned projects" }),
+      { status: 500 }
+    );
+  }
+}
