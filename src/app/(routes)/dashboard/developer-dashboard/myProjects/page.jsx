@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { FaTrashAlt, FaEye } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
 
@@ -30,12 +29,10 @@ export default function DevelopersProjects() {
         const [bidsRes, assignedRes, projectDetails] = await Promise.all([
           fetch("/api/bids"),
           fetch("/api/assign-project"),
-          fetch("/api/posts"),
         ]);
 
         const bidsData = await bidsRes.json();
         const assignedData = await assignedRes.json();
-        const postsData = await projectDetails.json();
 
         // ✅ Filter projects by logged-in developer
         const myBids = bidsData.filter(
@@ -162,22 +159,11 @@ export default function DevelopersProjects() {
                   {project.projectName}
                 </h3>
                 <p className="text-sm text-gray-500 mb-2">{project.category}</p>
-                {/* <p className="text-gray-600 mb-3">
-                  {project.shortDescription?.slice(0, 80)}...
-                </p> */}
-                {/* <p className="text-sm text-gray-500 mb-2">
-                  <strong>Deadline:</strong> {project.deadline || "Not set"}
-                </p> */}
+
                 <p className="text-sm text-gray-500 mb-4">
                   <strong>Client:</strong> {project.clientName || "N/A"}
                 </p>
                 <div className="flex justify-between items-center">
-                  {/* <Link
-                    href={`/projects/${project._id}`}
-                    className="flex items-center gap-2 text-blue-600 hover:underline text-sm"
-                  >
-                    <FaEye /> View Details
-                  </Link> */}
                   <button
                     onClick={() => handleDeleteBid(project._id)}
                     className="flex items-center gap-2 text-red-600 hover:text-red-800"
@@ -215,14 +201,7 @@ export default function DevelopersProjects() {
                   Assigned at:{" "}
                   {new Date(project.assignedAt).toLocaleDateString()}
                 </p>
-                <div className="flex justify-between items-center">
-                  {/* <Link
-                    href={`/projects/${post._id}`}
-                    className="flex items-center gap-2 text-blue-600 hover:underline text-sm"
-                  >
-                    <FaEye /> View Details
-                  </Link> */}
-                </div>
+                <div className="flex justify-between items-center"></div>
               </div>
             ))}
           </div>

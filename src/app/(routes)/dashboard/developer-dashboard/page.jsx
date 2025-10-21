@@ -17,6 +17,7 @@ import { TbLogout2 } from "react-icons/tb";
 
 import KanbanBoard from "./kanban/KanbanBoard";
 import InviteForm from "@/components/forms/InviteForm";
+import DashboardMockup from "./DashboardMockup/page";
 
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -169,9 +170,9 @@ export default function DeveloperDashboard() {
             Overview
           </h1>
           <div className="flex items-center gap-4">
-            <button className="text-gray-600 hover:text-indigo-600 transition">
+            {/* <button className="text-gray-600 hover:text-indigo-600 transition">
               <FaBell size={20} />
-            </button>
+            </button> */}
 
             {/* Profile dropdown */}
             <div className="relative" ref={dropdownRef}>
@@ -283,6 +284,10 @@ export default function DeveloperDashboard() {
               <InviteForm />
             </div>
           )}
+
+          <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+            <DashboardMockup />
+          </div>
         </main>
       </div>
     </div>

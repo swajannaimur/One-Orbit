@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { CopilotPopup } from "@copilotkit/react-ui";
 import { useFrontendTool } from "@copilotkit/react-core";
+import Swal from "sweetalert2";
 
 const COLUMNS = [
   { key: "todo", title: "📝 To Do", color: "from-pink-100 to-pink-50" },
@@ -188,10 +189,23 @@ export default function KanbanBoard() {
   }
 
   async function deleteTask(taskId) {
-    if (!confirm("Delete this task?")) return;
+    // Show confirmation dialog using SweetAlert
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete this task?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return; // stop if canceled
+
     try {
       const id = normalizeId(taskId);
       await fetch(`/api/kanban/tasks/${id}`, { method: "DELETE" });
+
       setTasksByStatus((prev) => {
         const copy = { ...prev };
         Object.keys(copy).forEach(
@@ -199,8 +213,22 @@ export default function KanbanBoard() {
         );
         return copy;
       });
+
+      // Show success alert
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Task has been deleted successfully.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (err) {
       console.error("deleteTask error", err);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong while deleting the task!",
+      });
     }
   }
 
