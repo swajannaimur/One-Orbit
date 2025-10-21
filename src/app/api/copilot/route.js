@@ -1,5 +1,4 @@
-import { CopilotRuntime } from "@copilotkit/react-core";
-import { GoogleGenerativeAIAdapter } from "@copilotkit/google-genai-adapter";
+import { CopilotRuntime, GoogleGenerativeAIAdapter } from "@copilotkit/runtime";
 
 const runtime = new CopilotRuntime({
   adapter: new GoogleGenerativeAIAdapter({

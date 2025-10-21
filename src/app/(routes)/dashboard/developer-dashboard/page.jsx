@@ -16,7 +16,7 @@ import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { TbLogout2 } from "react-icons/tb";
 
 import KanbanBoard from "./kanban/KanbanBoard";
-import InviteForm from "@/app/api/users/invite/InviteForm";
+import InviteForm from "@/components/forms/InviteForm";
 
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);

@@ -40,8 +40,26 @@ export const POST = async (request) => {
 		const msg = {
 			to: email,
 			from: "yasinarafat1396@gmail.com", // verified sender
-			subject: "Reset Password in OneOrbit",
-			text: `Reset your password by clicking this link: ${resetUrl}`,
+			subject: "Reset your OneOrbit Password securely ",
+			text: `
+                Hello,
+
+                We received a request to reset your OneOrbit account password.
+                You can reset it by clicking the secure link below:
+
+                ${resetUrl}
+
+                If you didn't request this, please ignore this email.
+
+                Thank you,
+                OneOrbit Team
+                `,
+            html: `
+                <p>Click below to reset your password:</p>
+                <a href="${resetUrl}" style="color: #1a73e8;">Reset Password</a>
+                <p>If the button doesn’t work, copy and paste this link into your browser:</p>
+                <p>${resetUrl}</p>
+                `
 		};
 
 		sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
