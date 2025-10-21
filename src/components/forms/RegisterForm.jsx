@@ -14,7 +14,7 @@ export default function RegisterForm() {
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState("");
     const [loading, setLoading] = useState(false);
-    const [role, setRole] = useState("client"); // ✅ Default role
+    const [role, setRole] = useState("client");
     const router = useRouter();
 
     const isValidEmail = (email) => {
