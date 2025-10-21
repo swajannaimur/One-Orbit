@@ -3,6 +3,7 @@ import React from "react";
 import MessageForm from "@/components/forms/MessageForm";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope } from "react-icons/fa";
+import MessageForm from "@/app/api/developers/message/MessageForm";
 
 const page = async ({ params }) => {
   const { id } = params;
@@ -32,7 +33,7 @@ const page = async ({ params }) => {
     { icon: FaGithub, label: "GitHub", url: developer.github },
     { icon: FaLinkedin, label: "LinkedIn", url: developer.linkedin },
     { icon: FaFacebook, label: "Facebook", url: developer.facebook },
-    { icon: FaEnvelope, label: "Email", url: `mailto:${developer.email}` },
+    // { icon: FaEnvelope, label: "Email", url: `mailto:${developer.email}` },
   ];
 
   return (
@@ -84,13 +85,12 @@ const page = async ({ params }) => {
           </p>
 
           <div className="mt-4">
-            <h3 className="font-medium text-gray-800">Resume</h3>
             {developer.resume ? (
               <a
                 href={developer.resume}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
+                className="btn bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group hover:underline break-words"
               >
                 View Resume
               </a>
@@ -100,13 +100,12 @@ const page = async ({ params }) => {
           </div>
 
           <div className="mt-2">
-            <h3 className="font-medium text-gray-800">Portfolio</h3>
             {developer.portfolio ? (
               <a
                 href={developer.portfolio}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline break-words"
+                className="btn bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group hover:underline break-words"
               >
                 Open Portfolio
               </a>
@@ -116,8 +115,8 @@ const page = async ({ params }) => {
           </div>
 
           <div className="mt-2">
-            <h3 className="font-medium text-gray-800">Contact Info</h3>
-            <ul className="text-gray-700 space-y-1">
+            <h3 className="font-medium text-black">Contact Info</h3>
+            <ul className="text-black space-y-1">
               <li>Email: {developer.email}</li>
             </ul>
           </div>
@@ -125,8 +124,8 @@ const page = async ({ params }) => {
 
         {/* Q&A Card */}
         <div className="bg-white p-6 rounded-lg shadow-md transform transition-transform hover:scale-105 hover:shadow-lg duration-300">
-          <h2 className="text-xl font-semibold mb-4">Q & A</h2>
-          <div className="space-y-4 text-gray-700 text-sm">
+          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Q & A</h2>
+          <div className="space-y-4 text-black text-sm">
             {[
               { q: "Why should we hire you?", ans: developer.qna?.whyHire },
               {
@@ -145,7 +144,7 @@ const page = async ({ params }) => {
             ].map(({ q, ans }, idx) => (
               <div
                 key={idx}
-                className="p-3 rounded border-l-4 border-indigo-300 hover:bg-indigo-50 transition-colors"
+                className="p-3 rounded border-l-4 border-purple-600 hover:bg-indigo-50 transition-colors"
               >
                 <strong>{q}</strong>
                 <p className="mt-1 whitespace-pre-wrap">

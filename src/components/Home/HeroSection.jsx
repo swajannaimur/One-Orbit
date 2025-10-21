@@ -1,6 +1,11 @@
 "use client";
+<<<<<<< HEAD
+import React from "react";
+import Link from "next/link";
+=======
 import React from 'react';
 import Link from 'next/link';
+>>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
 import {
   FiPlay,
   FiCheck,
@@ -8,40 +13,62 @@ import {
   FiBarChart2,
   FiClock,
   FiShield,
+<<<<<<< HEAD
+  FiGlobe,
+} from "react-icons/fi";
+=======
   FiGlobe
 } from 'react-icons/fi';
+>>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
 import {
   HiOutlineLightningBolt,
   HiOutlineTemplate,
   HiOutlineCalendar,
+<<<<<<< HEAD
+  HiOutlineChatAlt2,
+} from "react-icons/hi";
+=======
   HiOutlineChatAlt2
 } from 'react-icons/hi';
+>>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
 import {
   RiRocketLine,
   RiTeamLine,
   RiSecurePaymentLine,
-  RiStarSFill
-} from 'react-icons/ri';
+  RiStarSFill,
+} from "react-icons/ri";
 
 export default function HeroSection() {
   const features = [
     { icon: HiOutlineTemplate, text: "Drag & Drop Interface" },
     { icon: HiOutlineCalendar, text: "Smart Scheduling" },
     { icon: HiOutlineChatAlt2, text: "Real-time Collaboration" },
-    { icon: FiBarChart2, text: "Advanced Analytics" }
+    { icon: FiBarChart2, text: "Advanced Analytics" },
   ];
 
   const stats = [
     { number: "98%", label: "Team Productivity Increase" },
     { number: "50%", label: "Faster Project Completion" },
     { number: "10K+", label: "Teams Trust OneOrbit" },
-    { number: "4.9/5", label: "Customer Satisfaction" }
+    { number: "4.9/5", label: "Customer Satisfaction" },
   ];
 
   const testimonials = [
-    { name: "Sarah Chen", role: "Product Manager at TechCorp", text: "OneOrbit transformed how our remote teams collaborate." },
-    { name: "Marcus Johnson", role: "CTO at StartupXYZ", text: "Cut our meeting time by 60% while improving outcomes." },
-    { name: "Elena Rodriguez", role: "Design Lead at CreativeCo", text: "The intuitive interface made adoption seamless." }
+    {
+      name: "Sarah Chen",
+      role: "Product Manager at TechCorp",
+      text: "OneOrbit transformed how our remote teams collaborate.",
+    },
+    {
+      name: "Marcus Johnson",
+      role: "CTO at StartupXYZ",
+      text: "Cut our meeting time by 60% while improving outcomes.",
+    },
+    {
+      name: "Elena Rodriguez",
+      role: "Design Lead at CreativeCo",
+      text: "The intuitive interface made adoption seamless.",
+    },
   ];
 
   return (
@@ -76,7 +103,9 @@ export default function HeroSection() {
               </h1>
 
               <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
-                Streamline your workflow, enhance team collaboration, and deliver projects faster with our all-in-one platform designed for modern teams.
+                Streamline your workflow, enhance team collaboration, and
+                deliver projects faster with our all-in-one platform designed
+                for modern teams.
               </p>
             </div>
 
@@ -87,7 +116,9 @@ export default function HeroSection() {
                   <div className="w-10 h-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <feature.icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">{feature.text}</span>
+                  <span className="text-gray-700 dark:text-gray-300 font-medium">
+                    {feature.text}
+                  </span>
                 </div>
               ))}
             </div>
@@ -95,14 +126,28 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
+<<<<<<< HEAD
+                href="/get-started"
+                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden"
+              >
+=======
                 href="/register"
                 className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden">
+>>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative flex items-center justify-center gap-3">
                   <RiRocketLine className="w-5 h-5" />
                   Start Free
                 </span>
               </Link>
+<<<<<<< HEAD
+
+              <button className="group px-8 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-2xl hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3">
+                <FiPlay className="w-5 h-5" />
+                Watch Demo (2 mins)
+              </button>
+=======
+>>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
             </div>
 
             {/* Security Badge */}
@@ -116,14 +161,19 @@ export default function HeroSection() {
           <div className="relative">
             {/* Main Dashboard Card */}
             <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/20 p-6 transform rotate-1 hover:rotate-0 transition-transform duration-500">
+<<<<<<< HEAD
+=======
 
+>>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
               {/* Dashboard Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 ml-2">Active Projects</span>
+                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 ml-2">
+                    Active Projects
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <FiClock className="w-3 h-3" />
@@ -134,9 +184,14 @@ export default function HeroSection() {
               {/* Project Cards Grid */}
               <div className="grid gap-4 mb-6">
                 {[1, 2, 3].map((item) => (
-                  <div key={item} className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-4 border border-blue-100 dark:border-blue-800/30">
+                  <div
+                    key={item}
+                    className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-4 border border-blue-100 dark:border-blue-800/30"
+                  >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold text-gray-800 dark:text-gray-200">Q1 Product Launch</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-200">
+                        Q1 Product Launch
+                      </span>
                       <div className="flex items-center gap-1 text-xs text-green-600">
                         <FiCheck className="w-3 h-3" />
                         75%
@@ -152,12 +207,17 @@ export default function HeroSection() {
               {/* Team Activity */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Team Activity</span>
+                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    Team Activity
+                  </span>
                   <FiUsers className="w-4 h-4 text-gray-500" />
                 </div>
                 <div className="flex -space-x-2">
                   {[1, 2, 3, 4, 5].map((item) => (
-                    <div key={item} className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center text-white text-xs font-bold">
+                    <div
+                      key={item}
+                      className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center text-white text-xs font-bold"
+                    >
                       {item}
                     </div>
                   ))}
@@ -182,7 +242,9 @@ export default function HeroSection() {
                   <FiCheck className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-800 dark:text-gray-200">128 tasks</div>
+                  <div className="font-semibold text-gray-800 dark:text-gray-200">
+                    128 tasks
+                  </div>
                   <div className="text-sm text-gray-500">completed today</div>
                 </div>
               </div>
@@ -197,7 +259,9 @@ export default function HeroSection() {
               <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {stat.number}
               </div>
-              <div className="text-gray-600 dark:text-gray-400 mt-2">{stat.label}</div>
+              <div className="text-gray-600 dark:text-gray-400 mt-2">
+                {stat.label}
+              </div>
             </div>
           ))}
         </div>
@@ -206,16 +270,25 @@ export default function HeroSection() {
         <div className="mt-8">
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+              <div
+                key={index}
+                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+              >
                 <div className="flex items-center gap-1 text-amber-400 mb-4">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <RiStarSFill key={star} className="w-4 h-4" />
                   ))}
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 italic mb-4">"{testimonial.text}"</p>
+                <p className="text-gray-700 dark:text-gray-300 italic mb-4">
+                  "{testimonial.text}"
+                </p>
                 <div>
-                  <div className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</div>
+                  <div className="font-semibold text-gray-900 dark:text-white">
+                    {testimonial.name}
+                  </div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    {testimonial.role}
+                  </div>
                 </div>
               </div>
             ))}

@@ -9,6 +9,7 @@ import {
   FaProjectDiagram,
   FaBell,
   FaBars,
+  FaUserPlus,
 } from "react-icons/fa";
 import { PiKanban } from "react-icons/pi";
 import { MdOutlineSettingsSuggest } from "react-icons/md";
@@ -50,6 +51,8 @@ export default function DeveloperDashboard() {
     return () => (mounted = false);
   }, []);
 
+  const [activeSection, setActiveSection] = useState(null);
+
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-100 ">
       {/* Sidebar */}
@@ -76,7 +79,7 @@ export default function DeveloperDashboard() {
 
         <nav className="flex-1 px-2 py-4 space-y-2">
           <Link
-            href="/developerDashboard/myprojects"
+            href="/dashboard/developer-dashboard/myProjects"
             className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-indigo-100 hover:to-blue-100 text-gray-800 font-medium transition"
           >
             <FaProjectDiagram className="text-indigo-500" />
@@ -91,21 +94,47 @@ export default function DeveloperDashboard() {
             {isSidebarOpen && <span>My Tasks</span>}
           </a> */}
 
-          <a
-            href="#"
+          <Link
+            href="/dashboard/developer-dashboard/teamMembers"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-100 text-gray-800 font-medium transition"
           >
             <FaUsers className="text-green-500" />
             {isSidebarOpen && <span>Team Members</span>}
-          </a>
+          </Link>
 
+          {/* <a
+            href="#"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-pink-100 text-gray-800 font-medium transition"
+          >
+            <FaUserPlus className="text-indigo-600" />
+            {isSidebarOpen && <span>Invite a Teammate</span>}
+          </a>
           <a
             href="#"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
           >
             <PiKanban className="text-purple-500" />
             {isSidebarOpen && <span>Board</span>}
-          </a>
+          </a> */}
+
+          {/* Invite a Teammate */}
+          <button
+            onClick={() => setActiveSection("invite")}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-pink-100 text-gray-800 font-medium transition"
+          >
+            <FaUserPlus className="text-indigo-600" />
+            {isSidebarOpen && <span>Invite a Teammate</span>}
+          </button>
+
+          {/* Kanban Board */}
+          <button
+            onClick={() => setActiveSection("board")}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
+          >
+            <PiKanban className="text-purple-500" />
+            {isSidebarOpen && <span>Board</span>}
+          </button>
+
           <a
             href="#"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-yellow-100 text-gray-800 font-medium transition"
@@ -234,18 +263,28 @@ export default function DeveloperDashboard() {
           </div>
 
           {/* Kanban Board Section */}
-          <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg ">
+          {/* <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg ">
             <KanbanBoard />
-          </div>
+          </div> */}
 
           {/* Invite Section */}
-          <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+          {/* <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
             <InviteForm />
-          </div>
+          </div> */}
+
+          {activeSection === "board" && (
+            <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+              <KanbanBoard />
+            </div>
+          )}
+
+          {activeSection === "invite" && (
+            <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+              <InviteForm />
+            </div>
+          )}
         </main>
       </div>
     </div>
   );
 }
-
-
