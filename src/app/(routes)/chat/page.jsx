@@ -16,7 +16,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState({}); // { [friendId]: [msgs] }
   const scrollRef = useRef(null);
   const { data: session } = useSession();
-  const [ addedFriend, setAddedFriend ] = useState(false);
+  const [addedFriend, setAddedFriend] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Set clientId from NextAuth session
@@ -24,14 +24,14 @@ export default function ChatPage() {
     if (session?.user?.id) {
       setClientId(session.user.id);
     }
-  }, [ session, setClientId ]);
+  }, [session, setClientId]);
 
 
   const currentUser = usersList?.filter(user => user._id === clientId);
 
   const friendsList = usersList.filter((user) => currentUser[0]?.friends?.includes(user._id));
-  const contactsList = usersList.filter((user) => !currentUser[ 0 ]?.friends?.includes(user._id) && user._id !== clientId);
-  
+  const contactsList = usersList.filter((user) => !currentUser[0]?.friends?.includes(user._id) && user._id !== clientId);
+
 
   // Subscribe to Ably channel for a selected friend
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function ChatPage() {
 
     // Enter presence to announce online
     try {
-      if(clientId){
+      if (clientId) {
         channel.presence.enter({ clientId, status: "online" });
       }
     } catch (e) {
@@ -81,7 +81,7 @@ export default function ChatPage() {
           `/api/messages?userId=${clientId}&friendId=${selectedFriend._id}`
         );
         const fetchedMessages = await res.json();
-        setMessages((prev) => ({...prev, [String(selectedFriend._id)]: fetchedMessages}));
+        setMessages((prev) => ({ ...prev, [String(selectedFriend._id)]: fetchedMessages }));
       } catch (error) {
         console.error("Failed to fetch messages:", error);
       }
@@ -93,7 +93,7 @@ export default function ChatPage() {
       channel.unsubscribe("message", messageHandler);
       try {
         channel.presence.leave();
-      } catch (e) {}
+      } catch (e) { }
     };
   }, [ably, clientId, selectedFriend]);
 
@@ -164,7 +164,7 @@ export default function ChatPage() {
           <span className="loading loading-spinner loading-xl"></span>
         </div>
       ) : (
-        <div className="flex h-[calc(100vh-5rem)] bg-base-200">
+        <div className="flex h-[calc(100vh-5rem)] bg-base-200 max-w-7xl mx-auto px-4">
           <Sidebar
             friendsList={friendsList}
             contactsList={contactsList}
@@ -200,17 +200,16 @@ export default function ChatPage() {
                   <div>
                     <h2 className="font-semibold">{selectedFriend?.name}</h2>
                     <p
-                      className={`${
-                        selectedFriend?.status === "online"
+                      className={`${selectedFriend?.status === "online"
                           ? "text-green-500"
                           : "text-red-500"
-                      }`}
+                        }`}
                     >
                       {selectedFriend?.status}
                     </p>
                   </div>
                 </div>
-                <button onClick={()=> setSidebarOpen(!sidebarOpen)} className="md:hidden">
+                <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden">
                   <RxCross2 size={30} />
                 </button>
               </div>
@@ -223,9 +222,8 @@ export default function ChatPage() {
                   (msg, index) => (
                     <div
                       key={index}
-                      className={`chat ${
-                        msg.senderId === clientId ? "chat-end" : "chat-start"
-                      }`}
+                      className={`chat ${msg.senderId === clientId ? "chat-end" : "chat-start"
+                        }`}
                     >
                       {msg.senderId !== clientId && (
                         <div className="chat-image avatar">
@@ -245,9 +243,8 @@ export default function ChatPage() {
                         </div>
                       )}
                       <div
-                        className={`chat-bubble ${
-                          msg.senderId === clientId ? "bg-blue-300" : ""
-                        }`}
+                        className={`chat-bubble ${msg.senderId === clientId ? "bg-blue-300" : ""
+                          }`}
                       >
                         {msg.text}
                       </div>
