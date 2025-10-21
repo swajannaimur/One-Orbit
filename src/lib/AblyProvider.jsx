@@ -10,6 +10,7 @@ export const AblyProvider = ({ children }) => {
   const [ablyRealtime, setAblyRealtime] = useState(null);
   const [clientId, setClientId] = useState("");
   const [usersList, setUsersList] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
     if (!clientId) return;
@@ -19,19 +20,37 @@ export const AblyProvider = ({ children }) => {
 
     const init = async () => {
       try {
-        // Use authUrl, not manual fetch — Ably handles token refresh automatically
         realtime = new Ably.Realtime({
           authUrl: "/api/ably/token?clientId=" + clientId,
-          echoMessages: false, // optional
+          echoMessages: false,
         });
 
-        realtime.connection.once("connected", () => {
+        realtime.connection.once("connected", async () => {
           console.log("✅ Ably connected");
-          if (!cancelled) setAblyRealtime(realtime);
+          if (cancelled) return;
+          setAblyRealtime(realtime);
+
+          const presenceChannel = realtime.channels.get("presence:global");
+          await presenceChannel.attach();
+          await presenceChannel.presence.enter({ clientId });
+
+          const updateOnlineUsers = async () => {
+            const members = await presenceChannel.presence.get({
+              waitForSync: true,
+            });
+            const ids = members.map((m) => m.clientId);
+            setOnlineUsers(ids);
+          };
+
+          presenceChannel.presence.subscribe("enter", updateOnlineUsers);
+          presenceChannel.presence.subscribe("leave", updateOnlineUsers);
+          presenceChannel.presence.subscribe("update", updateOnlineUsers);
+
+          await updateOnlineUsers();
         });
 
         realtime.connection.on("failed", (err) => {
-          console.error("❌ Ably connection failed");
+          console.error("❌ Ably connection failed", err);
         });
       } catch (err) {
         console.error("Failed to initialize Ably:", err);
@@ -44,6 +63,8 @@ export const AblyProvider = ({ children }) => {
       cancelled = true;
       if (realtime) {
         try {
+          const presenceChannel = realtime.channels.get("presence:global");
+          presenceChannel.presence.leave();
           realtime.close();
           console.log("🔌 Ably connection closed");
         } catch (e) {}
@@ -55,7 +76,7 @@ export const AblyProvider = ({ children }) => {
   return (
     <AblyContext.Provider value={ablyRealtime}>
       <CurrentUserContext.Provider
-        value={{ clientId, setClientId, usersList, setUsersList }}
+        value={{ clientId, setClientId, usersList, setUsersList, onlineUsers }}
       >
         {children}
       </CurrentUserContext.Provider>
