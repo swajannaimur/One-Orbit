@@ -1,11 +1,6 @@
 "use client";
-<<<<<<< HEAD
-import React from "react";
-import Link from "next/link";
-=======
 import React from 'react';
 import Link from 'next/link';
->>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
 import {
   FiPlay,
   FiCheck,
@@ -13,24 +8,14 @@ import {
   FiBarChart2,
   FiClock,
   FiShield,
-<<<<<<< HEAD
-  FiGlobe,
-} from "react-icons/fi";
-=======
   FiGlobe
 } from 'react-icons/fi';
->>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
 import {
   HiOutlineLightningBolt,
   HiOutlineTemplate,
   HiOutlineCalendar,
-<<<<<<< HEAD
-  HiOutlineChatAlt2,
-} from "react-icons/hi";
-=======
   HiOutlineChatAlt2
 } from 'react-icons/hi';
->>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
 import {
   RiRocketLine,
   RiTeamLine,
@@ -126,28 +111,14 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
-<<<<<<< HEAD
-                href="/get-started"
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden"
-              >
-=======
                 href="/register"
                 className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden">
->>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative flex items-center justify-center gap-3">
                   <RiRocketLine className="w-5 h-5" />
                   Start Free
                 </span>
               </Link>
-<<<<<<< HEAD
-
-              <button className="group px-8 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-2xl hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3">
-                <FiPlay className="w-5 h-5" />
-                Watch Demo (2 mins)
-              </button>
-=======
->>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
             </div>
 
             {/* Security Badge */}
@@ -161,10 +132,6 @@ export default function HeroSection() {
           <div className="relative">
             {/* Main Dashboard Card */}
             <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/20 p-6 transform rotate-1 hover:rotate-0 transition-transform duration-500">
-<<<<<<< HEAD
-=======
-
->>>>>>> 8116231374c37ecb8f6ca4af6b55997afa8d2925
               {/* Dashboard Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
