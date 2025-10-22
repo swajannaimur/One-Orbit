@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { signIn } from "next-auth/react";
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
 const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
@@ -21,7 +22,7 @@ export default function RegisterForm() {
         const emailRegx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         return emailRegx.test(email);
     };
-    
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -67,7 +68,7 @@ export default function RegisterForm() {
             formData.append("file", image);
             formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-            const uploadRes = await fetch (CLOUDINARY_UPLOAD_URL, {
+            const uploadRes = await fetch(CLOUDINARY_UPLOAD_URL, {
                 method: "POST",
                 body: formData,
             });
@@ -90,7 +91,7 @@ export default function RegisterForm() {
                 },
                 body: JSON.stringify({ name, email, password, image: imageUrl, role }),
             });
-        
+
 
             if (res.status === 400) {
                 toast.error("This email already registered.");
@@ -108,7 +109,7 @@ export default function RegisterForm() {
                 if (!result.error) {
                     router.push("/");
                 } else {
-               
+
                     toast.error("Login failed after registration");
                 }
             }
@@ -129,15 +130,16 @@ export default function RegisterForm() {
             {/* Profile Image Upload - Positioned at the top */}
             <div className="flex flex-col items-center justify-center mt-6 mb-6">
                 <div className="relative">
-                    <div 
+                    <div
                         onClick={handleImageClick}
                         className="w-32 h-32 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-primary transition-colors duration-200 bg-gray-50"
                     >
                         {preview ? (
-                            <img
+                            <Image
                                 src={preview}
                                 alt="Preview"
-                                className="w-full h-full rounded-full object-cover"
+                                fill
+                                className="object-cover rounded-full"
                             />
                         ) : (
                             <div className="text-center">
@@ -148,7 +150,7 @@ export default function RegisterForm() {
                             </div>
                         )}
                     </div>
-                    
+
                     {preview && (
                         <button
                             type="button"
@@ -162,7 +164,7 @@ export default function RegisterForm() {
                         </button>
                     )}
                 </div>
-                
+
                 <input
                     id="profile-image-input"
                     type="file"
@@ -170,7 +172,7 @@ export default function RegisterForm() {
                     onChange={handleImageChange}
                     className="hidden"
                 />
-                
+
                 <p className="text-sm text-gray-500 mt-3 text-center">
                     Click the circle to upload a profile image
                 </p>

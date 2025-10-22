@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useAbly, useCurrentUser } from "@/lib/AblyProvider";
 import { MdOutlineSend } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import Image from "next/image";
 
 export default function ChatPage() {
   const ably = useAbly();
@@ -185,14 +186,20 @@ export default function ChatPage() {
                   <div className="avatar">
                     <div className="w-10 rounded-full">
                       {selectedFriend?.image ? (
-                        <img
+                        <Image
                           src={selectedFriend.image}
                           alt={selectedFriend.name}
+                          fill
+                          className="object-cover rounded-full"
+                          sizes="40px"
                         />
                       ) : (
-                        <img
+                        <Image
                           src={`https://api.dicebear.com/9.x/initials/svg?seed=${selectedFriend?.name}`}
                           alt={selectedFriend?.name}
+                          fill
+                          className="object-cover rounded-full"
+                          sizes="40px"
                         />
                       )}
                     </div>
@@ -201,8 +208,8 @@ export default function ChatPage() {
                     <h2 className="font-semibold">{selectedFriend?.name}</h2>
                     <p
                       className={`${selectedFriend?.status === "online"
-                          ? "text-green-500"
-                          : "text-red-500"
+                        ? "text-green-500"
+                        : "text-red-500"
                         }`}
                     >
                       {selectedFriend?.status}
@@ -227,21 +234,26 @@ export default function ChatPage() {
                     >
                       {msg.senderId !== clientId && (
                         <div className="chat-image avatar">
-                          <div className="w-10 rounded-full">
+                          <div className="w-10 rounded-full relative h-10">
                             {selectedFriend?.image ? (
-                              <img
+                              <Image
                                 src={selectedFriend.image}
                                 alt={selectedFriend.name}
+                                fill
+                                className="object-cover rounded-full"
                               />
                             ) : (
-                              <img
+                              <Image
                                 src={`https://api.dicebear.com/9.x/initials/svg?seed=${selectedFriend?.name}`}
                                 alt={selectedFriend?.name}
+                                fill
+                                className="object-cover rounded-full"
                               />
                             )}
                           </div>
                         </div>
                       )}
+
                       <div
                         className={`chat-bubble ${msg.senderId === clientId ? "bg-blue-300" : ""
                           }`}
