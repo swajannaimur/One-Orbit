@@ -50,7 +50,7 @@ export default function Sidebar({ friendsList, contactsList, selectedFriend, set
             >
               <div className="w-10 rounded-full relative h-10">
                 <Image
-                  src={user.image || `https://api.dicebear.com/9.x/initials/svg?seed=${user.name}`}
+                  src={user.image || `https://api.dicebear.com/9.x/initials/png?seed=${user.name}`}
                   alt={user.name}
                   fill
                   className="object-cover rounded-full"

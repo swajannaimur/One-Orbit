@@ -5,20 +5,84 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
-import { 
-  FiDollarSign, 
-  FiCalendar, 
-  FiTag, 
-  FiCode, 
-  FiFileText, 
+import {
+  FiDollarSign,
+  FiCalendar,
+  FiTag,
+  FiCode,
+  FiFileText,
   FiClock,
   FiSend,
   FiUser
 } from "react-icons/fi";
 
+// Move InputField OUTSIDE AddPost
+const InputField = ({ icon: Icon, label, name, type = "text", value, onChange, required = true, categories = [], ...props }) => (
+  <div className="space-y-2">
+    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+      <Icon className="text-primary" size={16} />
+      {label}
+      {required && <span className="text-red-500">*</span>}
+    </label>
+    {type === "select" ? (
+      <div className="relative">
+        <select
+          name={name}
+          value={value}
+          onChange={onChange}
+          required={required}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-white appearance-none"
+          {...props}
+        >
+          <option value="" disabled>Select {label.toLowerCase()}</option>
+          {categories.map((cat, index) => (
+            <option key={index} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+          <FiTag size={16} />
+        </div>
+      </div>
+    ) : type === "date" ? (
+      <div className="relative">
+        <DatePicker
+          selected={value}
+          onChange={onChange}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+          dateFormat="MMMM d, yyyy"
+          minDate={new Date()}
+          {...props}
+        />
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+          <FiCalendar size={16} />
+        </div>
+      </div>
+    ) : (
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+        {...props}
+      />
+    )}
+  </div>
+);
+
 const AddPost = () => {
   const { data: session } = useSession();
-  const [deadline, setDeadline] = useState(new Date());
+  const [formValues, setFormValues] = useState({
+    projectName: "",
+    category: "",
+    budget: "",
+    skills: "",
+    summary: "",
+    deadline: new Date(),
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const categories = [
@@ -31,22 +95,24 @@ const AddPost = () => {
     "Logo design",
   ];
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleDateChange = (date) => {
+    setFormValues(prev => ({ ...prev, deadline: date }));
+  };
+
   const handleAddPost = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
-    const formData = new FormData(e.target);
 
     const userName = session?.user?.name || "Guest";
     const userEmail = session?.user?.email || "guest@example.com";
 
     const data = {
-      projectName: formData.get("projectName"),
-      category: formData.get("category"),
-      budget: formData.get("budget"),
-      skills: formData.get("skills"),
-      summary: formData.get("summary"),
-      deadline,
+      ...formValues,
       postedDate: new Date(),
       clientName: userName,
       clientEmail: userEmail,
@@ -60,7 +126,7 @@ const AddPost = () => {
       });
 
       const result = await res.json();
-      
+
       if (res.ok) {
         Swal.fire({
           title: "Success!",
@@ -69,8 +135,14 @@ const AddPost = () => {
           confirmButtonText: "Continue",
           confirmButtonColor: "#3B82F6",
         });
-        e.target.reset();
-        setDeadline(new Date());
+        setFormValues({
+          projectName: "",
+          category: "",
+          budget: "",
+          skills: "",
+          summary: "",
+          deadline: new Date(),
+        });
       } else {
         throw new Error(result.message || "Failed to create post");
       }
@@ -87,58 +159,6 @@ const AddPost = () => {
       setIsLoading(false);
     }
   };
-
-  const InputField = ({ icon: Icon, label, name, type = "text", required = true, ...props }) => (
-    <div className="space-y-2">
-      <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-        <Icon className="text-primary" size={16} />
-        {label}
-        {required && <span className="text-red-500">*</span>}
-      </label>
-      {type === "select" ? (
-        <div className="relative">
-          <select
-            name={name}
-            required={required}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-white appearance-none"
-            {...props}
-          >
-            <option value="" disabled>Select {label.toLowerCase()}</option>
-            {categories.map((cat, index) => (
-              <option key={index} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
-            <FiTag size={16} />
-          </div>
-        </div>
-      ) : type === "date" ? (
-        <div className="relative">
-          <DatePicker
-            selected={deadline}
-            onChange={(date) => setDeadline(date)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
-            dateFormat="MMMM d, yyyy"
-            minDate={new Date()}
-            {...props}
-          />
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
-            <FiCalendar size={16} />
-          </div>
-        </div>
-      ) : (
-        <input
-          type={type}
-          name={name}
-          required={required}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
-          {...props}
-        />
-      )}
-    </div>
-  );
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -167,7 +187,6 @@ const AddPost = () => {
 
       {/* Project Form */}
       <form onSubmit={handleAddPost} className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-        {/* Form Header */}
         <div className="border-b border-gray-200 bg-gray-50 px-8 py-6">
           <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
             <FiFileText className="text-primary" />
@@ -178,74 +197,77 @@ const AddPost = () => {
           </p>
         </div>
 
-        {/* Form Content */}
-        <div className="p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Project Name */}
-            <InputField
-              icon={FiFileText}
-              label="Project Name"
-              name="projectName"
-              placeholder="Enter your project title"
-            />
+        <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <InputField
+            icon={FiFileText}
+            label="Project Name"
+            name="projectName"
+            value={formValues.projectName}
+            onChange={handleChange}
+            placeholder="Enter your project title"
+          />
 
-            {/* Category */}
-            <InputField
-              icon={FiTag}
-              label="Project Category"
-              name="category"
-              type="select"
-            />
+          <InputField
+            icon={FiTag}
+            label="Project Category"
+            name="category"
+            type="select"
+            value={formValues.category}
+            onChange={handleChange}
+            categories={categories}
+          />
 
-            {/* Required Skills */}
-            <InputField
-              icon={FiCode}
-              label="Required Skills"
-              name="skills"
-              placeholder="e.g., React, Node.js, Figma"
-            />
+          <InputField
+            icon={FiCode}
+            label="Required Skills"
+            name="skills"
+            value={formValues.skills}
+            onChange={handleChange}
+            placeholder="e.g., React, Node.js, Figma"
+          />
 
-            {/* Budget */}
-            <InputField
-              icon={FiDollarSign}
-              label="Budget ($)"
-              name="budget"
-              type="number"
-              placeholder="Enter your budget amount"
-              min="0"
-            />
+          <InputField
+            icon={FiDollarSign}
+            label="Budget ($)"
+            name="budget"
+            type="number"
+            value={formValues.budget}
+            onChange={handleChange}
+            placeholder="Enter your budget amount"
+            min="0"
+          />
 
-            {/* Deadline */}
-            <InputField
-              icon={FiClock}
-              label="Project Deadline"
-              name="deadline"
-              type="date"
-            />
+          <InputField
+            icon={FiClock}
+            label="Project Deadline"
+            name="deadline"
+            type="date"
+            value={formValues.deadline}
+            onChange={handleDateChange}
+          />
 
-            {/* Project Summary */}
-            <div className="lg:col-span-2 space-y-2">
-              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                <FiFileText className="text-primary" size={16} />
-                Project Summary
-                <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                name="summary"
-                required
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 resize-none"
-                placeholder="Describe your project requirements, goals, and any specific details..."
-              />
-            </div>
+          <div className="lg:col-span-2 space-y-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+              <FiFileText className="text-primary" size={16} />
+              Project Summary
+              <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              name="summary"
+              value={formValues.summary}
+              onChange={handleChange}
+              required
+              rows={4}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 resize-none"
+              placeholder="Describe your project requirements, goals, and any specific details..."
+            />
           </div>
 
-          {/* Submit Button */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
+          <div className="lg:col-span-2 mt-8 pt-6 border-t border-gray-200 flex justify-center">
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full lg:w-auto px-8 py-4 btn-gradient cursor-pointer text-white font-semibold rounded-lg  focus:ring-4 focus:ring-primary/20 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 mx-auto min-w-[200px]"
+              className="w-full lg:w-auto px-8 py-4 btn-gradient cursor-pointer text-white font-semibold rounded-lg focus:ring-4 focus:ring-primary/20 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 min-w-[200px]"
             >
               {isLoading ? (
                 <>
@@ -259,14 +281,6 @@ const AddPost = () => {
                 </>
               )}
             </button>
-          </div>
-
-          {/* Form Help Text */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-500">
-              Your project will be visible to our community of professionals. 
-              Make sure all information is accurate and complete.
-            </p>
           </div>
         </div>
       </form>
