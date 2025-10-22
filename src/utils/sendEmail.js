@@ -1,20 +1,28 @@
-import sgMail from "@sendgrid/mail";
+import { Resend } from "resend";
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail({ to, subject, text, html }) {
-  const msg = {
-    to,
-    from: process.env.EMAIL_FROM,
-    subject,
-    text,
-    html,
-  };
-
+  if (!to) {
+    console.error("❌ Missing `to` address in sendEmail");
+    return;
+  }
   try {
-    await sgMail.send(msg);
-    console.log("✅ Email sent successfully to:", to);
-  } catch (error) {
-    console.error("❌ Email send failed:", error.response?.body || error);
+    const { data, error } = await resend.emails.send({
+      from: process.env.EMAIL_FROM,
+      to,
+      subject,
+      text,    // optional
+      html     // optional – at least one should exist
+    });
+    if (error) {
+      console.error("❌ Resend send error:", error);
+      return;
+    }
+    console.log("✅ Email sent, id:", data.id);
+    return data;
+  } catch (err) {
+    console.error("❌ sendEmail exception:", err);
+    throw err;
   }
 }

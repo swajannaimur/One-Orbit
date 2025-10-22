@@ -153,7 +153,7 @@ const Carousel = () => {
   }, [isAutoPlaying, nextSlide]);
 
   return (
-    <section className="relative mx-auto bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20  shadow-2xl overflow-hidden">
+    <section className="relative max-w-7xl mx-auto bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 overflow-hidden">
       
       {/* Main Carousel Container */}
       <div 
