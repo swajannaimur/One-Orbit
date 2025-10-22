@@ -19,6 +19,7 @@
     "@stripe/stripe-js": "^8.0.0",
     "@vercel/og": "^0.8.5",
     "ably": "^2.14.0",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
@@ -34,7 +35,7 @@
     "react-otp-input": "^3.1.1",
     "rechart": "^0.0.1",
     "recharts": "^3.3.0",
-    "resend": "^6.2.0",
+    "resend": "^6.2.2",
     "stripe": "^19.1.0",
     "sweetalert2": "^11.23.0"
   },
