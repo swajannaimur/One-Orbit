@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState } from "react";
-import { 
-  FiCode, 
-  FiBook, 
-  FiTrendingUp, 
-  FiUsers, 
+import {
+  FiCode,
+  FiBook,
+  FiTrendingUp,
+  FiUsers,
   FiCheck,
   FiArrowRight,
   FiSearch,
@@ -14,7 +15,7 @@ import {
   FiAward,
   FiImage
 } from 'react-icons/fi';
-import { 
+import {
   HiOutlineLightningBolt,
   HiOutlineAcademicCap,
   HiOutlineColorSwatch,
@@ -119,7 +120,7 @@ const Solutions = () => {
     setImageErrors(prev => ({ ...prev, [itemId]: true }));
   };
 
-  const filteredSolutions = solutionsData.filter(section => 
+  const filteredSolutions = solutionsData.filter(section =>
     activeCategory === "all" || section.category === activeCategory
   ).map(section => ({
     ...section,
@@ -133,7 +134,7 @@ const Solutions = () => {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        
+
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 rounded-full border border-blue-200 dark:border-blue-800 mb-6">
@@ -142,7 +143,7 @@ const Solutions = () => {
               Industry Solutions
             </span>
           </div>
-          
+
           <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight mb-6">
             <span className="bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
               Solutions for Every
@@ -152,9 +153,9 @@ const Solutions = () => {
               Team & Industry
             </span>
           </h1>
-          
+
           <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            One Orbit adapts to your industry unique needs with specialized tools and workflows 
+            One Orbit adapts to your industry unique needs with specialized tools and workflows
             that enhance collaboration and drive productivity across your organization.
           </p>
         </div>
@@ -202,19 +203,17 @@ const Solutions = () => {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center gap-3 px-6 py-3 rounded-2xl border transition-all duration-300 ${
-                  activeCategory === category.id
+                className={`flex items-center gap-3 px-6 py-3 rounded-2xl border transition-all duration-300 ${activeCategory === category.id
                     ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white border-transparent shadow-lg'
                     : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
-                }`}
+                  }`}
               >
                 <Icon className="w-5 h-5" />
                 <span className="font-medium">{category.name}</span>
-                <span className={`px-2 py-1 text-xs rounded-full ${
-                  activeCategory === category.id
+                <span className={`px-2 py-1 text-xs rounded-full ${activeCategory === category.id
                     ? 'bg-white/20 text-white'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                }`}>
+                  }`}>
                   {category.count}
                 </span>
               </button>
@@ -248,7 +247,7 @@ const Solutions = () => {
                   {section.items.map((item, itemIndex) => {
                     const itemId = `${sectionIndex}-${itemIndex}`;
                     const hasImageError = imageErrors[itemId];
-                    
+
                     return (
                       <div
                         key={itemId}
@@ -258,17 +257,17 @@ const Solutions = () => {
                         <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
                           {!hasImageError && item.image ? (
                             <>
-                              {/* Actual Image */}
-                              <img
-                                src={item.image}
-                                alt={item.title}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              <Image
+                                src={item.image || "/fallback.png"}
+                                alt={item.title || "Solution Image"}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 onError={() => handleImageError(itemId)}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </>
                           ) : (
-                            /* Fallback when image fails to load */
                             <div className="absolute inset-0 flex items-center justify-center">
                               <div className="text-center">
                                 <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-3">
@@ -281,14 +280,14 @@ const Solutions = () => {
                               </div>
                             </div>
                           )}
-                          
+
                           {/* Hover Action Button */}
                           <div className="absolute top-4 right-4">
                             <div className="w-10 h-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
                               <FiArrowRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                             </div>
                           </div>
-                          
+
                           {/* Preview Label */}
                           <div className="absolute bottom-4 left-4">
                             <div className="flex items-center gap-2 text-white/90">
@@ -303,7 +302,7 @@ const Solutions = () => {
                           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                             {item.title}
                           </h3>
-                          
+
                           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
                             {item.description}
                           </p>
@@ -348,7 +347,7 @@ const Solutions = () => {
                 No solutions found
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                {searchTerm 
+                {searchTerm
                   ? "Try adjusting your search criteria or browse all categories."
                   : "No solutions available for the selected category."
                 }
