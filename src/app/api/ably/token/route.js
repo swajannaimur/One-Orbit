@@ -10,7 +10,6 @@ export async function GET(req) {
     const session = await getServerSession(authOptions);
     const clientId = session?.user?.id ? String(session.user.id) : null;
 
-    console.log(clientId);
 
     const ablyKey = process.env.ABLY_API_KEY;
     if (!ablyKey) {
