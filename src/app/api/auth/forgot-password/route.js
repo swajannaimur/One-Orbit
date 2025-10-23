@@ -1,7 +1,7 @@
 import clientPromise from "@/lib/mongodb";
 import { sendEmail } from "@/utils/sendEmail";
 import { NextResponse } from "next/server";
-
+import crypto from "crypto";
 
 
 
@@ -40,7 +40,7 @@ export async function POST(req) {
             to: email,
             subject: "Reset your OneOrbit Password",
             html: `
-            <p>Hello ${user.name || "User"},</p>
+            <p>Hello ${existingUser.name || "User"},</p>
             <p>Click the link below to reset your password:</p>
             <a href="${resetLink}" target="_blank">${resetLink}</a>
             <p>This link will expire in 15 minutes.</p>
