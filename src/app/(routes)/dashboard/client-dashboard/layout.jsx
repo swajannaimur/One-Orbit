@@ -30,8 +30,8 @@ export default function DashboardLayout({ children }) {
         <div className="flex min-h-screen mt-20">
 
             {/* Sidebar */}
-            <div className="w-64 dark:text-gray-300 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden shadow-lg p-5">
-                <Link href="/" className="text-2xl font-bold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent mb-8">OneOrbit</Link>
+            <div className="w-64 dark:text-gray-300 bg-linear-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden shadow-lg p-5">
+                <Link href="/" className="text-2xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent mb-8">OneOrbit</Link>
 
                 {/* dashboard links */}
                 <ul className="space-y-4 mt-4">

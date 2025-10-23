@@ -42,7 +42,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
+    <footer className="bg-linear-to-br from-gray-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:to-gray-800 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Top Section - Brand & Newsletter */}
@@ -50,10 +50,10 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">O</span>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent">OneOrbit</span>
+              <span className="text-2xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent">OneOrbit</span>
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-lg mb-6 max-w-md transition-colors duration-300">
               Building the future of team collaboration. Simple, powerful tools for modern teams.

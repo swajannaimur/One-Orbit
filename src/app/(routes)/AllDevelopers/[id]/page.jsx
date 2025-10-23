@@ -95,7 +95,7 @@ const page = async ({ params }) => {
                 href={developer.resume}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group hover:underline break-words"
+                className="btn bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group hover:underline break-words"
               >
                 View Resume
               </a>
@@ -110,7 +110,7 @@ const page = async ({ params }) => {
                 href={developer.portfolio}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group hover:underline break-words"
+                className="btn bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group hover:underline break-words"
               >
                 Open Portfolio
               </a>

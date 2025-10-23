@@ -52,7 +52,7 @@ export default function DeveloperProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-6 mt-20">
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 p-6 mt-20">
       {/* Header */}
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10">
         <h2 className="text-3xl font-bold text-gray-800 mb-4 sm:mb-0">

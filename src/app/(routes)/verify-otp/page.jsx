@@ -149,7 +149,7 @@ export default function VerifyOTP() {
 
           <button
             onClick={handleVerify}
-            className="btn rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-light text-lg hover:from-blue-600 hover:to-purple-700 border-none transition-colors shadow-sm py-6"
+            className="btn rounded-2xl bg-linear-to-r from-blue-500 to-purple-600 text-white font-light text-lg hover:from-blue-600 hover:to-purple-700 border-none transition-colors shadow-sm py-6"
           >
             {verifying ? (
               <span className="loading loading-spinner loading-xl"></span>

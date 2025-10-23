@@ -278,7 +278,7 @@ export default function ChatPage() {
                 />
                 <button
                   type="submit"
-                  className="py-2 px-2.5 cursor-pointer btn-gradient rounded-full"
+                  className="py-2 px-2.5 cursor-pointer btn-linear rounded-full"
                 >
                   <MdOutlineSend size={30} />
                 </button>
