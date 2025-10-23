@@ -128,7 +128,7 @@ export default function ProjectDetails() {
 
 
   return (
-    <div className="min-h-screen mt-24 bg-linear-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-16">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header Section */}
