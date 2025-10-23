@@ -14,9 +14,9 @@ import {
 import { PiKanban } from "react-icons/pi";
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { TbLogout2 } from "react-icons/tb";
-
 import KanbanBoard from "./kanban/KanbanBoard";
 import InviteForm from "@/components/forms/InviteForm";
+import DashboardMockup from "./DashboardMockup/page";
 import Image from "next/image";
 
 export default function DeveloperDashboard() {
@@ -46,7 +46,7 @@ export default function DeveloperDashboard() {
         const data = await res.json();
         if (!mounted) return;
         setRemoteUser(data.user || null);
-      } catch (err) { }
+      } catch (err) {}
     }
     load();
     return () => (mounted = false);
@@ -58,13 +58,20 @@ export default function DeveloperDashboard() {
     <div className="flex min-h-screen bg-linear-to-br from-indigo-50 via-blue-50 to-purple-100 ">
       {/* Sidebar */}
       <div
-        className={`${isSidebarOpen ? "w-64" : "w-16"
-          } backdrop-blur-xl bg-white/70 shadow-lg border-r border-white/40 transition-all duration-300 flex flex-col`}
+        className={`${
+          isSidebarOpen ? "w-64" : "w-16"
+        } backdrop-blur-xl bg-white/70 shadow-lg border-r border-white/40 transition-all duration-300 flex flex-col`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b border-white/40">
           <h2
+<<<<<<< HEAD
             className={`${isSidebarOpen ? "block" : "hidden"
               } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
+=======
+            className={`${
+              isSidebarOpen ? "block" : "hidden"
+            } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
+>>>>>>> 88d1e8a665f8acf24578024b323650c59b51fe9c
           >
             Developer Dashboard
           </h2>
@@ -168,9 +175,9 @@ export default function DeveloperDashboard() {
             Overview
           </h1>
           <div className="flex items-center gap-4">
-            <button className="text-gray-600 hover:text-indigo-600 transition">
+            {/* <button className="text-gray-600 hover:text-indigo-600 transition">
               <FaBell size={20} />
-            </button>
+            </button> */}
 
             {/* Profile dropdown */}
             <div className="relative" ref={dropdownRef}>
@@ -179,7 +186,8 @@ export default function DeveloperDashboard() {
                 className="flex items-center gap-2 focus:outline-none"
               >
                 <div className="text-sm font-medium text-gray-700">
-                  {(remoteUser?.name || session?.user?.name)?.split(" ")[0] ?? "Guest"}
+                  {(remoteUser?.name || session?.user?.name)?.split(" ")[0] ??
+                    "Guest"}
                 </div>
                 <div className="relative w-9 h-9 rounded-full border border-indigo-200 shadow-sm overflow-hidden">
                   <Image
@@ -274,6 +282,10 @@ export default function DeveloperDashboard() {
               <InviteForm />
             </div>
           )}
+
+          <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+            <DashboardMockup />
+          </div>
         </main>
       </div>
     </div>
