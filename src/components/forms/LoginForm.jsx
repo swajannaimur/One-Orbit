@@ -60,7 +60,8 @@ export default function LoginForm()
             form.reset();
             toast.success("Login Successfull");
             setError("");
-            router.push("/dashboard");}
+            router.push("/dashboard");
+        }
 
         
 

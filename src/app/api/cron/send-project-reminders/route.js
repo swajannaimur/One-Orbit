@@ -11,7 +11,7 @@ export async function GET(request) {
 
   let sent = 0;
   try {
-    const due = await getDueProjects();
+    const due = await getDueProjects() || [];
     for (const prj of due) {
       try {
         const subject = `Reminder: Project "${prj?.name}" deadline reached`;

@@ -14,10 +14,10 @@ import {
 import { PiKanban } from "react-icons/pi";
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { TbLogout2 } from "react-icons/tb";
-
 import KanbanBoard from "./kanban/KanbanBoard";
 import InviteForm from "@/components/forms/InviteForm";
 import DashboardMockup from "./DashboardMockup/page";
+import Image from "next/image";
 
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -184,15 +184,18 @@ export default function DeveloperDashboard() {
                   {(remoteUser?.name || session?.user?.name)?.split(" ")[0] ??
                     "Guest"}
                 </div>
-                <img
-                  src={
-                    remoteUser?.image ||
-                    session?.user?.image ||
-                    "https://i.pravatar.cc/40"
-                  }
-                  alt="Profile"
-                  className="w-9 h-9 rounded-full border border-indigo-200 shadow-sm"
-                />
+                <div className="relative w-9 h-9 rounded-full border border-indigo-200 shadow-sm overflow-hidden">
+                  <Image
+                    src={
+                      remoteUser?.image ||
+                      session?.user?.image ||
+                      "https://i.pravatar.cc/40"
+                    }
+                    alt="Profile"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </button>
 
               {/* ************ */}
@@ -262,16 +265,6 @@ export default function DeveloperDashboard() {
               <p className="text-3xl font-bold text-gray-900">15</p>
             </div>
           </div>
-
-          {/* Kanban Board Section */}
-          {/* <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg ">
-            <KanbanBoard />
-          </div> */}
-
-          {/* Invite Section */}
-          {/* <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
-            <InviteForm />
-          </div> */}
 
           {activeSection === "board" && (
             <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">

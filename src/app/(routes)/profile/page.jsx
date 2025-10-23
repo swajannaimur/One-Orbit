@@ -10,6 +10,7 @@ import {
 import { FiClock, FiBriefcase, FiActivity } from "react-icons/fi";
 import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function DeveloperProfilePage() {
   const { data: session } = useSession();
@@ -37,18 +38,18 @@ export default function DeveloperProfilePage() {
 
   const user = remoteUser ||
     session?.user || {
-      name: "Guest Developer",
-      email: "guest@example.com",
-      image: "https://i.pravatar.cc/150",
-      bio: null,
-      about: null,
-      skills: [],
-      portfolio: null,
-      resume: null,
-      github: null,
-      linkedin: null,
-      facebook: null,
-    };
+    name: "Guest Developer",
+    email: "guest@example.com",
+    image: "https://i.pravatar.cc/150",
+    bio: null,
+    about: null,
+    skills: [],
+    portfolio: null,
+    resume: null,
+    github: null,
+    linkedin: null,
+    facebook: null,
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-6 mt-20">
@@ -69,11 +70,14 @@ export default function DeveloperProfilePage() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left Side: Profile Info */}
         <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center border border-gray-100">
-          <img
-            src={user.image}
-            alt={user.name}
-            className="w-28 h-28 rounded-full border-4 border-indigo-500 shadow-md object-cover"
-          />
+          <div className="relative w-28 h-28 rounded-full border-4 border-indigo-500 shadow-md overflow-hidden">
+            <Image
+              src={user.image || "https://i.pravatar.cc/150"}
+              alt={user.name || "Profile Image"}
+              fill
+              className="object-cover"
+            />
+          </div>
           <h3 className="mt-5 text-2xl font-semibold text-gray-800">
             {user.name}
           </h3>

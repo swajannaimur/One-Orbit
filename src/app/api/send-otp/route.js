@@ -41,20 +41,18 @@ export async function POST(request) {
       { upsert: true }
     );
 
-
-
     if (!email) {
       console.error("❌ Missing 'to' email address");
       return;
     }
 
-    sendEmail({
+    await sendEmail({
       to: `${email}`,
       subject: `Your OTP Code from OneOrbit`,
       text: `Your verification code is ${otp}. This code will expire in 5 minutes.`,
       html: `<h3>YOUR OTP</h3>
-            <h1>OTP: ${otp}</h1>
-      `,
+              <h1>OTP: ${otp}</h1>
+        `,
     });
 
     return NextResponse.json({ message: "OTP sent" });
