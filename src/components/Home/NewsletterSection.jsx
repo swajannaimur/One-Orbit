@@ -47,7 +47,7 @@ const NewsletterSection = () => {
   const benefits = [
     {
       icon: FiTrendingUp,
-      text: "Weekly productivity tips"
+      text: "Weekly productivity tipss"
     },
     {
       icon: HiOutlineSparkles,
