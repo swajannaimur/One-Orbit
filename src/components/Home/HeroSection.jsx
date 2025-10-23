@@ -218,7 +218,9 @@ export default function HeroSection() {
                   <div className="font-semibold text-gray-800 dark:text-gray-200">
                     128 tasks
                   </div>
-                  <div className="text-sm text-gray-500">completed by today</div>
+                  <div className="text-sm text-gray-500">
+                    completed by today
+                  </div>
                 </div>
               </div>
             </div>
