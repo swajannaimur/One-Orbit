@@ -96,8 +96,8 @@ export default function InviteForm() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl shadow-md p-6 border border-indigo-100">
-      <h3 className="text-2xl font-bold bg-gradient-to-br from-indigo-700 to-indigo-500 bg-clip-text text-transparent mb-4 flex items-center gap-2">
+    <div className="bg-linear-to-br from-indigo-50 to-blue-50 rounded-xl shadow-md p-6 border border-indigo-100">
+      <h3 className="text-2xl font-bold bg-linear-to-br from-indigo-700 to-indigo-500 bg-clip-text text-transparent mb-4 flex items-center gap-2">
         <FaUserPlus className="text-indigo-600" /> Invite a Teammate
       </h3>
 
@@ -125,7 +125,7 @@ export default function InviteForm() {
           className={`md:col-span-1 rounded-lg px-4 py-2 font-semibold text-white transition duration-300 ${
             loading
               ? "bg-indigo-400 cursor-not-allowed"
-              : "bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600"
+              : "bg-linear-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600"
           }`}
           disabled={loading}
         >

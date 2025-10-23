@@ -102,11 +102,11 @@ export default function AllProjects() {
           </div>
 
           <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-            <span className="bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
               Discover Amazing
             </span>
             <br />
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Projects
             </span>
           </h1>
@@ -166,7 +166,7 @@ export default function AllProjects() {
                 >
                   {/* Project Header with Status */}
                   <div className="relative">
-                    <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                    <div className="h-2 bg-linear-to-r from-blue-500 to-purple-600"></div>
                     <div className="p-6">
                       {/* Project Title and Category */}
                       <div className="flex items-start justify-between mb-4">
@@ -257,7 +257,7 @@ export default function AllProjects() {
                     <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                          <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
                             {post.clientName?.[0] || "C"}
                           </div>
                           <div>

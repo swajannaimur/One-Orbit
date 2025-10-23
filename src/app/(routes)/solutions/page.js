@@ -145,11 +145,11 @@ const Solutions = () => {
           </div>
 
           <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight mb-6">
-            <span className="bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
               Solutions for Every
             </span>
             <br />
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Team & Industry
             </span>
           </h1>
@@ -204,7 +204,7 @@ const Solutions = () => {
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`flex items-center gap-3 px-6 py-3 rounded-2xl border transition-all duration-300 ${activeCategory === category.id
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white border-transparent shadow-lg'
+                    ? 'bg-linear-to-r from-blue-500 to-purple-500 text-white border-transparent shadow-lg'
                     : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
               >
@@ -229,7 +229,7 @@ const Solutions = () => {
               <section key={sectionIndex} className="scroll-mt-20">
                 {/* Section Header */}
                 <div className="flex items-center gap-4 mb-8">
-                  <div className={`w-14 h-14 bg-gradient-to-r ${section.color} rounded-2xl flex items-center justify-center`}>
+                  <div className={`w-14 h-14 bg-linear-to-r ${section.color} rounded-2xl flex items-center justify-center`}>
                     <Icon className="w-7 h-7 text-white" />
                   </div>
                   <div>
@@ -254,7 +254,7 @@ const Solutions = () => {
                         className="group bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl border border-gray-200 dark:border-gray-700 transition-all duration-500 hover:scale-105 overflow-hidden"
                       >
                         {/* Image Container with actual image tag */}
-                        <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
+                        <div className="relative h-48 bg-linear-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
                           {!hasImageError && item.image ? (
                             <>
                               <Image
@@ -265,7 +265,7 @@ const Solutions = () => {
                                 onError={() => handleImageError(itemId)}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                              <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"></div>
                             </>
                           ) : (
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -358,7 +358,7 @@ const Solutions = () => {
 
         {/* CTA Section */}
         <div className="mt-20 text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-white relative overflow-hidden">
+          <div className="bg-linear-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative">
               <h2 className="text-3xl lg:text-4xl font-bold mb-4">

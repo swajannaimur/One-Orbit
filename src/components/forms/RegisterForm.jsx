@@ -125,7 +125,7 @@ export default function RegisterForm() {
 
     return (
         <div className="mx-auto w-full rounded-lg p-6 bg-white">
-            <h2 className='text-center text-xl sm:text-3xl font-semibold'>Register to <span className='bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent'>OneOrbit</span></h2>
+            <h2 className='text-center text-xl sm:text-3xl font-semibold'>Register to <span className='bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent'>OneOrbit</span></h2>
 
             {/* Profile Image Upload - Positioned at the top */}
             <div className="flex flex-col items-center justify-center mt-6 mb-6">

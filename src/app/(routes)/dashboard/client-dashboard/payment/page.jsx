@@ -15,7 +15,7 @@ export default function Payment() {
 	const amount = 49.99;
 
 	return (
-		<main className="max-w-6xl mx-auto p-10 text-center text-white m-10 rounded-md bg-gradient-to-tr from-blue-500 to-purple-500">
+		<main className="max-w-6xl mx-auto p-10 text-center text-white m-10 rounded-md bg-linear-to-tr from-blue-500 to-purple-500">
 			<div className="mb-10">
 				<h1 className="text-4xl font-extrabold">Naimur</h1>
 				<h2 className="text-2xl">

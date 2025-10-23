@@ -128,12 +128,12 @@ export default function ProjectDetails() {
 
 
   return (
-    <div className="min-h-screen mt-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-16">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-300 bg-clip-text text-transparent">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-4 bg-linear-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-300 bg-clip-text text-transparent">
             {post.projectName}
           </h1>
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 rounded-full border border-blue-200 dark:border-blue-800">
@@ -148,7 +148,7 @@ export default function ProjectDetails() {
             <div className="mt-6">
               <button
                 onClick={handleBidButton}
-                className="px-6 py-3 btn-gradient btn-hover text-white font-semibold rounded-xl shadow-md"
+                className="px-6 py-3 btn-linear btn-hover text-white font-semibold rounded-xl shadow-md"
               >
                 Bid Now
               </button>
@@ -158,8 +158,8 @@ export default function ProjectDetails() {
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 p-4">
                   <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden max-w-md w-full">
 
-                    {/* Gradient Top Bar */}
-                    <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                    {/* linear Top Bar */}
+                    <div className="h-2 bg-linear-to-r from-blue-500 to-purple-600"></div>
 
                     {/* Modal Content */}
                     <form onSubmit={handleConfirm}>
@@ -210,7 +210,7 @@ export default function ProjectDetails() {
                             Client Information
                           </h4>
                           <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center text-lg font-semibold">
+                            <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center text-lg font-semibold">
                               {post.clientName?.[0] || "C"}
                             </div>
                             <div>
@@ -248,7 +248,7 @@ export default function ProjectDetails() {
 
                           <button
                             type="submit"
-                            className="px-4 py-2 btn-gradient text-white rounded-md"
+                            className="px-4 py-2 btn-linear text-white rounded-md"
                           >
                             Confirm
                           </button>
@@ -264,8 +264,8 @@ export default function ProjectDetails() {
 
         {/* Main Card */}
         <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-          {/* Gradient Top Bar */}
-          <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+          {/* linear Top Bar */}
+          <div className="h-2 bg-linear-to-r from-blue-500 to-purple-600"></div>
 
           <div className="p-8">
             {/* Summary Section */}
@@ -352,7 +352,7 @@ export default function ProjectDetails() {
                 Client Information
               </h3>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center text-lg font-semibold">
+                <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center text-lg font-semibold">
                   {post.clientName?.[0] || "C"}
                 </div>
                 <div>

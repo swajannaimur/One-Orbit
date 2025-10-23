@@ -16,7 +16,7 @@ const AllDevelopersPage = async () => {
     .toArray();
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-to-r from-blue-50 to-purple-50">
+    <div className="min-h-screen p-6 bg-linear-to-r from-blue-50 to-purple-50">
       <div className="text-center mb-12">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 rounded-full border border-blue-200 dark:border-blue-800 mb-6">
           <FiUsers className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -26,11 +26,11 @@ const AllDevelopersPage = async () => {
         </div>
 
         <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-          <span className="bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
             Bringing Ideas to Life
           </span>
           <br />
-          <span className="text-3xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <span className="text-3xl bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Meet Our Developers
           </span>
         </h1>
@@ -51,7 +51,7 @@ const AllDevelopersPage = async () => {
           {users.map((u) => (
             <div
               key={u._id.toString()}
-              className="bg-gradient-to-r from-blue-50 to-purple-100 rounded-2xl shadow-lg p-5 flex flex-col items-center text-center hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+              className="bg-linear-to-r from-blue-50 to-purple-100 rounded-2xl shadow-lg p-5 flex flex-col items-center text-center hover:shadow-lg transition-all duration-300 hover:scale-105 group"
             >
               <div className="relative w-24 h-24 mb-4">
                 <Image
@@ -74,7 +74,7 @@ const AllDevelopersPage = async () => {
 
               <Link
                 href={`/AllDevelopers/${u._id.toString()}`}
-                className="mt-auto inline-block w-full text-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                className="mt-auto inline-block w-full text-center px-4 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
               >
                 View Details
               </Link>
