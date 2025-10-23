@@ -20,12 +20,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.btn-gradient {
-  @apply bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold;
+.btn-linear {
+  @apply bg-linear-to-r from-purple-600 to-blue-600 text-white font-semibold;
 }
 
-.gradient-text {
-  @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent
+.linear-text {
+  @apply bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent
 }
 
 .btn-hover{

@@ -124,16 +124,16 @@ export default function DevelopersProjects() {
     <div className="p-6 space-y-10">
       {/* Stats */}
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <h1 className="text-3xl font-semibold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent">
+        <h1 className="text-3xl font-semibold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent">
           MY Projects
         </h1>
         <div className="flex gap-6 text-center">
-          <div className="bg-gradient-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105 px-4 py-2  shadow-md">
+          <div className="bg-linear-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105 px-4 py-2  shadow-md">
             <h3 className="text-blue-600 font-semibold text-lg">
               Total Bids: {bids.length}
             </h3>
           </div>
-          <div className="bg-gradient-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105 px-4 py-2  shadow-md">
+          <div className="bg-linear-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105 px-4 py-2  shadow-md">
             <h3 className="text-amber-500 font-semibold text-lg">
               Assigned Projects: {assignedProjects.length}
             </h3>
@@ -153,7 +153,7 @@ export default function DevelopersProjects() {
             {bids.map((project) => (
               <div
                 key={project._id}
-                className="bg-gradient-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
+                className="bg-linear-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
               >
                 <h3 className="text-lg font-semibold text-gray-800">
                   {project.projectName}
@@ -189,7 +189,7 @@ export default function DevelopersProjects() {
             {assignedProjects.map((project) => (
               <div
                 key={project._id}
-                className="bg-gradient-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
+                className="bg-linear-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
               >
                 <h3 className="text-lg font-semibold text-gray-800">
                   {project.projectName}

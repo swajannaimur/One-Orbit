@@ -14,7 +14,7 @@ const Page = async () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br  from-gray-50 to-blue-50 py-8">
+        <div className="min-h-screen bg-linear-to-br  from-gray-50 to-blue-50 py-8">
             <div className="container mx-auto px-4 max-w-4xl">
                 {/* Header Section */}
                 <div className="text-center mb-8">
@@ -75,7 +75,7 @@ const Page = async () => {
 
                 {/* AddPost Component Container */}
                 <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-                    <div className="p-1 bg-gradient-to-r from-primary to-blue-600"></div>
+                    <div className="p-1 bg-linear-to-r from-primary to-blue-600"></div>
                     <div className="p-8">
                         <div className="mb-6">
                             <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">

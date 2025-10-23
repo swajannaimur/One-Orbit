@@ -186,7 +186,7 @@ export default function ChatPage() {
   return (
     <>
       {usersList.length === 0 ? (
-        <div className="w-full h-[100vh] flex items-center justify-center">
+        <div className="w-full h-screen flex items-center justify-center">
           <span className="loading loading-spinner loading-xl"></span>
         </div>
       ) : (
@@ -347,7 +347,7 @@ export default function ChatPage() {
                 />
                 <button
                   type="submit"
-                  className="py-2 px-2.5 cursor-pointer btn-gradient rounded-full"
+                  className="py-2 px-2.5 cursor-pointer btn-linear rounded-full"
                 >
                   <MdOutlineSend size={30} />
                 </button>

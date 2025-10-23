@@ -57,7 +57,7 @@ const activities = [
 
 export default function DashboardMockup() {
   return (
-    <div className="p-6 space-y-10 bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 min-h-screen">
+    <div className="p-6 space-y-10 bg-linear-to-br from-indigo-50 via-blue-50 to-purple-50 min-h-screen">
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
