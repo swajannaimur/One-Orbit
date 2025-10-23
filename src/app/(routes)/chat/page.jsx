@@ -318,7 +318,9 @@ export default function ChatPage() {
                         )}
                       </div>
                     </div>
-                    <div className="chat-bubble">Typing...</div>
+                    <div className="chat-bubble">
+                      <span className="loading loading-dots loading-lg"></span>
+                    </div>
                   </div>
                 )}
               </div>
