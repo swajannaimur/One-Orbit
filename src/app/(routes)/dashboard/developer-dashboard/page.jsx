@@ -64,14 +64,8 @@ export default function DeveloperDashboard() {
       >
         <div className="flex items-center justify-between px-4 py-4 border-b border-white/40">
           <h2
-<<<<<<< HEAD
             className={`${isSidebarOpen ? "block" : "hidden"
               } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
-=======
-            className={`${
-              isSidebarOpen ? "block" : "hidden"
-            } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
->>>>>>> 88d1e8a665f8acf24578024b323650c59b51fe9c
           >
             Developer Dashboard
           </h2>
