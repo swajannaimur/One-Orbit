@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 
 export default function Sidebar({
@@ -42,6 +43,7 @@ export default function Sidebar({
           Contact
         </button>
       </div>
+
       <div className="flex-1 h-[calc(100vh-7.5rem)] overflow-y-auto">
         {category === "friends"
           ? friendsList.map((user) => (
@@ -116,3 +118,4 @@ export default function Sidebar({
     </aside>
   );
 }
+

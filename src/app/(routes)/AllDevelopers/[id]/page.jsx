@@ -3,7 +3,8 @@ import React from "react";
 import MessageForm from "@/components/forms/MessageForm";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope } from "react-icons/fa";
-import MessageForm from "@/app/api/developers/message/MessageForm";
+import Image from "next/image";
+
 
 const page = async ({ params }) => {
   const { id } = params;
@@ -40,11 +41,15 @@ const page = async ({ params }) => {
     <div className="max-w-6xl mx-auto p-6 space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-        <img
-          src={developer.image || "/favicon.ico"}
-          alt={developer.name}
-          className="w-32 h-32 rounded-full object-cover border-2 border-indigo-300 shadow-md"
-        />
+        <div className="relative w-32 h-32">
+          <Image
+            src={developer.image || "/favicon.ico"}
+            alt={developer.name || "Profile"}
+            fill
+            className="rounded-full object-cover border-2 border-indigo-300 shadow-md"
+            sizes="128px"
+          />
+        </div>
         <div className="flex-1">
           <h1 className="text-3xl font-bold text-gray-800">{developer.name}</h1>
           <p className="text-sm text-gray-500">

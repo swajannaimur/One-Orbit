@@ -1,3 +1,5 @@
+
+
 import { getServerSession } from 'next-auth';
 import AddPost from '../../../components/forms/AddPost';
 import React from 'react';
@@ -12,7 +14,7 @@ const Page = async () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br mt-20 from-gray-50 to-blue-50 py-8">
+        <div className="min-h-screen bg-gradient-to-br  from-gray-50 to-blue-50 py-8">
             <div className="container mx-auto px-4 max-w-4xl">
                 {/* Header Section */}
                 <div className="text-center mb-8">
