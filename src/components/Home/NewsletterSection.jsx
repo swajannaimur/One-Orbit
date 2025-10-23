@@ -60,7 +60,7 @@ const NewsletterSection = () => {
   ];
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/10">
+    <section className="relative py-20 px-4 overflow-hidden bg-linear-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/10">
       
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -122,11 +122,11 @@ const NewsletterSection = () => {
 
               {/* Heading */}
               <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-                <span className="bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
                   Stay in the
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Project Management Orbit
                 </span>
               </h2>
@@ -168,9 +168,9 @@ const NewsletterSection = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed border border-blue-500 dark:border-blue-400"
+                  className="w-full group relative px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed border border-blue-500 dark:border-blue-400"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-linear-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <span className="relative flex items-center justify-center gap-3">
                     {isLoading ? (
                       <>
@@ -202,7 +202,7 @@ const NewsletterSection = () => {
                     {[1, 2, 3, 4, 5].map((item) => (
                       <div 
                         key={item}
-                        className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center text-white text-xs font-bold"
+                        className="w-8 h-8 bg-linear-to-br from-blue-500 to-purple-600 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center text-white text-xs font-bold"
                       >
                         {item}
                       </div>

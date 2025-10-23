@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { CopilotPopup } from "@copilotkit/react-ui";
 import { useFrontendTool } from "@copilotkit/react-core";
+import Swal from "sweetalert2";
 
 const COLUMNS = [
   { key: "todo", title: "📝 To Do", color: "from-pink-100 to-pink-50" },
@@ -188,10 +189,23 @@ export default function KanbanBoard() {
   }
 
   async function deleteTask(taskId) {
-    if (!confirm("Delete this task?")) return;
+    // Show confirmation dialog using SweetAlert
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete this task?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return; // stop if canceled
+
     try {
       const id = normalizeId(taskId);
       await fetch(`/api/kanban/tasks/${id}`, { method: "DELETE" });
+
       setTasksByStatus((prev) => {
         const copy = { ...prev };
         Object.keys(copy).forEach(
@@ -199,8 +213,22 @@ export default function KanbanBoard() {
         );
         return copy;
       });
+
+      // Show success alert
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Task has been deleted successfully.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (err) {
       console.error("deleteTask error", err);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong while deleting the task!",
+      });
     }
   }
 
@@ -252,9 +280,9 @@ export default function KanbanBoard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-pink-100 p-6 rounded-xl">
+    <div className="min-h-screen bg-linear-to-br from-indigo-100 via-white to-pink-100 p-6 rounded-xl">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
-        <h3 className="text-2xl font-bold bg-gradient-to-br from-indigo-700 to-indigo-500 bg-clip-text text-transparent">
+        <h3 className="text-2xl font-bold bg-linear-to-br from-indigo-700 to-indigo-500 bg-clip-text text-transparent">
           Board
         </h3>
         <div className="flex items-center gap-3">
@@ -263,13 +291,13 @@ export default function KanbanBoard() {
               setEditingTask({ title: "", description: "", status: "todo" });
               setModalOpen(true);
             }}
-            className="px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-lg  transition-all duration-300 hover:scale-105 shadow-sm"
+            className="px-4 py-2 bg-linear-to-r from-amber-400 to-orange-500 text-white rounded-lg  transition-all duration-300 hover:scale-105 shadow-sm"
           >
             + New Task
           </button>
           <button
             onClick={loadTasks}
-            className="px-4 py-2 border border-gray-300 rounded-lg  bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden text-sm lg:text-base"
+            className="px-4 py-2 border border-gray-300 rounded-lg  bg-linear-to-r from-blue-600 to-purple-600 text-white font-medium hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden text-sm lg:text-base"
           >
             Refresh
           </button>
@@ -284,7 +312,7 @@ export default function KanbanBoard() {
           {COLUMNS.map((col) => (
             <div
               key={col.key}
-              className={`rounded-xl shadow-lg p-4 bg-gradient-to-b ${col.color} border border-gray-100`}
+              className={`rounded-xl shadow-lg p-4 bg-linear-to-b ${col.color} border border-gray-100`}
             >
               <div className="flex items-center justify-between mb-3">
                 <h4 className="text-lg font-medium text-gray-800">
@@ -373,7 +401,7 @@ export default function KanbanBoard() {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-gradient-to-br from-amber-100 via-white to-orange-100 rounded-xl p-6 w-full max-w-lg shadow-2xl transform transition-all animate-scaleIn">
+          <div className="bg-linear-to-br from-amber-100 via-white to-orange-100 rounded-xl p-6 w-full max-w-lg shadow-2xl transform transition-all animate-scaleIn">
             <h4 className="text-xl font-semibold mb-4 text-gray-800">
               {editingTask?._id ? "Edit Task" : "New Task"}
             </h4>
@@ -422,7 +450,7 @@ export default function KanbanBoard() {
               </button>
               <button
                 onClick={() => saveTask(editingTask)}
-                className="px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-lg hover:bg-amber-700 transition-all duration-200 shadow-sm"
+                className="px-4 py-2 bg-linear-to-r from-amber-400 to-orange-500 text-white rounded-lg hover:bg-amber-700 transition-all duration-200 shadow-sm"
               >
                 Save
               </button>

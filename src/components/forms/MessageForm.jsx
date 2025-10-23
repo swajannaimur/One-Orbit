@@ -79,7 +79,7 @@ export default function MessageForm({ developerId, developerEmail }) {
       <div>
         <button
           type="submit"
-          className="btn btn-primary bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+          className="btn btn-primary bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
           disabled={loading}
         >
           {loading ? "Sending..." : "Send Message"}
