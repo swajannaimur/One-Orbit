@@ -91,13 +91,21 @@ export default function DeveloperDashboard() {
             {isSidebarOpen && <span>My Tasks</span>}
           </a> */}
 
-          <a
-            href="#"
+          <div
+            
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-100 text-gray-800 font-medium transition"
           >
             <FaUsers className="text-green-500" />
-            {isSidebarOpen && <span>Team Members</span>}
-          </a>
+            {/* {isSidebarOpen && <span>Team Members</span>} */}
+            <button
+              onClick={() => {
+                // setIsDropdownOpen(false);
+                router.push("/dashboard/developer-dashboard/team-member");
+              }}
+            >
+              Team Member
+            </button>
+          </div>
 
           <a
             href="#"

@@ -20,6 +20,7 @@ import {
 } from "react-icons/fi";
 
 import { RiRocketLine } from "react-icons/ri";
+import { HiOutlineSparkles } from "react-icons/hi";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -39,7 +40,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const imagehh = session?.user?.image;
+ 
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -57,14 +58,14 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navItems = [
-    { href: "/projects", label: "All Project", icon: HiOutlineSparkles },
+    { href: "/projects", label: "All Project" },
     {
       href: "/AllDevelopers",
       label: "All Developers",
       icon: FiUsers,
     },
-    { href: "/solutions", label: "Solutions", icon: RiLightbulbFlashLine },
-    { href: "/pricing", label: "Pricing", icon: HiOutlineCurrencyDollar },
+    { href: "/solutions", label: "Solutions"},
+    { href: "/pricing", label: "Pricing" },
   ];
 
   const secureItems = [
@@ -81,7 +82,7 @@ export default function Navbar() {
     secureItems.push({
       href: "/create-post",
       label: "Create Project",
-      icon: IoCreateOutline,
+      
     });
   }
 
@@ -171,14 +172,14 @@ export default function Navbar() {
               {/* Secure Nav Items - Only show when session exists */}
               {session &&
                 secureItems.map((item) => {
-                  const Icon = item.icon;
+                 
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
                       className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
                     >
-                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      
                       {item.label}
                       {item.badge && (
                         <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
@@ -272,7 +273,7 @@ export default function Navbar() {
 
                     {/* Dropdown Menu */}
                     {isUserDropdownOpen && (
-                      <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-50">
+                      <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-80">
                         {/* User Info */}
                         <div className="p-4 border-b border-gray-100 dark:border-gray-700">
                           <div className="flex items-center space-x-3">
@@ -458,7 +459,7 @@ export default function Navbar() {
                 {/* User Menu Items */}
                 <div className="grid gap-2">
                   {userMenuItems.map((item) => {
-                    const Icon = item.icon;
+                   
                     const isActive = isActiveRoute(item.href);
                     return (
                       <Link
@@ -471,9 +472,7 @@ export default function Navbar() {
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <Icon className={`w-5 h-5 transition-transform ${
-                          isActive ? "scale-110" : "group-hover:scale-110"
-                        }`} />
+                        
                         {item.label}
                       </Link>
                     );
