@@ -63,7 +63,7 @@ export default function Navbar() {
   const secureItems = [
     {
       href: "/chat",
-      label: "Message",
+      label: "Inbox",
     },
   ];
 
