@@ -86,14 +86,6 @@ export default function DeveloperDashboard() {
             {isSidebarOpen && <span>My Projects</span>}
           </Link>
 
-          {/* <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-yellow-50 hover:to-yellow-100 text-gray-800 font-medium transition"
-          >
-            <FaTasks className="text-yellow-500" />
-            {isSidebarOpen && <span>My Tasks</span>}
-          </a> */}
-
           <Link
             href="/dashboard/developer-dashboard/teamMembers"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-green-50 hover:to-emerald-100 text-gray-800 font-medium transition"
@@ -101,21 +93,6 @@ export default function DeveloperDashboard() {
             <FaUsers className="text-green-500" />
             {isSidebarOpen && <span>Team Members</span>}
           </Link>
-
-          {/* <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-indigo-50 hover:to-pink-100 text-gray-800 font-medium transition"
-          >
-            <FaUserPlus className="text-indigo-600" />
-            {isSidebarOpen && <span>Invite a Teammate</span>}
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
-          >
-            <PiKanban className="text-purple-500" />
-            {isSidebarOpen && <span>Board</span>}
-          </a> */}
 
           {/* Invite a Teammate */}
           <button
