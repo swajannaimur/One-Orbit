@@ -162,7 +162,7 @@ const Reviews = () => {
   };
 
   return (
-    <section className="py-20 bg-linear-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <section className="py-20 bg-linear-to-b from-white to-gray-50 dark-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}

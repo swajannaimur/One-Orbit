@@ -153,9 +153,10 @@ const Carousel = () => {
   }, [isAutoPlaying, nextSlide]);
 
   return (
-    <section className="relative max-w-7xl mx-auto bg-linear-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 overflow-hidden">
+    <section className="relative  bg-linear-to-br from-gray-50 to-blue-50 dark-bg overflow-hidden">
       
-      {/* Main Carousel Container */}
+     <div className='max-w-7xl  mx-auto'>
+       {/* Main Carousel Container */}
       <div 
         className="relative h-[600px] lg:h-[700px] overflow-hidden"
         onTouchStart={handleTouchStart}
@@ -356,6 +357,7 @@ const Carousel = () => {
       <div className="absolute bottom-8 right-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 text-sm font-semibold text-gray-700 dark:text-gray-300">
         {currentSlide + 1} / {slides.length}
       </div>
+     </div>
     </section>
   );
 };
