@@ -97,7 +97,7 @@ export default function Navbar() {
             {/* Logo Section */}
             <Link
               href="/"
-              className="flex items-center space-x-3 group flex-shrink-0"
+              className="flex items-center space-x-3 group shrink-0"
             >
               <div className="relative">
                 <div className="w-10 h-10 lg:w-12 lg:h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
