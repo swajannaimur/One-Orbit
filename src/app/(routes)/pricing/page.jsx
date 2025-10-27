@@ -253,7 +253,7 @@ export default function Pricing() {
                         const FeatureIcon = feature.icon;
                         return (
                           <div key={featureIndex} className="flex items-center gap-3 group">
-                            <div className="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+                            <div className="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center shrink-0">
                               <FiCheck className="w-4 h-4 text-green-600 dark:text-green-400" />
                             </div>
                             <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
