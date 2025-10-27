@@ -90,7 +90,7 @@ export default function AllProjects() {
   if (loading) return <LoadingSpinner></LoadingSpinner>
   
   return (
-    <div className="min-h-screen py-8">
+    <div className="min-h-screen py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-12">
