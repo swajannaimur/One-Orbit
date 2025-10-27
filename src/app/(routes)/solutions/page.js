@@ -311,7 +311,7 @@ const Solutions = () => {
                           <div className="space-y-2">
                             {item.features.map((feature, featureIdx) => (
                               <div key={featureIdx} className="flex items-center gap-3">
-                                <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center shrink-0">
                                   <FiCheck className="w-3 h-3 text-green-600 dark:text-green-400" />
                                 </div>
                                 <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
