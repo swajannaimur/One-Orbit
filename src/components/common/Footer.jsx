@@ -42,7 +42,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-linear-to-br from-gray-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:to-gray-800 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
+    <footer className="bg-linear-to-br from-gray-50 to-indigo-100 dark:bg-linear-to-br dark-bg border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Top Section - Brand & Newsletter */}

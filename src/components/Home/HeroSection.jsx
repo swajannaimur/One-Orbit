@@ -57,13 +57,13 @@ export default function HeroSection() {
     ];
 
     return (
-        <div className="relative">
-            <div className="relative max-w-7xl mx-auto px-4">
+        <div className="relative dark-bg">
+            <div className="relative max-w-7xl mx-auto px-4 mt-20">
                 <div className="grid lg:grid-cols-2 gap-12 items-center py-8">
                     {/* Left  */}
                     <div className="space-y-8">
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-gray-200 dark:border-gray-700 shadow-sm">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800 backdrop-blur-sm rounded-full border border-gray-200 dark:border-gray-700 shadow-sm">
                             <RiStarSFill className="w-4 h-4 text-amber-500" />
                             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Trusted by 10,000+ teams worldwide
