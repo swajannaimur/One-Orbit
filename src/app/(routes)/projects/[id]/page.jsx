@@ -128,8 +128,8 @@ export default function ProjectDetails() {
 
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-16">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 dark-bg py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header Section */}
         <div className="text-center mb-12">
@@ -242,7 +242,7 @@ export default function ProjectDetails() {
                         <div className="flex justify-end gap-4 mt-4">
                           <button
                             onClick={closeModal}
-                            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md">
+                            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 dark:text-white rounded-md">
                             Cancel
                           </button>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 import {
   FiCode,
@@ -368,9 +369,12 @@ const Solutions = () => {
                 Join thousands of teams already using One Orbit to streamline their operations and enhance collaboration.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
+               <Link href="/login">
                 <button className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-2xl hover:scale-105 transition-transform duration-300 shadow-lg">
                   Start Free Trial
                 </button>
+               </Link>
+               
                 <button className="px-8 py-4 bg-blue-500 text-white font-semibold rounded-2xl hover:scale-105 transition-transform duration-300 border border-blue-400">
                   Schedule Demo
                 </button>
