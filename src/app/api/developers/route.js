@@ -24,7 +24,9 @@ export const GET = async (req) => {
 			);
 		}
 
+        // console.log(singleDeveloper);
 		return NextResponse.json(singleDeveloper);
+
 	} catch (error) {
 		console.log("Error fetching developer : ", error);
 		return NextResponse.json(
