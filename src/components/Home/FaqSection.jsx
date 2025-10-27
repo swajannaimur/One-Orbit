@@ -285,7 +285,7 @@ const FaqSection = () => {
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white pr-4">
                         {item.question}
                       </h3>
-                      <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+                      <div className="shrink-0 w-6 h-6 flex items-center justify-center">
                         {isOpen ? (
                           <FiChevronUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                         ) : (
