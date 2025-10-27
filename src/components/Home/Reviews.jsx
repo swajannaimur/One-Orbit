@@ -313,7 +313,7 @@ const Reviews = () => {
                       <div className="p-8 lg:p-12">
                         <div className="flex items-start gap-6">
                           {/* Quote Icon */}
-                          <div className="hidden lg:block flex-shrink-0">
+                          <div className="hidden lg:block shrink-0">
                             <div className="w-12 h-12 bg-linear-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
                               <FiSquare className="w-6 h-6 text-white" />
                             </div>
