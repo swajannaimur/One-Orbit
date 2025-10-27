@@ -58,7 +58,6 @@ export default function Navbar() {
     { href: "/projects", label: "All Project" },
     { href: "/AllDevelopers", label: "All Developers" },
     { href: "/solutions", label: "Solutions" },
-    { href: "/pricing", label: "Pricing" },
   ];
 
   const secureItems = [
