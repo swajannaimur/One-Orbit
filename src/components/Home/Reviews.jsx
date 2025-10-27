@@ -1,4 +1,3 @@
-// components/Reviews.jsx
 "use client";
 import React, { useState } from 'react';
 import { 
@@ -12,11 +11,6 @@ import {
   FiCheckCircle,
   FiSquare
 } from 'react-icons/fi';
-import { 
-  HiOutlineLightningBolt,
-  HiOutlineChartBar,
-  HiOutlineShieldCheck
-} from 'react-icons/hi';
 
 const Reviews = () => {
   const [activeReview, setActiveReview] = useState(0);
