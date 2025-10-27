@@ -19,7 +19,7 @@ export default async function DashboardHome() {
                 <h1 className="text-2xl font-bold text-gray-800 ">Dashboard Home</h1>
             </div>
 
-            {/* Welcome Card */}
+            {/* Welcome Card */}   
             <div className="bg-white  shadow-md rounded-xl p-6 mb-6 border-l-4 border-blue-600">
                 <h2 className="text-lg font-semibold text-gray-700  mb-2">
                     Welcome, {session.user?.name || "Client"}!

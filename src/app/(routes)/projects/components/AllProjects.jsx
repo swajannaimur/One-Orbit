@@ -184,7 +184,7 @@ export default function AllProjects() {
 
                         {/* Urgent Badge */}
                         {isUrgent && (
-                          <div className="flex-shrink-0">
+                          <div className="shrink-0">
                             <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium rounded-full flex items-center gap-1">
                               <FiClock className="w-3 h-3" />
                               Urgent
