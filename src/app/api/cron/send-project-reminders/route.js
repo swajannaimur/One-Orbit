@@ -15,14 +15,10 @@ export async function GET(request) {
     for (const prj of due) {
       try {
         const subject = `Reminder: Project "${prj?.name}" deadline reached`;
-        const text = `Hello,\n\nThis is a reminder that your project "${
-          prj?.name
-        }" had a deadline of ${prj?.deadline?.toISOString()}.\n\nBest regards.`;
-        // optionally HTML version:
         const html = `<p>Hello,</p><p>This is a reminder that your project <strong>${
           prj?.name
         }</strong> had a deadline of ${prj?.deadline?.toISOString()}.</p>`;
-        await sendEmail({ to: prj?.clientEmail, subject, text, html });
+        await sendEmail({ to: prj?.clientEmail, subject, html });
         await markProjectReminderSent(prj._id);
         sent++;
       } catch (err) {
