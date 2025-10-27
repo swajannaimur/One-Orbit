@@ -25,7 +25,6 @@ export default function DashboardLayout({ children }) {
         { href: "/dashboard/client-dashboard/settings", label: "Settings", icon: <FaCog /> },
     ];
 
-
     return (
         <div className="flex min-h-screen py-4">
 
