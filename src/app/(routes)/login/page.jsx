@@ -28,7 +28,7 @@ export default async function Login() {
             <div className="relative min-h-screen flex">
                 
                 {/* Left Side - Illustration/Content */}
-                <div className="hidden lg:flex lg:flex-1 lg:flex-col lg:justify-between lg:p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white relative overflow-hidden">
+                <div className="hidden lg:flex lg:flex-1 lg:flex-col lg:justify-between lg:p-12 bg-linear-to-br from-blue-600 to-purple-600 text-white relative overflow-hidden">
                     {/* Background Pattern */}
                     <div className="absolute inset-0 opacity-10">
                         <div className="absolute top-0 left-0 w-72 h-72 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
@@ -59,7 +59,7 @@ export default async function Login() {
 
                             <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
                                 Welcome back to your
-                                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-cyan-200">
+                                <span className="block text-transparent bg-clip-text bg-linear-to-r from-amber-200 to-cyan-200">
                                     workspace
                                 </span>
                             </h2>
@@ -107,7 +107,7 @@ export default async function Login() {
                         {/* Mobile Header */}
                         <div className="lg:hidden text-center mb-8">
                             <div className="flex items-center justify-center gap-3 mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
                                     <span className="text-2xl font-bold text-white">O</span>
                                 </div>
                                 <div className="text-left">

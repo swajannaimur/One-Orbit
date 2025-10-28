@@ -1,4 +1,3 @@
-// components/Reviews.jsx
 "use client";
 import React, { useState } from 'react';
 import { 
@@ -12,11 +11,6 @@ import {
   FiCheckCircle,
   FiSquare
 } from 'react-icons/fi';
-import { 
-  HiOutlineLightningBolt,
-  HiOutlineChartBar,
-  HiOutlineShieldCheck
-} from 'react-icons/hi';
 
 const Reviews = () => {
   const [activeReview, setActiveReview] = useState(0);
@@ -168,7 +162,7 @@ const Reviews = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <section className="py-20 bg-linear-to-b from-white to-gray-50 dark-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -179,10 +173,10 @@ const Reviews = () => {
               Trusted by 10,000+ Teams
             </span>
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 to-amber-900 dark:from-white dark:to-amber-200 bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-gray-900 to-amber-900 dark:from-white dark:to-amber-200 bg-clip-text text-transparent mb-6">
             What Teams Are
             <br />
-            <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
               Saying About Us
             </span>
           </h2>
@@ -258,9 +252,9 @@ const Reviews = () => {
                 return (
                   <div
                     key={index}
-                    className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center"
+                    className="bg-linear-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center"
                   >
-                    <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 h-12 bg-linear-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
@@ -313,8 +307,8 @@ const Reviews = () => {
                       <div className="p-8 lg:p-12">
                         <div className="flex items-start gap-6">
                           {/* Quote Icon */}
-                          <div className="hidden lg:block flex-shrink-0">
-                            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+                          <div className="hidden lg:block shrink-0">
+                            <div className="w-12 h-12 bg-linear-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
                               <FiSquare className="w-6 h-6 text-white" />
                             </div>
                           </div>
@@ -343,7 +337,7 @@ const Reviews = () => {
 
                             {/* Author */}
                             <div className="flex items-center gap-4">
-                              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                              <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                                 {review.name[0]}
                               </div>
                               <div>
@@ -410,7 +404,7 @@ const Reviews = () => {
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                      <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                         {review.name[0]}
                       </div>
                       <div>
@@ -461,7 +455,7 @@ const Reviews = () => {
 
             {/* CTA Section */}
             <div className="text-center mt-12">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+              <div className="bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">
                   Ready to join thousands of satisfied teams?
                 </h3>

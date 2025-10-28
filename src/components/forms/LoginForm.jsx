@@ -60,7 +60,8 @@ export default function LoginForm()
             form.reset();
             toast.success("Login Successfull");
             setError("");
-            router.push("/dashboard");}
+            router.push("/dashboard");
+        }
 
         
 
@@ -140,7 +141,7 @@ export default function LoginForm()
                 <div>
                     <p className="text-sm text-gray-700 tracking-wide font-semibold">
 
-                        Forgot password? <Link href="/forget-password" className="text-primary hover:underline">Reset Here</Link>
+                        Forgot password? <Link href="/forgot-password" className="text-primary hover:underline">Reset Here</Link>
 
                     </p>
                 </div>

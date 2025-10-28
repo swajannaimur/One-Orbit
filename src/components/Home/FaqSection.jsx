@@ -184,7 +184,7 @@ const FaqSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <section className="py-20 bg-linear-to-b from-gray-50 to-white dark-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -195,10 +195,10 @@ const FaqSection = () => {
               Frequently Asked Questions
             </span>
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent mb-6">
             Get Answers to
             <br />
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Common Questions
             </span>
           </h2>
@@ -224,11 +224,11 @@ const FaqSection = () => {
                       onClick={() => setActiveCategory(category.id)}
                       className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left ${
                         activeCategory === category.id
-                          ? 'bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800'
+                          ? 'bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800'
                           : 'hover:bg-gray-50 dark:hover:bg-gray-700/50 border border-transparent'
                       }`}
                     >
-                      <div className={`w-10 h-10 bg-gradient-to-r ${category.color} rounded-lg flex items-center justify-center`}>
+                      <div className={`w-10 h-10 bg-linear-to-r ${category.color} rounded-lg flex items-center justify-center`}>
                         <Icon className="w-5 h-5 text-white" />
                       </div>
                       <span className="font-medium text-gray-700 dark:text-gray-300">
@@ -241,7 +241,7 @@ const FaqSection = () => {
             </div>
 
             {/* Quick Support */}
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl shadow-lg p-6 text-white">
+            <div className="bg-linear-to-br from-blue-600 to-purple-600 rounded-2xl shadow-lg p-6 text-white">
               <h3 className="text-lg font-semibold mb-3">Need More Help?</h3>
               <p className="text-blue-100 text-sm mb-4">
                 Our support team is ready to assist you with any questions.
@@ -285,7 +285,7 @@ const FaqSection = () => {
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white pr-4">
                         {item.question}
                       </h3>
-                      <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+                      <div className="shrink-0 w-6 h-6 flex items-center justify-center">
                         {isOpen ? (
                           <FiChevronUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                         ) : (
@@ -334,7 +334,7 @@ const FaqSection = () => {
                       key={index}
                       className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105"
                     >
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                      <div className="w-12 h-12 bg-linear-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                         <Icon className="w-6 h-6 text-white" />
                       </div>
                       <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
