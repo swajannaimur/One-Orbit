@@ -80,6 +80,7 @@ export default function DeveloperDashboard() {
 
         <nav className="flex-1 px-2 py-4 space-y-2">
           <Link
+            onClick={() => setActiveSection("myProjects")}
             href="/dashboard/developer-dashboard/myProjects"
             className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-indigo-100 hover:to-blue-100 text-gray-800 font-medium transition"
           >
