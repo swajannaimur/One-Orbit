@@ -44,7 +44,7 @@ export default function Sidebar({
         </button>
       </div>
 
-      <div className="flex-1 h-[calc(100vh-7.5rem)] overflow-y-auto">
+      <div className="flex-1 h-[calc(100vh-9.2rem)] overflow-y-auto">
         {category === "friends"
           ? friendsList.map((user) => (
               <div

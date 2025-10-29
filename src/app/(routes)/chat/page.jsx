@@ -190,8 +190,12 @@ export default function ChatPage() {
           <span className="loading loading-spinner loading-xl"></span>
         </div>
       ) : (
-        <div className="flex h-[calc(100vh-5rem)] max-w-7xl mx-auto mt-24 bg-base-200 dark-bg overflow-hidden">
-          <div className={`h-full ${sidebarOpen ? "block" : "hidden"} md:block overflow-y-auto `}>
+        <div className="flex h-[calc(100vh-6rem)] max-w-7xl mx-auto mt-24 bg-base-200 dark-bg overflow-hidden">
+          <div
+            className={`h-full ${
+              sidebarOpen ? "block" : "hidden"
+            } md:block overflow-y-auto `}
+          >
             <Sidebar
               friendsList={friendsList}
               contactsList={contactsList}
