@@ -178,7 +178,7 @@ export default function DeveloperSettingsPage() {
     : [];
 
   return (
-    <div className="max-w-6xl mx-auto bg-gradient-to-br from-indigo-100 via-white to-pink-100 shadow-xl rounded-2xl p-8 mt-20 mb-16 border border-indigo-200">
+    <div className="max-w-6xl mx-auto bg-linear-to-br from-indigo-100 via-white to-pink-100 shadow-xl rounded-2xl p-8 mt-20 mb-16 border border-indigo-200">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-6">
         <div className="flex items-center gap-4">
@@ -204,7 +204,7 @@ export default function DeveloperSettingsPage() {
         <div className="flex flex-wrap gap-3">
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-md hover:scale-105 transition-transform"
+            className="flex items-center gap-2 px-5 py-2 bg-linear-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-md hover:scale-105 transition-transform"
           >
             {isEditing ? (
               <>
@@ -579,7 +579,7 @@ export default function DeveloperSettingsPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-4 bg-gradient-to-b from-indigo-600 to-indigo-400 text-white py-2 rounded-md hover:bg-indigo-700 transition disabled:opacity-60"
+              className="w-full mt-4 bg-linear-to-b from-indigo-600 to-indigo-400 text-white py-2 rounded-md hover:bg-indigo-700 transition disabled:opacity-60"
             >
               {loading ? "Saving..." : "Update Settings"}
             </button>

@@ -55,7 +55,7 @@ export default function DeveloperDashboard() {
   const [activeSection, setActiveSection] = useState(null);
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-100 ">
+    <div className="flex min-h-screen bg-linear-to-br from-indigo-50 via-blue-50 to-purple-100 ">
       {/* Sidebar */}
       <div
         className={`${
@@ -66,7 +66,7 @@ export default function DeveloperDashboard() {
           <h2
             className={`${
               isSidebarOpen ? "block" : "hidden"
-            } text-xl font-bold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
+            } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
           >
             Developer Dashboard
           </h2>
@@ -82,47 +82,24 @@ export default function DeveloperDashboard() {
           <Link
             onClick={() => setActiveSection("myProjects")}
             href="/dashboard/developer-dashboard/myProjects"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-indigo-100 hover:to-blue-100 text-gray-800 font-medium transition"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg bg-linear-to-r from-blue-50 to-indigo-50 hover:from-indigo-100 hover:to-blue-100 text-gray-800 font-medium transition"
           >
             <FaProjectDiagram className="text-indigo-500" />
             {isSidebarOpen && <span>My Projects</span>}
           </Link>
 
-          {/* <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-yellow-100 text-gray-800 font-medium transition"
-          >
-            <FaTasks className="text-yellow-500" />
-            {isSidebarOpen && <span>My Tasks</span>}
-          </a> */}
-
           <Link
             href="/dashboard/developer-dashboard/teamMembers"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-100 text-gray-800 font-medium transition"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-green-50 hover:to-emerald-100 text-gray-800 font-medium transition"
           >
             <FaUsers className="text-green-500" />
             {isSidebarOpen && <span>Team Members</span>}
           </Link>
 
-          {/* <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-pink-100 text-gray-800 font-medium transition"
-          >
-            <FaUserPlus className="text-indigo-600" />
-            {isSidebarOpen && <span>Invite a Teammate</span>}
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
-          >
-            <PiKanban className="text-purple-500" />
-            {isSidebarOpen && <span>Board</span>}
-          </a> */}
-
           {/* Invite a Teammate */}
           <button
             onClick={() => setActiveSection("invite")}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-pink-100 text-gray-800 font-medium transition"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-indigo-50 hover:to-pink-100 text-gray-800 font-medium transition"
           >
             <FaUserPlus className="text-indigo-600" />
             {isSidebarOpen && <span>Invite a Teammate</span>}
@@ -131,7 +108,7 @@ export default function DeveloperDashboard() {
           {/* Kanban Board */}
           <button
             onClick={() => setActiveSection("board")}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
           >
             <PiKanban className="text-purple-500" />
             {isSidebarOpen && <span>Board</span>}
@@ -139,7 +116,7 @@ export default function DeveloperDashboard() {
 
           <a
             href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-yellow-100 text-gray-800 font-medium transition"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-yellow-50 hover:to-yellow-100 text-gray-800 font-medium transition"
           >
             <MdOutlineSettingsSuggest className="text-yellow-500" />
             <button
@@ -153,7 +130,7 @@ export default function DeveloperDashboard() {
           </a>
           <a
             href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
           >
             <TbLogout2 className="text-red-500" />
             <button onClick={() => signOut({ callbackUrl: "/" })}>
@@ -167,7 +144,7 @@ export default function DeveloperDashboard() {
       <div className="min-h-screen flex-1 flex flex-col pb-5 ">
         {/* Top Navbar */}
         <header className="backdrop-blur-xl bg-white/70 shadow-md border-b border-white/40 px-6 py-4 flex justify-between items-center sticky top-0 z-30">
-          <h1 className="text-2xl font-bold bg-gradient-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
             Overview
           </h1>
           <div className="flex items-center gap-4">
@@ -247,19 +224,19 @@ export default function DeveloperDashboard() {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-100 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
+            <div className="bg-linear-to-r from-green-50 to-emerald-100 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
               <h3 className="font-semibold text-gray-700 mb-2">
                 Active Projects
               </h3>
               <p className="text-3xl font-bold text-gray-900">3</p>
             </div>
-            <div className="bg-gradient-to-r from-yellow-50 to-amber-100 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
+            <div className="bg-linear-to-r from-yellow-50 to-amber-100 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
               <h3 className="font-semibold text-gray-700 mb-2">
                 Pending Tasks
               </h3>
               <p className="text-3xl font-bold text-gray-900">7</p>
             </div>
-            <div className="bg-gradient-to-r from-red-50 to-rose-100 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
+            <div className="bg-linear-to-r from-red-50 to-rose-100 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
               <h3 className="font-semibold text-gray-700 mb-2">
                 Completed Tasks
               </h3>

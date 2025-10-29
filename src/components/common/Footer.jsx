@@ -42,7 +42,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
+    <footer className="bg-linear-to-br from-gray-50 to-indigo-100 dark:bg-linear-to-br dark-bg border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Top Section - Brand & Newsletter */}
@@ -50,15 +50,15 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">O</span>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent">OneOrbit</span>
+              <span className="text-2xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent">OneOrbit</span>
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-lg mb-6 max-w-md transition-colors duration-300">
               Building the future of team collaboration. Simple, powerful tools for modern teams.
             </p>
-            
+
             {/* Newsletter */}
             <div className="space-y-4">
               <p className="text-sm font-medium text-gray-900 dark:text-white transition-colors duration-300">
@@ -86,32 +86,32 @@ const Footer = () => {
               </h3>
               <ul className="space-y-3">
                 <li>
-                  <Link 
-                    href="/features" 
+                  <Link
+                    href="/features"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Features
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/integrations" 
+                  <Link
+                    href="/integrations"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Integrations
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/pricing" 
+                  <Link
+                    href="/pricing"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Pricing
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/changelog" 
+                  <Link
+                    href="/changelog"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Changelog
@@ -127,32 +127,32 @@ const Footer = () => {
               </h3>
               <ul className="space-y-3">
                 <li>
-                  <Link 
-                    href="/about" 
+                  <Link
+                    href="/about"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/careers" 
+                  <Link
+                    href="/careers"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Careers
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/press" 
+                  <Link
+                    href="/press"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Press
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/contact" 
+                  <Link
+                    href="/contact"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Contact
@@ -168,32 +168,32 @@ const Footer = () => {
               </h3>
               <ul className="space-y-3">
                 <li>
-                  <Link 
-                    href="/blog" 
+                  <Link
+                    href="/blog"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Blog
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/docs" 
+                  <Link
+                    href="/docs"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Documentation
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/community" 
+                  <Link
+                    href="/community"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Community
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/support" 
+                  <Link
+                    href="/support"
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                   >
                     Support
@@ -262,40 +262,16 @@ const Footer = () => {
               {/* Back to Top */}
               <button
                 onClick={scrollToTop}
-                className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300 group"
+                className="w-10 h-10 btn-linear dark:bg-gray-800 rounded-lg flex items-center justify-center 
+             hover:bg-gray-200 dark:hover:bg-gray-700 
+             transform transition-transform duration-300 ease-out 
+             hover:scale-110 group"
                 aria-label="Back to top"
               >
-                <FiArrowUp className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300" />
+                <FiArrowUp className="w-5 h-5 font-semibold text-white dark:text-gray-400 
+                        dark:group-hover:text-white 
+                        transition-colors duration-300" />
               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Trust Badges */}
-      <div className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">
-            {/* Security Badges */}
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded flex items-center justify-center transition-colors duration-300">
-                  <span className="text-green-600 dark:text-green-400 text-xs font-bold">✓</span>
-                </div>
-                <span>SSL Secured</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center transition-colors duration-300">
-                  <span className="text-blue-600 dark:text-blue-400 text-xs font-bold">✓</span>
-                </div>
-                <span>GDPR Compliant</span>
-              </div>
-            </div>
-
-            {/* System Status */}
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span>All systems operational</span>
             </div>
           </div>
         </div>

@@ -112,7 +112,7 @@ export default function ChatPage() {
       channel.unsubscribe("typing", typingHandler);
       try {
         channel.presence.leave();
-      } catch (e) {}
+      } catch (e) { }
     };
   }, [ably, clientId, selectedFriend]);
 
@@ -186,29 +186,31 @@ export default function ChatPage() {
   return (
     <>
       {usersList.length === 0 ? (
-        <div className="w-full h-[100vh] flex items-center justify-center">
+        <div className="w-full h-screen flex items-center justify-center">
           <span className="loading loading-spinner loading-xl"></span>
         </div>
       ) : (
-        <div className="flex h-[calc(100vh-5rem)] bg-base-200 max-w-7xl mx-auto px-4">
-          <Sidebar
-            friendsList={friendsList}
-            contactsList={contactsList}
-            selectedFriend={selectedFriend}
-            setSelectedFriend={setSelectedFriend}
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
-            onlineUsers={onlineUsers}
-          />
+        <div className="flex h-[calc(100vh-5rem)] max-w-7xl mx-auto mt-24 bg-base-200 dark-bg overflow-hidden">
+          <div className={`h-full ${sidebarOpen ? "block" : "hidden"} md:block overflow-y-auto `}>
+            <Sidebar
+              friendsList={friendsList}
+              contactsList={contactsList}
+              selectedFriend={selectedFriend}
+              setSelectedFriend={setSelectedFriend}
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+              onlineUsers={onlineUsers}
+            />
+          </div>
 
           {selectedFriend === null ? (
             <div className="flex items-center mx-auto">
-              <h5 className="text-3xl text-black/40">No User Selected</h5>
+              <h5 className="text-3xl text-black/40 dark:text-white">No User Selected</h5>
             </div>
           ) : (
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col ">
               {/* Header */}
-              <div className="p-4 border-b border-base-300 bg-base-100 flex items-center justify-between">
+              <div className="p-4 border-b border-base-300 bg-base-100 dark-bg dark:text-white flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="avatar">
                     <div className="w-10 rounded-full">
@@ -234,11 +236,10 @@ export default function ChatPage() {
                   <div>
                     <h2 className="font-semibold">{selectedFriend?.name}</h2>
                     <p
-                      className={`text-sm ${
-                        onlineUsers.includes(selectedFriend?._id)
+                      className={`text-sm ${onlineUsers.includes(selectedFriend?._id)
                           ? "text-green-500"
                           : "text-gray-400"
-                      }`}
+                        }`}
                     >
                       {onlineUsers.includes(selectedFriend?._id)
                         ? "Online"
@@ -263,9 +264,8 @@ export default function ChatPage() {
                   (msg, index) => (
                     <div
                       key={index}
-                      className={`chat ${
-                        msg.senderId === clientId ? "chat-end" : "chat-start"
-                      }`}
+                      className={`chat ${msg.senderId === clientId ? "chat-end" : "chat-start"
+                        }`}
                     >
                       {msg.senderId !== clientId && (
                         <div className="chat-image avatar">
@@ -290,9 +290,8 @@ export default function ChatPage() {
                       )}
 
                       <div
-                        className={`chat-bubble ${
-                          msg.senderId === clientId ? "bg-blue-300" : ""
-                        }`}
+                        className={`chat-bubble ${msg.senderId === clientId ? "bg-blue-300" : ""
+                          }`}
                       >
                         {msg.text}
                       </div>
@@ -328,7 +327,7 @@ export default function ChatPage() {
               {/* Input */}
               <form
                 onSubmit={sendMessage}
-                className="p-4 border-t border-base-300 bg-base-100 flex items-center gap-2"
+                className="p-4 border-t border-base-300 bg-base-100 dark-bg flex items-center gap-2"
               >
                 <input
                   type="text"
@@ -347,7 +346,7 @@ export default function ChatPage() {
                 />
                 <button
                   type="submit"
-                  className="py-2 px-2.5 cursor-pointer btn-gradient rounded-full"
+                  className="py-2 px-2.5 cursor-pointer btn-linear rounded-full"
                 >
                   <MdOutlineSend size={30} />
                 </button>

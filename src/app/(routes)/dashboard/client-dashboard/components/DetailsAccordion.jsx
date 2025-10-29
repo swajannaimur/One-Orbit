@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
@@ -8,11 +9,13 @@ export default function DetailsAccordion({ project }) {
     const [assignedEmails, setAssignedEmails] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    // console.log("Project printing : ", project);
+
     useEffect(() => {
-    if (selectedDeveloper && !loading) {
-        document.getElementById("developer_modal").showModal();
-    }
-}, [selectedDeveloper, loading]);
+        if (selectedDeveloper && !loading) {
+            document.getElementById("developer_modal").showModal();
+        }
+    }, [selectedDeveloper, loading]);
 
     const fetchDeveloper = async (email) => {
         try {
@@ -96,9 +99,19 @@ export default function DetailsAccordion({ project }) {
                         <ul className="ml-5 list-disc text-sm text-gray-700">
                             {project.developerEmails.map((dev, i) => (
                                 <li key={i} className="mb-1">
-                                    <span className="font-semibold cursor-pointer text-blue-600 hover:underline"
-                                        onClick={() => fetchDeveloper(dev)}
-                                    >{dev}</span> — Bid:{" "}
+                                    <Link
+                                        href={{
+                                            pathname: "/dashboard/client-dashboard/assign-developer",
+                                            query: {
+                                                developer: dev,
+                                                projectId: project.projectDetails._id,
+                                                projectName: project.projectDetails.projectName
+                                            },
+                                        }} className="font-semibold cursor-pointer text-blue-600 hover:underline"
+
+                                    >
+                                        {dev}
+                                    </Link> — Bid:{" "}
                                     <span className="text-green-600 font-semibold">
                                         {project.bids[i]}$
                                     </span>
@@ -133,8 +146,8 @@ export default function DetailsAccordion({ project }) {
                             <p className="mt-4">
                                 <button
                                     className={`px-3 py-1 rounded-md ${assignedEmails.includes(selectedDeveloper?.email)
-                                            ? "bg-gray-300 cursor-not-allowed"
-                                            : "bg-blue-400 cursor-pointer"
+                                        ? "bg-gray-300 cursor-not-allowed"
+                                        : "bg-blue-400 cursor-pointer"
                                         }`}
                                     onClick={() => handleAssign(selectedDeveloper?.email)}
                                     disabled={assignedEmails.includes(selectedDeveloper?.email)}

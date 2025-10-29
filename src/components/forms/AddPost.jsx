@@ -163,7 +163,7 @@ const AddPost = () => {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Client Info Card */}
-      <div className="btn-gradient rounded-xl p-6 mb-8 text-white">
+      <div className="btn-linear rounded-xl p-6 mb-8 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-white/20 rounded-full">
@@ -267,7 +267,7 @@ const AddPost = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full lg:w-auto px-8 py-4 btn-gradient cursor-pointer text-white font-semibold rounded-lg focus:ring-4 focus:ring-primary/20 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 min-w-[200px]"
+              className="w-full lg:w-auto px-8 py-4 btn-linear cursor-pointer text-white font-semibold rounded-lg focus:ring-4 focus:ring-primary/20 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 min-w-[200px]"
             >
               {isLoading ? (
                 <>

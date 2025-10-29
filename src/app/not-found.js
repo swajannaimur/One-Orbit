@@ -68,7 +68,7 @@ const ErrorPage = ({
   };
 
   return (
-    <div className="min-h-screen mt-25 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen mt-25 bg-linear-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl w-full">
         
         {/* Background Elements */}
@@ -85,14 +85,14 @@ const ErrorPage = ({
             {/* Error Illustration */}
             <div className="mb-8">
               <div className="relative inline-block">
-                <div className={`w-24 h-24 bg-gradient-to-r ${config.color} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg`}>
+                <div className={`w-24 h-24 bg-linear-to-r ${config.color} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg`}>
                   <span className="text-3xl">{config.illustration}</span>
                 </div>
-                <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-xl opacity-20 animate-pulse"></div>
+                <div className="absolute -inset-4 bg-linear-to-r from-blue-500 to-purple-500 rounded-3xl blur-xl opacity-20 animate-pulse"></div>
               </div>
               
               {/* Status Code */}
-              <div className="text-8xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4">
+              <div className="text-8xl font-bold bg-linear-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4">
                 {statusCode}
               </div>
             </div>
@@ -111,9 +111,9 @@ const ErrorPage = ({
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
                 <Link
                   href="/"
-                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden flex items-center justify-center gap-3"
+                  className="group relative px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden flex items-center justify-center gap-3"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-linear-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <FiHome className="w-5 h-5 relative z-10" />
                   <span className="relative z-10">Back to Home</span>
                 </Link>

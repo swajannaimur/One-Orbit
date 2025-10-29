@@ -25,7 +25,7 @@ export default function WhyChooseUs() {
       icon: HiOutlineUserGroup,
       stats: "98% satisfaction",
       color: "from-blue-500 to-cyan-500",
-      gradient: "bg-gradient-to-r from-blue-500 to-cyan-500"
+      linear: "bg-linear-to-r from-blue-500 to-cyan-500"
     },
     {
       title: "Lightning Fast Performance",
@@ -33,7 +33,7 @@ export default function WhyChooseUs() {
       icon: HiOutlineLightningBolt,
       stats: "99.9% uptime",
       color: "from-amber-500 to-orange-500",
-      gradient: "bg-gradient-to-r from-amber-500 to-orange-500"
+      linear: "bg-linear-to-r from-amber-500 to-orange-500"
     },
     {
       title: "Enterprise-Grade Security",
@@ -41,7 +41,7 @@ export default function WhyChooseUs() {
       icon: HiOutlineLockClosed,
       stats: "SOC 2 Certified",
       color: "from-emerald-500 to-green-500",
-      gradient: "bg-gradient-to-r from-emerald-500 to-green-500"
+      linear: "bg-linear-to-r from-emerald-500 to-green-500"
     },
     {
       title: "24/7 Expert Support",
@@ -49,7 +49,7 @@ export default function WhyChooseUs() {
       icon: HiOutlineSupport,
       stats: "24/7 available",
       color: "from-purple-500 to-pink-500",
-      gradient: "bg-gradient-to-r from-purple-500 to-pink-500"
+      linear: "bg-linear-to-r from-purple-500 to-pink-500"
     }
   ];
 
@@ -61,14 +61,14 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20 overflow-hidden">
+    <section className="relative py-20 bg-linear-to-br from-gray-50  to-blue-50 dark-bg overflow-hidden">
       
       {/* Background Elements */}
-      <div className="absolute inset-0">
+      {/* <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-72 h-72 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-3xl opacity-30 animate-pulse"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-100 dark:bg-purple-900/20 rounded-full blur-3xl opacity-30 animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-100 dark:bg-cyan-900/20 rounded-full blur-3xl opacity-20"></div>
-      </div>
+      </div> */}
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -82,11 +82,11 @@ export default function WhyChooseUs() {
           </div>
           
           <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight mb-6">
-            <span className="bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
               Why Teams Choose
             </span>
             <br />
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               OneOrbit
             </span>
           </h2>
@@ -103,10 +103,10 @@ export default function WhyChooseUs() {
             const Icon = stat.icon;
             return (
               <div key={index} className="text-center group">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <div className="w-16 h-16 bg-linear-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <div className="text-3xl lg:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {stat.number}
                 </div>
                 <div className="text-gray-600 dark:text-gray-400 mt-2 font-medium">
@@ -126,13 +126,13 @@ export default function WhyChooseUs() {
                 key={index}
                 className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl border border-gray-200 dark:border-gray-700 transition-all duration-500 hover:scale-105 overflow-hidden"
               >
-                {/* Gradient Border Effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                {/* linear Border Effect */}
+                <div className={`absolute inset-0 bg-linear-to-r ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
                 
                 <div className="relative p-8 h-full flex flex-col">
                   
                   {/* Icon */}
-                  <div className={`w-16 h-16 ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                  <div className={`w-16 h-16 ${feature.linear} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                     <Icon className="w-8 h-8 text-white" />
                   </div>
 
@@ -150,14 +150,14 @@ export default function WhyChooseUs() {
                     <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full">
                       {feature.stats}
                     </span>
-                    <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-600 transition-all duration-300">
+                    <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center group-hover:bg-linear-to-r group-hover:from-blue-500 group-hover:to-purple-600 transition-all duration-300">
                       <FiArrowRight className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-white transition-colors duration-300" />
                     </div>
                   </div>
                 </div>
 
                 {/* Hover Effect */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-gray-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             );
           })}
@@ -165,7 +165,7 @@ export default function WhyChooseUs() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden">
+          <div className="bg-linear-to-r from-blue-600 to-purple-600 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden">
             
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
