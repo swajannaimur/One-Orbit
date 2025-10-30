@@ -74,6 +74,7 @@ export default function AssignDeveloper() {
                     toast.success("Developer Successfully assigned!");
                     setIsAlreadyAssigned(true); // button immediately update
                 }
+                
             } else {
                 toast.error(`Error res: ${data.error || "Something went wrong"}`);
             }
