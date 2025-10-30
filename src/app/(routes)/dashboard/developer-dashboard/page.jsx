@@ -58,7 +58,7 @@ export default function DeveloperDashboard() {
   const [activeSection, setActiveSection] = useState(null);
 
   return (
-    <div className="flex min-h-screen dark-bg bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
+    <div className="flex min-h-screen bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
       {/* Sidebar */}
       <div
         className={`${
@@ -93,17 +93,17 @@ export default function DeveloperDashboard() {
 
           <button
             onClick={() => setActiveSection("myProjects")}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition dark:hover:from-gray-700 dark:hover:to-gray-700"
           >
             <FaProjectDiagram className="text-indigo-500" />
-            {isSidebarOpen && <span>My Projects</span>}
+            {isSidebarOpen && <span className="dark:text-white">My Projects</span>}
           </button>
           <button
             onClick={() => setActiveSection("teamMember")}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition dark:hover:from-gray-700 dark:hover:to-gray-700"
           >
             <FaUsers className="text-green-500" />
-            {isSidebarOpen && <span>Team Member</span>}
+            {isSidebarOpen && <span className="dark:text-white">Team Member</span>}
           </button>
 
           {/* <Link
@@ -128,7 +128,7 @@ export default function DeveloperDashboard() {
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-indigo-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <FaUserPlus className="text-indigo-600" />
-            {isSidebarOpen && <span>Invite a Teammate</span>}
+            {isSidebarOpen && <span className="dark:text-white">Invite a Teammate</span>}
           </button>
 
           {/* Kanban Board */}
@@ -137,7 +137,7 @@ export default function DeveloperDashboard() {
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <PiKanban className="text-purple-500" />
-            {isSidebarOpen && <span>Board</span>}
+            {isSidebarOpen && <span className="dark:text-white">Board</span>}
           </button>
 
           <a
@@ -151,7 +151,7 @@ export default function DeveloperDashboard() {
               }
               className="text-gray-800 dark:text-gray-200"
             >
-              {isSidebarOpen && <span>Settings</span>}
+              {isSidebarOpen && <span className="dark:text-white">Settings</span>}
             </button>
           </a>
           <a
@@ -160,7 +160,7 @@ export default function DeveloperDashboard() {
           >
             <TbLogout2 className="text-red-500" />
             <button onClick={() => signOut({ callbackUrl: "/" })}>
-              {isSidebarOpen && <span>Logout</span>}
+              {isSidebarOpen && <span className="dark:text-white">Logout</span>}
             </button>
           </a>
         </nav>
@@ -202,7 +202,7 @@ export default function DeveloperDashboard() {
 
         {/* Dashboard Content */}
         <main className="p-6">
-          <h1 className="px-5 text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
+          <h1 className="pb-5 text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
             Overview
           </h1>
           <div className="bg-white/80 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-lg p-6 mb-6 border-l-4 border-indigo-500 hover:shadow-xl transition">
