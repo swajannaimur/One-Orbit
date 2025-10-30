@@ -61,7 +61,7 @@ export default function DashboardMockup() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Project Progress Card */}
-        <div className="bg-white dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
+        <div className=" dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
             Project Progress
           </h2>
@@ -86,7 +86,7 @@ export default function DashboardMockup() {
         </div>
 
         {/* Skill Distribution Card */}
-        <div className="bg-white dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition flex flex-col items-center">
+        <div className=" dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition flex flex-col items-center">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
             Skill Distribution
           </h2>
@@ -120,13 +120,13 @@ export default function DashboardMockup() {
 
 
       {/* Projects Table */}
-      <div className="bg-white dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
+      <div className=" dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
           My Projects
         </h2>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-700">
+            <thead className=" dark:bg-gray-700">
               <tr>
                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Project Name
@@ -142,7 +142,7 @@ export default function DashboardMockup() {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark-bg divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className=" dark-bg divide-y divide-gray-200 dark:divide-gray-700">
               {projects.map((p, idx) => (
                 <tr
                   key={idx}
@@ -177,7 +177,7 @@ export default function DashboardMockup() {
       </div>
 
       {/* Activity Feed */}
-      <div className="bg-white dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
+      <div className=" dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
           Recent Activity
         </h2>

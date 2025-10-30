@@ -37,7 +37,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const imagehh = session?.user?.image;
+ 
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -85,8 +85,8 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-40 dark-bg transition-all duration-100 ${isScrolled
-            ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
-            : "bg-transparent"
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -182,7 +182,7 @@ export default function Navbar() {
               ) : (
                 /* User Profile Section */
                 <div className="hidden lg:flex items-center space-x-4">
-          
+
                   {/* User Avatar */}
                   <div className="relative group">
                     <button
@@ -210,7 +210,7 @@ export default function Navbar() {
 
                     {/* Dropdown Menu */}
                     {isUserDropdownOpen && (
-                      <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-50">
+                      <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-80">
                         {/* User Info */}
                         <div className="p-4 border-b border-gray-100 dark:border-gray-700">
                           <div className="flex items-center space-x-3">
@@ -307,8 +307,8 @@ export default function Navbar() {
         {/* Mobile Menu */}
         <div
           className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${isMobileMenuOpen
-              ? "translate-y-0 opacity-100"
-              : "-translate-y-4 opacity-0 pointer-events-none"
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
             }`}
         >
           <div className="px-4 py-6 space-y-4">

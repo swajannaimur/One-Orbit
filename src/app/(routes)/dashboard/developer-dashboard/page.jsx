@@ -15,9 +15,10 @@ import { PiKanban } from "react-icons/pi";
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { TbLogout2 } from "react-icons/tb";
 import KanbanBoard from "./kanban/KanbanBoard";
-import InviteForm from "@/components/forms/InviteForm";
+
 import DashboardMockup from "./DashboardMockup/page";
 import Image from "next/image";
+import InviteForm from "@/app/api/users/invite/InviteForm";
 
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -46,7 +47,7 @@ export default function DeveloperDashboard() {
         const data = await res.json();
         if (!mounted) return;
         setRemoteUser(data.user || null);
-      } catch (err) {}
+      } catch (err) { }
     }
     load();
     return () => (mounted = false);
@@ -55,18 +56,16 @@ export default function DeveloperDashboard() {
   const [activeSection, setActiveSection] = useState(null);
 
   return (
-    <div className="flex min-h-screen bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
+    <div className="flex min-h-screen dark-bg bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
       {/* Sidebar */}
       <div
-        className={`${
-          isSidebarOpen ? "w-64" : "w-16"
-        } backdrop-blur-xl bg-white/70 dark-bg shadow-lg border-r border-white/40 dark:border-gray-700 transition-all duration-300 flex flex-col`}
+        className={`${isSidebarOpen ? "w-64" : "w-16"
+          } backdrop-blur-xl  dark-bg shadow-lg border-r border-white/40 dark:border-gray-700 transition-all duration-300 flex flex-col`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b border-white/40 dark:border-gray-700">
           <h2
-            className={`${
-              isSidebarOpen ? "block" : "hidden"
-            } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
+            className={`${isSidebarOpen ? "block" : "hidden"
+              } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
           >
             Developer Dashboard
           </h2>
@@ -88,12 +87,22 @@ export default function DeveloperDashboard() {
           </Link>
 
           <Link
-            href="/dashboard/developer-dashboard/teamMembers"
+            href="/dashboard/developer-dashboard/team-member"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-green-50 hover:to-emerald-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <FaUsers className="text-green-500" />
-            {isSidebarOpen && <span>Team Members</span>}
+            {/* {isSidebarOpen && <span>Team Members</span>} */}
+            <button
+              onClick={() => {
+                setIsDropdownOpen(true);
+                router.push("/dashboard/developer-dashboard/team-member");
+              }}
+            >
+              Team Member
+            </button>
           </Link>
+
+
 
           {/* Invite a Teammate */}
           <button
