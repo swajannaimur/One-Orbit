@@ -26,6 +26,7 @@ export async function GET() {
     const safe = invites.map((inv) => ({
       ...inv,
       _id: inv._id?.toString?.() ?? inv._id,
+      name: inv.name || null, // Ensure name field is included
     }));
 
     return new Response(JSON.stringify({ invites: safe }), {
@@ -52,10 +53,18 @@ export async function POST(req) {
     }
 
     const body = await req.json();
-    const { email: inviteeEmail, role = "member", message = "" } = body;
+    const { email: inviteeEmail, name, role = "member", message = "" } = body;
 
     if (!inviteeEmail || typeof inviteeEmail !== "string") {
       return new Response(JSON.stringify({ error: "Invalid email" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Add validation for name
+    if (!name || typeof name !== "string" || name.trim() === "") {
+      return new Response(JSON.stringify({ error: "Invalid name" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
@@ -71,6 +80,7 @@ export async function POST(req) {
       inviterEmail: session.user.email,
       inviterName: session.user.name || null,
       inviteeEmail,
+      name: name.trim(), // Add the name field here
       role,
       message,
       token,
@@ -81,7 +91,11 @@ export async function POST(req) {
 
     const res = await db.collection("users-invites").insertOne(invite);
     const inserted = await db.collection("users-invites").findOne({ _id: res.insertedId });
-    const safeInserted = { ...inserted, _id: inserted._id.toString() };
+    const safeInserted = { 
+      ...inserted, 
+      _id: inserted._id.toString(),
+      name: inserted.name || null, // Ensure name is included in response
+    };
 
     // NOTE: sending email is out-of-scope here. The token is returned so dev can test.
 
