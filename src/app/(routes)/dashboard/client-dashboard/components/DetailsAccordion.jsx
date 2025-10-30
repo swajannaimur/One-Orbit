@@ -97,26 +97,33 @@ export default function DetailsAccordion({ project }) {
                     </div>
                     <div className="collapse-content space-y-1">
                         <ul className="ml-5 list-disc text-sm text-gray-700">
-                            {project.developerEmails.map((dev, i) => (
-                                <li key={i} className="mb-1">
-                                    <Link
-                                        href={{
-                                            pathname: "/dashboard/client-dashboard/assign-developer",
-                                            query: {
-                                                developer: dev,
-                                                projectId: project.projectDetails._id,
-                                                projectName: project.projectDetails.projectName
-                                            },
-                                        }} className="font-semibold cursor-pointer text-blue-600 hover:underline"
 
-                                    >
-                                        {dev}
-                                    </Link> — Bid:{" "}
-                                    <span className="text-green-600 font-semibold">
-                                        {project.bids[i]}$
-                                    </span>
-                                </li>
-                            ))}
+                            {project.developerEmails.length === 0 ? (
+                                <p className="text-gray-500">Nobody has placed any bid</p>
+                            ) : (
+                                project.developerEmails.map((dev, i) => (
+                                    <li key={i} className="mb-1">
+                                        <Link
+                                            href={{
+                                                pathname: "/dashboard/client-dashboard/assign-developer",
+                                                query: {
+                                                    developer: dev,
+                                                    projectId: project.projectDetails._id,
+                                                    projectName: project.projectDetails.projectName,
+                                                },
+                                            }}
+                                            className="font-semibold cursor-pointer text-blue-600 hover:underline"
+                                        >
+                                            {dev}
+                                        </Link>{" "}
+                                        — Bid:{" "}
+                                        <span className="text-green-600 font-semibold">
+                                            {project.bids[i]}$
+                                        </span>
+                                    </li>
+                                ))
+                            )}
+
                         </ul>
                     </div>
                 </div>

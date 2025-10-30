@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function ResetPassword() {
