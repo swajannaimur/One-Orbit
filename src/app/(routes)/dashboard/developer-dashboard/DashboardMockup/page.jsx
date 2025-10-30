@@ -57,25 +57,37 @@ const activities = [
 
 export default function DashboardMockup() {
   return (
-    <div className="p-6 space-y-10 bg-linear-to-br from-indigo-50 via-blue-50 to-purple-50 min-h-screen">
+    <div className="p-6 space-y-10 bg-linear-to-br from-indigo-50 to-purple-50 min-h-screen dark-bg">
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">
+        {/* Project Progress Card */}
+        <div className="bg-white dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
             Project Progress
           </h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={chartData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
+              <XAxis
+                dataKey="name"
+                stroke="#4B5563"  
+                className="dark:stroke-white"
+              />
+              <YAxis
+                stroke="#4B5563"
+                className="dark:stroke-gray-200"
+              />
+              <Tooltip
+                contentStyle={{ backgroundColor: "#fff", borderRadius: "6px" }}
+                wrapperStyle={{ color: "#000" }}
+              />
               <Bar dataKey="progress" fill="#4F46E5" radius={[5, 5, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition flex flex-col items-center">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">
+        {/* Skill Distribution Card */}
+        <div className="bg-white dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition flex flex-col items-center">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
             Skill Distribution
           </h2>
           <ResponsiveContainer width="100%" height={250}>
@@ -97,56 +109,62 @@ export default function DashboardMockup() {
                   />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip
+                contentStyle={{ backgroundColor: "#fff", borderRadius: "6px" }}
+                wrapperStyle={{ color: "#000" }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
+
       {/* Projects Table */}
-      <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">
+      <div className="bg-white dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
+        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
           My Projects
         </h2>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Project Name
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Client
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Deadline
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Status
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark-bg divide-y divide-gray-200 dark:divide-gray-700">
               {projects.map((p, idx) => (
-                <tr key={idx} className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                <tr
+                  key={idx}
+                  className="hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+                >
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                     {p.name}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                     {p.client}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                     {p.deadline}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <span
-                      className={`px-2 py-1 rounded-full text-white text-xs ${
-                        p.status === "Completed"
-                          ? "bg-green-500"
-                          : p.status === "In Progress"
+                      className={`px-2 py-1 rounded-full text-white text-xs ${p.status === "Completed"
+                        ? "bg-green-500"
+                        : p.status === "In Progress"
                           ? "bg-blue-500"
                           : "bg-yellow-500"
-                      }`}
+                        }`}
                     >
                       {p.status}
                     </span>
@@ -159,22 +177,23 @@ export default function DashboardMockup() {
       </div>
 
       {/* Activity Feed */}
-      <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">
+      <div className="bg-white dark-bg p-6 rounded-2xl shadow hover:shadow-lg transition">
+        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
           Recent Activity
         </h2>
         <ul className="space-y-3">
           {activities.map((act, idx) => (
             <li
               key={idx}
-              className="flex justify-between bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition"
+              className="flex justify-between bg-gray-50 dark:bg-gray-700 rounded-lg p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition"
             >
-              <span className="text-gray-700">{act.activity}</span>
-              <span className="text-gray-400 text-sm">{act.time}</span>
+              <span className="text-gray-700 dark:text-gray-200">{act.activity}</span>
+              <span className="text-gray-400 dark:text-gray-300 text-sm">{act.time}</span>
             </li>
           ))}
         </ul>
       </div>
+
     </div>
   );
 }
