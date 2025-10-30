@@ -24,89 +24,64 @@ export default function AssignDeveloper() {
     const projectId = searchParams.get("projectId");
     const projectName = searchParams.get("projectName");
 
+    const [isAlreadyAssigned, setIsAlreadyAssigned] = useState(false);
     // console.log("Project id in assign dev : ", projectId);
     // console.log("Project name in assing dev : ", projectName);
-    const [assignedEmails, setAssignedEmails] = useState([]);
-    const [selectedDeveloper, setSelectedDeveloper] = useState(null);
-    const [loading, setLoading] = useState(false);
-
 
     useEffect(() => {
-        if (selectedDeveloper && !loading) {
-            document.getElementById("developer_modal").showModal();
-        }
-    }, [selectedDeveloper, loading]);
+        let toastShown = false;
+        const checkAssignedStatus = async () => {
+            if (!projectId) return;
+            try {
+                const res = await fetch(`/api/check-assigned?projectId=${projectId}`);
+                const data = await res.json();
 
+                setIsAlreadyAssigned(data?.assigned || false);
 
-
-    const fetchDeveloper = async (email) => {
-        try {
-            setLoading(true);
-            const res = await fetch("/api/developers", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "devEmail": email,
-                },
-            });
-
-            const data = await res.json();
-            if (res.ok) {
-                setSelectedDeveloper(data);
-                // console.log("selected Developer : ", selectedDeveloper);
-                // console.log('Selected Developerrr : ', data);
-                document.getElementById("developer_modal").showModal();
+                if (data?.assigned && !toastShown) {
+                    toast.success("Already Assigned");
+                    toastShown = true;
+                }
+            } catch (error) {
+                toast.error("Error checking assigned status");
             }
-            else {
-                toast.error("Developer not found!");
-            }
-        }
-        catch (error) {
-            console.log(error);
-            toast.error("Something went wrong in the API!");
-        }
-        finally {
-            setLoading(false);
-        }
-    }
+        };
+        checkAssignedStatus();
+    }, [projectId]);
+
 
 
     const handleAssign = async (email) => {
-        // console.log("Email received : ", email);
         try {
-
             const res = await fetch("/api/assign-project", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "projectId": projectId,
-                    "projectName": projectName,
-                    "devEmail": email,
-                }
+                },
+                body: JSON.stringify({
+                    projectId,
+                    projectName,
+                    devEmail: email
+                }),
             });
 
             const data = await res.json();
 
             if (data.success) {
-                if (data.alreadyAssigned) // alreadyAssigned is coming from api response
-                {
-                    toast(`Developer already assigned to this project`);
-                }
-                else {
+                if (data.alreadyAssigned) {
+                    toast.error(`Developer already assigned to this project`);
+                } else {
                     toast.success("Developer Successfully assigned!");
-                    setAssignedEmails((prev) => [...prev, email]);
+                    setIsAlreadyAssigned(true); // button immediately update
                 }
-
+            } else {
+                toast.error(`Error res: ${data.error || "Something went wrong"}`);
             }
-            else {
-                toast.error(`Error: ${data.error || "Something went wrong"}`);
-            }
-        }
-        catch (error) {
+        } catch (error) {
             console.log("Error : ", error);
-            toast.error("Failed to assign developer")
+            toast.error("Failed to assign developer");
         }
-    }
+    };
 
 
 
@@ -191,11 +166,25 @@ export default function AssignDeveloper() {
                 {/* assign developer button */}
                 <div className="mt-10 text-center">
                     <button
-                        onClick={() => fetchDeveloper(developer)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow-md transition text-md cursor-pointer">
-                        Assign This Developer
+                        onClick={() => handleAssign(developer)}
+                        disabled={isAlreadyAssigned}
+                        className={`px-4 py-2 rounded-lg font-medium shadow-md transition text-md 
+      ${isAlreadyAssigned
+                                ? "bg-gray-300 cursor-not-allowed text-gray-600"
+                                : "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+                            }`}
+                    >
+                        {isAlreadyAssigned ? "Already Assigned" : "Assign This Developer"}
                     </button>
+
+                    {isAlreadyAssigned && (
+                        <p className="text-sm text-gray-500 mt-2">
+                            This project has already been assigned to a developer.
+                        </p>
+                    )}
                 </div>
+
+
             </div>
 
             {/* Bio */}
@@ -291,53 +280,6 @@ export default function AssignDeveloper() {
                     <FaLinkedin className="text-2xl" /> LinkedIn
                 </a>
             </div>
-
-
-            {/* developer profile modal */}
-            <dialog id="developer_modal" className="modal">
-                <div className="modal-box">
-                    {loading ? (
-                        <div className="flex justify-center py-10">
-                            <span className="loading loading-spinner loading-lg"></span>
-                        </div>
-                    ) : selectedDeveloper ? (
-                        <div className="space-y-2">
-                            <h3 className="font-bold text-lg">{selectedDeveloper.name}</h3>
-                            <p className="text-sm text-gray-600">
-                                Email: {selectedDeveloper.email}
-                            </p>
-
-                            {/* <p className="text-sm">
-                                Skills: {selectedDeveloper.skills?.join(", ")}
-                            </p> */}
-
-                            <p className="text-sm">Rating: No value</p>
-
-                            {/* Assign Button - TODO: make a different Component */}
-                            <p className="mt-4">
-                                <button
-                                    className={`px-3 py-1 rounded-md ${assignedEmails.includes(selectedDeveloper?.email)
-                                        ? "bg-gray-300 cursor-not-allowed"
-                                        : "bg-blue-400 cursor-pointer"
-                                        }`}
-                                    onClick={() => handleAssign(selectedDeveloper?.email)}
-                                    disabled={assignedEmails.includes(selectedDeveloper?.email)}
-                                >
-                                    {assignedEmails.includes(selectedDeveloper?.email) ? "Already Assigned" : "Assign"}
-                                </button>
-                            </p>
-
-                        </div>
-                    ) : (
-                        <p className="text-center text-gray-500">No data found</p>
-                    )}
-                    <div className="modal-action">
-                        <form method="dialog">
-                            <button className="btn btn-sm btn-outline">Close</button>
-                        </form>
-                    </div>
-                </div>
-            </dialog>
 
         </motion.div>
     );
