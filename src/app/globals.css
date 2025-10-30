@@ -2,10 +2,6 @@
 /* @plugin "daisyui"; */
 
 
-@plugin "daisyui" {
-  themes: light --default;
-}
-
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
@@ -21,7 +17,7 @@ body {
 }
 
 .dark-bg {
-  @apply bg-linear-to-r from-white to-gray-50 dark:from-gray-900 dark:to-gray-800;
+  @apply  dark:from-gray-900 dark:to-gray-800;
 }
 
 
@@ -36,9 +32,6 @@ body {
 .btn-hover{
   @apply hover:scale-110 transition-transform duration-300
 }
-
-
-
 
 
 @keyframes blob {

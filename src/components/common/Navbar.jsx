@@ -37,7 +37,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const imagehh = session?.user?.image;
+ 
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -78,17 +78,15 @@ export default function Navbar() {
   const userMenuItems = [
     { href: "/profile", label: "My Profile", icon: FiUser },
     { href: "/dashboard", label: "Dashboard", icon: HiOutlineSparkles },
-    { href: "/billing", label: "Billing", icon: FiCreditCard },
-    { href: "/settings", label: "Settings", icon: FiSettings },
-    { href: "/support", label: "Support", icon: FiHelpCircle },
+    { href: "/pricing", label: "Pricing", icon: FiCreditCard }
   ];
 
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-40 dark-bg transition-all duration-100 ${isScrolled
-            ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
-            : "bg-transparent"
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,8 +123,7 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
-                  >
+                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium">
                     {item.label}
                     {item.badge && (
                       <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-linear-to-r from-green-400 to-blue-500 text-white rounded-full">
@@ -185,14 +182,6 @@ export default function Navbar() {
               ) : (
                 /* User Profile Section */
                 <div className="hidden lg:flex items-center space-x-4">
-                  {/* Upgrade Button */}
-                  <Link
-                    href="/pricing"
-                    className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-linear-to-r from-amber-400 to-orange-500 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group"
-                  >
-                    <FiStar className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                    Upgrade
-                  </Link>
 
                   {/* User Avatar */}
                   <div className="relative group">
@@ -221,7 +210,7 @@ export default function Navbar() {
 
                     {/* Dropdown Menu */}
                     {isUserDropdownOpen && (
-                      <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-50">
+                      <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-80">
                         {/* User Info */}
                         <div className="p-4 border-b border-gray-100 dark:border-gray-700">
                           <div className="flex items-center space-x-3">
@@ -318,8 +307,8 @@ export default function Navbar() {
         {/* Mobile Menu */}
         <div
           className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${isMobileMenuOpen
-              ? "translate-y-0 opacity-100"
-              : "-translate-y-4 opacity-0 pointer-events-none"
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
             }`}
         >
           <div className="px-4 py-6 space-y-4">
