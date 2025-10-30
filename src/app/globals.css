@@ -21,7 +21,7 @@ body {
 }
 
 .dark-bg {
-  @apply bg-linear-to-r from-white to-gray-50 dark:from-gray-900 dark:to-gray-800;
+  @apply bg-linear-to-r from-white to-gray-50 dark:from-gray-950 dark:to-gray-800;
 }
 
 
