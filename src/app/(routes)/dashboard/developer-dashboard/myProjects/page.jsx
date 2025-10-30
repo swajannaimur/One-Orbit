@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
+import Loading from "@/app/loading";
 
 export default function DevelopersProjects() {
   const { data: session, status } = useSession();
@@ -110,8 +111,7 @@ export default function DevelopersProjects() {
   };
 
   // ✅ Handle session loading
-  if (status === "loading" || loading)
-    return <p className="text-center py-10">Loading...</p>;
+  if (status === "loading" || loading) return <Loading />;
 
   if (status === "unauthenticated")
     return (
