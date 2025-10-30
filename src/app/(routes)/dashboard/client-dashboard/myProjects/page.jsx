@@ -46,33 +46,6 @@ export default function MyProjects() {
 
 
     return (
-        // <div>
-        //     <h2 className="my-20 text-2xl text-center">My Projects</h2>
-
-        //     {projects.length > 0 ? (
-        //         projects.map((project, idx) => (
-
-        //             <div
-        //                 key={idx} // projectName unique na hole index use
-        //                 className="border p-2 rounded-md gap-2 mb-4"
-        //             >
-        //                 <h3>Project: {project.projectName}</h3>
-        //                 <h4>Developers & Bids:</h4>
-        //                 <ul className="ml-4 list-disc">
-        //                     {project.developerEmails.map((dev, i) => (
-        //                         <li key={i}>
-        //                             {dev} - Bid: {project.bids[i]}
-        //                         </li>
-        //                     ))}
-        //                 </ul>
-        //             </div>
-        //         ))
-        //     ) : (
-        //         <p>No projects found for this client email: {email}</p>
-        //     )}
-        // </div>
-
-
         <div className="w-10/11 mx-auto px-4 my-10">
             {/* page header */}
             <h2 className="text-2xl font-semibold text-center mb-8">My Projects by Bids</h2>

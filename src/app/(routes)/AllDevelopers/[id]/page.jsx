@@ -48,7 +48,7 @@ const page = async ({ params }) => {
 
           <div className="p-8 flex flex-col md:flex-row items-start md:items-center gap-8">
             {/* Profile Image */}
-            <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-md flex-shrink-0">
+            <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-md shrink-0">
               <Image
                 src={developer.image || "/favicon.ico"}
                 alt={developer.name || "Profile"}
@@ -162,7 +162,7 @@ const page = async ({ params }) => {
           <div className="h-2 bg-linear-to-r from-blue-500 to-purple-600"></div>
           <div className="p-6">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Send a Message</h2>
-            <MessageForm developerId={id} developerEmail={developer.email} />
+            <MessageForm developerId={id} />
           </div>
         </div>
 

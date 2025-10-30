@@ -12,7 +12,7 @@ export default async function DashboardHome() {
     }
 
     return (
-        <div className="min-h-screen px-4">
+        <div className="min-h-screen px-4 mt-24">
             {/* Header */}
             <div className="flex items-center gap-3 mb-8">
                 <FaHome className="text-3xl text-blue-600 " />
