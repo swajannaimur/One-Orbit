@@ -146,9 +146,7 @@ export default function DeveloperDashboard() {
           >
             <MdOutlineSettingsSuggest className="text-yellow-500" />
             <button
-              onClick={() =>
-                router.push("/dashboard/developer-dashboard/settings")
-              }
+              onClick={() => router.push("/profile/settings")}
               className="text-gray-800 dark:text-gray-200"
             >
               {isSidebarOpen && <span>Settings</span>}
