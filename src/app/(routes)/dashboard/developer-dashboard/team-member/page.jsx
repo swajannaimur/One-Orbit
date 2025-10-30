@@ -1,10 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaUserEdit, FaUsers, FaEnvelope, FaSync, FaCrown, FaUser, FaUserTie } from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import {
+  FaUserEdit,
+  FaUsers,
+  FaEnvelope,
+  FaSync,
+  FaCrown,
+  FaUser,
+  FaUserTie,
+} from "react-icons/fa";
 import { MdPendingActions, MdCancel, MdCheckCircle } from "react-icons/md";
 import Swal from "sweetalert2";
 
 export default function TeamMemberPage() {
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
+
   const [teamMembers, setTeamMembers] = useState([]);
   const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +28,12 @@ export default function TeamMemberPage() {
       const res = await fetch("/api/users/done-invites");
       if (!res.ok) throw new Error("Failed to fetch team members");
       const data = await res.json();
-      setTeamMembers(data.users || []);
+
+      // ✅ Filter by userEmail (show only the ones created by this user)
+      const filteredMembers = (data.users || []).filter(
+        (member) => member.inviterEmail === userEmail
+      );
+      setTeamMembers(filteredMembers);
     } catch (err) {
       Swal.fire("Error", err.message, "error");
     }
@@ -25,10 +42,16 @@ export default function TeamMemberPage() {
   // Fetch all invites
   const fetchInvites = async () => {
     try {
-      const res = await fetch("/api/users/invite");
+      const res = await fetch("/api/users/invite/users-invites");
       if (!res.ok) throw new Error("Failed to fetch invites");
       const data = await res.json();
-      setInvites(data.invites || []);
+      
+
+      // ✅ Filter by userEmail (show only invites created by this user)
+      const filteredInvites = (data.invites || []).filter(
+        (inv) => inv.inviteeEmail === userEmail
+      );
+      setInvites(filteredInvites);
     } catch (err) {
       Swal.fire("Error", err.message, "error");
     }
@@ -42,71 +65,79 @@ export default function TeamMemberPage() {
   };
 
   useEffect(() => {
+    if (!userEmail) return;
     const fetchAll = async () => {
       setLoading(true);
       await Promise.all([fetchTeamMembers(), fetchInvites()]);
       setLoading(false);
     };
     fetchAll();
-  }, []);
+  }, [userEmail]);
 
   // Update invite status
-  const handleUpdateStatus = async (invite) => {
-    const { value: status } = await Swal.fire({
-      title: `Update Status for ${invite.inviteeEmail}`,
-      input: "select",
-      inputOptions: {
-        pending: "Pending",
-        done: "Done",
-        canceled: "Canceled",
-      },
-      inputValue: invite.status,
-      showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to select a status!";
-        }
-      }
+  const handleUpdateStatus = async (inv) => {
+  const { value: status } = await Swal.fire({
+    title: `Update Status for ${inv.inviteeEmail}`,
+    input: "select",
+    inputOptions: {
+      pending: "Pending",
+      done: "Done",
+      canceled: "Canceled",
+    },
+    inputValue: inv.status,
+    showCancelButton: true,
+    inputValidator: (value) => {
+      if (!value) return "You need to select a status!";
+    },
+  });
+
+  if (!status) return;
+
+  try {
+    const res = await fetch(`/api/users/invite/${inv._id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
     });
 
-    if (!status) return;
+    if (!res.ok) throw new Error("Failed to update status");
 
-    try {
-      const res = await fetch(`/api/users/invite/${invite._id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
-      });
-      if (!res.ok) throw new Error("Failed to update status");
+    setInvites((prev) =>
+      prev.map((item) => (item._id === inv._id ? { ...item, status } : item))
+    );
 
-      setInvites((prev) =>
-        prev.map((inv) => (inv._id === invite._id ? { ...inv, status } : inv))
-      );
-
-      if (status === "done") {
-        fetchTeamMembers();
-      }
-
-      Swal.fire("Success", "Status updated successfully", "success");
-    } catch (err) {
-      Swal.fire("Error", err.message, "error");
+    if (status === "done") {
+      await fetchTeamMembers();
     }
-  };
+
+    Swal.fire("Success", "Status updated successfully", "success");
+  } catch (err) {
+    Swal.fire("Error", err.message, "error");
+  }
+};
+
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case "pending": return <MdPendingActions className="text-yellow-500" />;
-      case "done": return <MdCheckCircle className="text-green-500" />;
-      case "canceled": return <MdCancel className="text-red-500" />;
-      default: return <MdPendingActions className="text-gray-500" />;
+      case "pending":
+        return <MdPendingActions className="text-yellow-500" />;
+      case "done":
+        return <MdCheckCircle className="text-green-500" />;
+      case "canceled":
+        return <MdCancel className="text-red-500" />;
+      default:
+        return <MdPendingActions className="text-gray-500" />;
     }
   };
 
   const getRoleIcon = (role) => {
     switch (role) {
-      case "admin": return <FaCrown className="text-purple-500" />;
-      case "manager": return <FaUserTie className="text-blue-500" />;
-      default: return <FaUser className="text-gray-500" />;
+      case "admin":
+        return <FaCrown className="text-purple-500" />;
+      case "manager":
+        return <FaUserTie className="text-blue-500" />;
+      default:
+        return <FaUser className="text-gray-500" />;
     }
   };
 
@@ -153,7 +184,7 @@ export default function TeamMemberPage() {
               <div>
                 <p className="text-gray-500 text-sm">Pending Invites</p>
                 <p className="text-3xl font-bold text-gray-800">
-                  {invites.filter(inv => inv.status === 'pending').length}
+                  {invites.filter((inv) => inv.status === "pending").length}
                 </p>
               </div>
               <div className="p-3 bg-purple-100 rounded-full">
@@ -177,7 +208,7 @@ export default function TeamMemberPage() {
 
         {/* Main Content */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          {/* Tab Navigation */}
+          {/* Tabs */}
           <div className="border-b border-gray-200">
             <div className="flex">
               <button
@@ -207,11 +238,13 @@ export default function TeamMemberPage() {
 
           {/* Tab Content */}
           <div className="p-6">
-            {/* Team Members Tab */}
+            {/* ✅ Team Members Tab */}
             {activeTab === "team" && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-semibold text-gray-800">Active Team Members</h2>
+                  <h2 className="text-xl font-semibold text-gray-800">
+                    Active Team Members
+                  </h2>
                   <button
                     onClick={refreshData}
                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all shadow-md"
@@ -236,7 +269,7 @@ export default function TeamMemberPage() {
                       >
                         <div className="flex items-center justify-between mb-4">
                           <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                            {member.name?.charAt(0) || 'U'}
+                            {member.name?.charAt(0) || "U"}
                           </div>
                           <div className="flex items-center gap-1 text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full">
                             <MdCheckCircle />
@@ -246,7 +279,9 @@ export default function TeamMemberPage() {
                         <h3 className="font-semibold text-gray-800 text-lg mb-1">
                           {member.name}
                         </h3>
-                        <p className="text-gray-600 text-sm mb-3">{member.inviteeEmail}</p>
+                        <p className="text-gray-600 text-sm mb-3">
+                          {member.inviteeEmail}
+                        </p>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2 text-sm text-gray-600">
                             {getRoleIcon(member.role)}
@@ -261,11 +296,13 @@ export default function TeamMemberPage() {
               </div>
             )}
 
-            {/* Invitations Tab */}
+            {/* ✅ Invitations Tab */}
             {activeTab === "invites" && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-semibold text-gray-800">Invitation Management</h2>
+                  <h2 className="text-xl font-semibold text-gray-800">
+                    Invitation Management
+                  </h2>
                   <button
                     onClick={refreshData}
                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all shadow-md"
@@ -279,14 +316,16 @@ export default function TeamMemberPage() {
                   <div className="text-center py-12">
                     <FaEnvelope className="text-6xl text-gray-300 mx-auto mb-4" />
                     <p className="text-gray-500 text-lg mb-2">No invitations found</p>
-                    <p className="text-gray-400">Send invitations to grow your team</p>
+                    <p className="text-gray-400">
+                      Send invitations to grow your team
+                    </p>
                   </div>
                 ) : (
                   <div className="overflow-hidden rounded-lg border border-gray-200">
                     <table className="w-full">
                       <thead className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
                         <tr>
-                          <th className="p-4 text-left font-semibold">Invitee Email</th>
+                          <th className="p-4 text-left font-semibold">Inviter Email</th>
                           <th className="p-4 text-left font-semibold">Role</th>
                           <th className="p-4 text-left font-semibold">Status</th>
                           <th className="p-4 text-left font-semibold">Actions</th>
@@ -298,25 +337,31 @@ export default function TeamMemberPage() {
                             <td className="p-4">
                               <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center text-white text-sm">
-                                  {inv.inviteeEmail?.charAt(0) || 'U'}
+                                  {inv.inviteeEmail?.charAt(0) || "U"}
                                 </div>
-                                <span className="font-medium text-gray-800">{inv.inviteeEmail}</span>
+                                <span className="font-medium text-gray-800">
+                                  {inv.inviterEmail}
+                                </span>
                               </div>
                             </td>
                             <td className="p-4">
                               <div className="flex items-center gap-2">
                                 {getRoleIcon(inv.role)}
-                                <span className="capitalize text-gray-700">{inv.role}</span>
+                                <span className="capitalize text-gray-700">
+                                  {inv.role}
+                                </span>
                               </div>
                             </td>
                             <td className="p-4">
-                              <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium w-fit ${
-                                inv.status === "pending"
-                                  ? "bg-yellow-100 text-yellow-700"
-                                  : inv.status === "done"
-                                  ? "bg-green-100 text-green-700"
-                                  : "bg-red-100 text-red-700"
-                              }`}>
+                              <div
+                                className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium w-fit ${
+                                  inv.status === "pending"
+                                    ? "bg-yellow-100 text-yellow-700"
+                                    : inv.status === "done"
+                                    ? "bg-green-100 text-green-700"
+                                    : "bg-red-100 text-red-700"
+                                }`}
+                              >
                                 {getStatusIcon(inv.status)}
                                 <span className="capitalize">{inv.status}</span>
                               </div>
@@ -341,7 +386,7 @@ export default function TeamMemberPage() {
           </div>
         </div>
 
-        {/* Quick Actions Footer */}
+        {/* Footer */}
         <div className="mt-8 flex flex-wrap gap-4 justify-center">
           <button className="flex items-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-lg shadow-md hover:shadow-lg transition-all border border-gray-200">
             <FaEnvelope />

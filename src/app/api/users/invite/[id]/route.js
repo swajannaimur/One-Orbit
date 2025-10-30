@@ -99,9 +99,13 @@ export async function PATCH(req, { params }) {
     const existing = await collection.findOne({ _id: new ObjectId(id) });
     if (!existing) return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: { "Content-Type": "application/json" } });
 
-    if (existing.inviterEmail !== session.user.email) {
-      return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { "Content-Type": "application/json" } });
-    }
+    if (
+  existing.inviterEmail !== session.user.email &&
+  existing.inviteeEmail !== session.user.email
+) {
+  return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403 });
+}
+
 
     await collection.updateOne({ _id: new ObjectId(id) }, { $set: { status } });
 

@@ -103,13 +103,15 @@ export default function DeveloperDashboard() {
             {/* {isSidebarOpen && <span>Team Members</span>} */}
             <button
               onClick={() => {
-                // setIsDropdownOpen(false);
+                setIsDropdownOpen(true);
                 router.push("/dashboard/developer-dashboard/team-member");
               }}
             >
               Team Member
             </button>
           </div>
+
+          
 
           {/* Invite a Teammate */}
           <button
