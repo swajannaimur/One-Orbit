@@ -17,8 +17,10 @@ import { TbLogout2 } from "react-icons/tb";
 import KanbanBoard from "./kanban/KanbanBoard";
 
 import DashboardMockup from "./DashboardMockup/page";
+import MyProjects from "../developer-dashboard/myProjects/page";
 import Image from "next/image";
 import InviteForm from "@/app/api/users/invite/InviteForm";
+import TeamMemberPage from "../developer-dashboard/team-member/page";
 
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -47,7 +49,7 @@ export default function DeveloperDashboard() {
         const data = await res.json();
         if (!mounted) return;
         setRemoteUser(data.user || null);
-      } catch (err) { }
+      } catch (err) {}
     }
     load();
     return () => (mounted = false);
@@ -56,16 +58,18 @@ export default function DeveloperDashboard() {
   const [activeSection, setActiveSection] = useState(null);
 
   return (
-    <div className="flex min-h-screen dark-bg bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
+    <div className="flex min-h-screen bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
       {/* Sidebar */}
       <div
-        className={`${isSidebarOpen ? "w-64" : "w-16"
-          } backdrop-blur-xl  dark-bg shadow-lg border-r border-white/40 dark:border-gray-700 transition-all duration-300 flex flex-col`}
+        className={`${
+          isSidebarOpen ? "w-64" : "w-16"
+        } backdrop-blur-xl  dark-bg shadow-lg border-r border-white/40 dark:border-gray-700 transition-all duration-300 flex flex-col`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b border-white/40 dark:border-gray-700">
           <h2
-            className={`${isSidebarOpen ? "block" : "hidden"
-              } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
+            className={`${
+              isSidebarOpen ? "block" : "hidden"
+            } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
           >
             Developer Dashboard
           </h2>
@@ -77,21 +81,37 @@ export default function DeveloperDashboard() {
           </button>
         </div>
 
-        <nav className="flex-1 px-5 py-4 space-y-2 text-gray-800 dark:text-gray-200">
-          <Link
+        <nav className="flex-1 px-2 py-4 space-y-2">
+          {/* <Link
+            onClick={() => setActiveSection("myProjects")}
             href="/dashboard/developer-dashboard/myProjects"
             className="flex items-center gap-3 px-3 py-2 rounded-lg bg-linear-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-800 hover:from-indigo-100 hover:to-blue-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <FaProjectDiagram className="text-indigo-500" />
             {isSidebarOpen && <span>My Projects</span>}
-          </Link>
+          </Link> */}
 
-          <Link
+          <button
+            onClick={() => setActiveSection("myProjects")}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition dark:hover:from-gray-700 dark:hover:to-gray-700"
+          >
+            <FaProjectDiagram className="text-indigo-500" />
+            {isSidebarOpen && <span className="dark:text-white">My Projects</span>}
+          </button>
+          <button
+            onClick={() => setActiveSection("teamMember")}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition dark:hover:from-gray-700 dark:hover:to-gray-700"
+          >
+            <FaUsers className="text-green-500" />
+            {isSidebarOpen && <span className="dark:text-white">Team Member</span>}
+          </button>
+
+          {/* <Link
             href="/dashboard/developer-dashboard/team-member"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-green-50 hover:to-emerald-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <FaUsers className="text-green-500" />
-            {/* {isSidebarOpen && <span>Team Members</span>} */}
+            
             <button
               onClick={() => {
                 setIsDropdownOpen(true);
@@ -100,9 +120,7 @@ export default function DeveloperDashboard() {
             >
               Team Member
             </button>
-          </Link>
-
-
+          </Link> */}
 
           {/* Invite a Teammate */}
           <button
@@ -110,7 +128,7 @@ export default function DeveloperDashboard() {
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-indigo-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <FaUserPlus className="text-indigo-600" />
-            {isSidebarOpen && <span>Invite a Teammate</span>}
+            {isSidebarOpen && <span className="dark:text-white">Invite a Teammate</span>}
           </button>
 
           {/* Kanban Board */}
@@ -119,7 +137,7 @@ export default function DeveloperDashboard() {
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <PiKanban className="text-purple-500" />
-            {isSidebarOpen && <span>Board</span>}
+            {isSidebarOpen && <span className="dark:text-white">Board</span>}
           </button>
 
           <a
@@ -128,10 +146,12 @@ export default function DeveloperDashboard() {
           >
             <MdOutlineSettingsSuggest className="text-yellow-500" />
             <button
-              onClick={() => router.push("/dashboard/developer-dashboard/settings")}
+              onClick={() =>
+                router.push("/dashboard/developer-dashboard/settings")
+              }
               className="text-gray-800 dark:text-gray-200"
             >
-              Settings
+              {isSidebarOpen && <span className="dark:text-white">Settings</span>}
             </button>
           </a>
           <a
@@ -139,11 +159,8 @@ export default function DeveloperDashboard() {
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <TbLogout2 className="text-red-500" />
-            <button
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="text-gray-800 dark:text-gray-200"
-            >
-              Logout
+            <button onClick={() => signOut({ callbackUrl: "/" })}>
+              {isSidebarOpen && <span className="dark:text-white">Logout</span>}
             </button>
           </a>
         </nav>
@@ -152,7 +169,7 @@ export default function DeveloperDashboard() {
       {/* Main Content */}
       <div className="min-h-screen flex-1 flex flex-col pb-5 dark-bg">
         {/* Top Navbar */}
-        <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/60 shadow-md border-b border-white/40 dark:border-gray-700 px-6 py-4 flex justify-between items-center sticky top-0 z-30">
+        {/* <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/60 shadow-md border-b border-white/40 dark:border-gray-700 px-6 py-4 flex justify-between items-center sticky top-0 z-30">
           <h1 className="text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
             Overview
           </h1>
@@ -181,10 +198,13 @@ export default function DeveloperDashboard() {
               </button>
             </div>
           </div>
-        </header>
+        </header> */}
 
         {/* Dashboard Content */}
         <main className="p-6">
+          <h1 className="pb-5 text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
+            Overview
+          </h1>
           <div className="bg-white/80 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-lg p-6 mb-6 border-l-4 border-indigo-500 hover:shadow-xl transition">
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-1">
               Welcome, {session?.user?.name || "Developer"} 👋
@@ -231,6 +251,16 @@ export default function DeveloperDashboard() {
           {activeSection === "invite" && (
             <div className="mt-10 bg-white/80 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-lg">
               <InviteForm />
+            </div>
+          )}
+          {activeSection === "myProjects" && (
+            <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+              <MyProjects />
+            </div>
+          )}
+          {activeSection === "teamMember" && (
+            <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+              <TeamMemberPage />
             </div>
           )}
 
