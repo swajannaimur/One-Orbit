@@ -75,7 +75,6 @@ export default function InviteForm() {
       const data = await res.json().catch(() => null);
       if (!res.ok) throw new Error(data?.error || "Failed to delete invite");
 
-      // Optimistically update local list without refetch
       setInvites((prev) => prev.filter((i) => String(i._id) !== String(id)));
 
       Swal.fire({
@@ -96,7 +95,7 @@ export default function InviteForm() {
   }
 
   return (
-    <div className="bg-linear-to-br from-indigo-50 to-blue-50 rounded-xl shadow-md p-6 border border-indigo-100">
+    <div className="bg-white dark-bg rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700">
       <h3 className="text-2xl font-bold bg-linear-to-br from-indigo-700 to-indigo-500 bg-clip-text text-transparent mb-4 flex items-center gap-2">
         <FaUserPlus className="text-indigo-600" /> Invite a Teammate
       </h3>
@@ -106,7 +105,7 @@ export default function InviteForm() {
         className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5"
       >
         <input
-          className="md:col-span-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="md:col-span-1 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -114,7 +113,7 @@ export default function InviteForm() {
           required
         />
         <select
-          className="md:col-span-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="md:col-span-1 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
@@ -132,35 +131,35 @@ export default function InviteForm() {
           {loading ? "Sending..." : "Send Invite"}
         </button>
         <textarea
-          className="md:col-span-3 border border-gray-300 rounded-lg px-3 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="md:col-span-3 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 mt-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
           placeholder="Optional message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
       </form>
 
-      <h4 className="font-medium text-gray-700 mb-3 border-b pb-2">
+      <h4 className="font-medium text-gray-700 dark:text-gray-200 mb-3 border-b border-gray-300 dark:border-gray-600 pb-2">
         Pending Invites
       </h4>
       {invites.length === 0 ? (
-        <p className="text-sm text-gray-500 italic">No invites yet.</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 italic">No invites yet.</p>
       ) : (
         <ul className="space-y-3">
           {invites.map((inv) => (
             <li
               key={inv._id}
-              className="flex justify-between items-center bg-white border border-gray-200 rounded-lg px-4 py-3 shadow-sm hover:shadow transition"
+              className="flex justify-between items-center bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-3 shadow-sm hover:shadow transition"
             >
               <div>
-                <div className="text-sm font-semibold text-gray-800">
+                <div className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                   {inv.inviteeEmail}
                 </div>
-                <div className="text-xs text-gray-500">
+                <div className="text-xs text-gray-500 dark:text-gray-400">
                   {inv.status} • expires{" "}
                   {new Date(inv.expiresAt).toLocaleDateString()}
                 </div>
               </div>
-              <div className="text-sm font-medium text-indigo-600">
+              <div className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
                 {inv.role}
               </div>
               <button
