@@ -49,9 +49,9 @@ export async function POST(request) {
     await sendEmail({
       to: `${email}`,
       subject: `Your OTP Code from OneOrbit`,
-      text: `Your verification code is ${otp}. This code will expire in 5 minutes.`,
-      html: `<h3>YOUR OTP</h3>
+      html: `<h3>YOUR OTP From OneOrbit</h3>
               <h1>OTP: ${otp}</h1>
+              <p>This code will expire in 5 minutes.</p>
         `,
     });
 
