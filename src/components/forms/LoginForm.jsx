@@ -64,47 +64,25 @@ export default function LoginForm() {
 
 
         // OTP - commented by Yasin Arafat   
-<<<<<<< HEAD
-        const res = await fetch("/api/send-otp", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
-    
-        if (res.ok){
-            localStorage.setItem("password", password);
-            setIsLoading(false);
-            router.push("/");
-        }
-    
-        if (!res.ok) {
-            const data = await res.json();
-            setError(data.message);
-            setIsLoading(false);
-        } else {
-            router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
-        }
-=======
-        // const res = await fetch("/api/send-otp", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({ email, password }),
-        // });
+        //     const res = await fetch("/api/send-otp", {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify({ email, password }),
+        //     });
 
-        // if (res.ok){
-        //     localStorage.setItem("password", password);
-        //     setIsLoading(false);
-        //     router.push("/");
-        // }
+        //     if (res.ok){
+        //         localStorage.setItem("password", password);
+        //         setIsLoading(false);
+        //         router.push("/");
+        //     }
 
-        // if (!res.ok) {
-        //     const data = await res.json();
-        //     setError(data.message);
-        //     setIsLoading(false);
-        // } else {
-        //     router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
-        // }
->>>>>>> da481dba98683cb6406f6839f11bf89508d8fbba
+        //     if (!res.ok) {
+        //         const data = await res.json();
+        //         setError(data.message);
+        //         setIsLoading(false);
+        //     } else {
+        //         router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
+        //     }
     }
 
     const handleRoleBasedLogin = async (role) => {
