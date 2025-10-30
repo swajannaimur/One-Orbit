@@ -85,8 +85,8 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-40 dark-bg transition-all duration-100 ${isScrolled
-            ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
-            : "bg-transparent"
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -182,7 +182,7 @@ export default function Navbar() {
               ) : (
                 /* User Profile Section */
                 <div className="hidden lg:flex items-center space-x-4">
-          
+
                   {/* User Avatar */}
                   <div className="relative group">
                     <button
@@ -307,8 +307,8 @@ export default function Navbar() {
         {/* Mobile Menu */}
         <div
           className={`lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl transition-all duration-300 transform mobile-menu ${isMobileMenuOpen
-              ? "translate-y-0 opacity-100"
-              : "-translate-y-4 opacity-0 pointer-events-none"
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
             }`}
         >
           <div className="px-4 py-6 space-y-4">

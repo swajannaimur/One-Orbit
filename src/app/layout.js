@@ -33,7 +33,7 @@ export default async function RootLayout({ children }) {
             <header className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 sticky top-0 z-60">
               <Navbar />
             </header>
-            <div className="bg-linear-to-br from-gray-50 to-indigo-100 dark:from-gray-900 dark-bg overflow-hidden">
+            <div className="bg-linear-to-br from-gray-50 to-indigo-100 dark-bg overflow-hidden">
               <main className="w-full mx-auto px-2 xl:px-0">{children}</main>
             </div>
             <Footer />

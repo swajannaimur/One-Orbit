@@ -47,7 +47,7 @@ export default function DeveloperDashboard() {
         const data = await res.json();
         if (!mounted) return;
         setRemoteUser(data.user || null);
-      } catch (err) {}
+      } catch (err) { }
     }
     load();
     return () => (mounted = false);
@@ -56,18 +56,16 @@ export default function DeveloperDashboard() {
   const [activeSection, setActiveSection] = useState(null);
 
   return (
-    <div className="flex min-h-screen bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
+    <div className="flex min-h-screen dark-bg bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
       {/* Sidebar */}
       <div
-        className={`${
-          isSidebarOpen ? "w-64" : "w-16"
-        } backdrop-blur-xl bg-white/70 dark-bg shadow-lg border-r border-white/40 dark:border-gray-700 transition-all duration-300 flex flex-col`}
+        className={`${isSidebarOpen ? "w-64" : "w-16"
+          } backdrop-blur-xl  dark-bg shadow-lg border-r border-white/40 dark:border-gray-700 transition-all duration-300 flex flex-col`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b border-white/40 dark:border-gray-700">
           <h2
-            className={`${
-              isSidebarOpen ? "block" : "hidden"
-            } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
+            className={`${isSidebarOpen ? "block" : "hidden"
+              } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
           >
             Developer Dashboard
           </h2>
@@ -104,7 +102,7 @@ export default function DeveloperDashboard() {
             </button>
           </Link>
 
-          
+
 
           {/* Invite a Teammate */}
           <button
