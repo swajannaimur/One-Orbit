@@ -15,9 +15,10 @@ import { PiKanban } from "react-icons/pi";
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { TbLogout2 } from "react-icons/tb";
 import KanbanBoard from "./kanban/KanbanBoard";
-import InviteForm from "@/components/forms/InviteForm";
+
 import DashboardMockup from "./DashboardMockup/page";
 import Image from "next/image";
+import InviteForm from "@/app/api/users/invite/InviteForm";
 
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -88,12 +89,22 @@ export default function DeveloperDashboard() {
           </Link>
 
           <Link
-            href="/dashboard/developer-dashboard/teamMembers"
+            href="/dashboard/developer-dashboard/team-member"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-green-50 hover:to-emerald-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <FaUsers className="text-green-500" />
-            {isSidebarOpen && <span>Team Members</span>}
+            {/* {isSidebarOpen && <span>Team Members</span>} */}
+            <button
+              onClick={() => {
+                setIsDropdownOpen(true);
+                router.push("/dashboard/developer-dashboard/team-member");
+              }}
+            >
+              Team Member
+            </button>
           </Link>
+
+          
 
           {/* Invite a Teammate */}
           <button

@@ -37,7 +37,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const imagehh = session?.user?.image;
+ 
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -210,7 +210,7 @@ export default function Navbar() {
 
                     {/* Dropdown Menu */}
                     {isUserDropdownOpen && (
-                      <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-50">
+                      <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 backdrop-blur-lg z-80">
                         {/* User Info */}
                         <div className="p-4 border-b border-gray-100 dark:border-gray-700">
                           <div className="flex items-center space-x-3">
