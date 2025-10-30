@@ -82,3 +82,45 @@ export async function PUT(req) {
     return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 });
   }
 }
+
+
+
+
+
+export async function DELETE(req) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.email) 
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+
+    const url = new URL(req.url);
+    const boardId = url.searchParams.get('boardId'); // expect boardId in query
+    if (!boardId) 
+      return new Response(JSON.stringify({ error: 'boardId required' }), { status: 400 });
+
+    const client = await clientPromise;
+    const db = client.db(process.env.DB_NAME);
+
+    let query = { _id: null };
+    try {
+      query = { _id: new ObjectId(boardId) };
+    } catch (e) {
+      query = { _id: boardId };
+    }
+
+    const board = await db.collection('boards').findOne(query);
+    if (!board) return new Response(JSON.stringify({ error: 'Not found' }), { status: 404 });
+    if (board.owner !== session.user.email) 
+      return new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403 });
+
+    await db.collection('boards').deleteOne(query);
+
+    // Optionally: delete all tasks belonging to this board
+    await db.collection('tasks').deleteMany({ boardId: boardId });
+
+    return new Response(JSON.stringify({ message: 'Board deleted successfully' }), { headers: { 'Content-Type': 'application/json' } });
+  } catch (err) {
+    console.error('/api/kanban/boards DELETE error', err);
+    return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 });
+  }
+}

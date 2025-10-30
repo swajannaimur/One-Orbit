@@ -497,6 +497,7 @@ import { CopilotPopup } from "@copilotkit/react-ui";
 import { useFrontendTool } from "@copilotkit/react-core";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const COLUMNS = [
   { key: "todo", title: "📝 To Do", color: "from-pink-100 to-pink-50" },
@@ -550,59 +551,280 @@ export default function KanbanBoard() {
     loadTasks();
   }, [selectedBoardId]);
 
+  async function manageBoardCollaborators(boardId) {
+    try {
+      const board = boards.find((b) => String(b._id) === String(boardId));
+      if (!board) return;
+
+      const { value: emails } = await Swal.fire({
+        title: "Manage Collaborators",
+        html: `
+          <p class="mb-2 text-sm text-gray-600">Current collaborators:</p>
+          <p class="mb-4 text-sm">${
+            board.collaborators?.length
+              ? board.collaborators.join(", ")
+              : "None"
+          }</p>
+          <p class="mb-2 text-sm text-gray-600">Add or update (comma-separated emails):</p>
+        `,
+        input: "text",
+        inputValue: board.collaborators?.join(", ") || "",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        cancelButtonText: "Cancel",
+        inputValidator: (value) => {
+          if (!value) return "Enter at least one email";
+          const emails = value.split(",").map((e) => e.trim());
+          const invalid = emails.find((e) => !e.includes("@"));
+          if (invalid) return "Invalid email format";
+        },
+      });
+
+      if (!emails) return;
+      const collaborators = emails
+        .split(",")
+        .map((e) => e.trim())
+        .filter(Boolean);
+
+      const res = await fetch(`/api/kanban/boards`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ boardId, collaborators }),
+      });
+
+      if (res.ok) {
+        await loadBoards();
+        Swal.fire({
+          icon: "success",
+          title: "Collaborators updated",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } else {
+        throw new Error("Failed to update collaborators");
+      }
+    } catch (e) {
+      console.error("manageBoardCollaborators error", e);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to update collaborators",
+      });
+    }
+  }
+
+  async function deleteSprint(sprintId) {
+    try {
+      const sprint = sprints.find((s) => String(s._id) === String(sprintId));
+      if (!sprint) return;
+
+      const result = await Swal.fire({
+        title: "Delete Sprint?",
+        text: `Are you sure you want to delete sprint "${sprint.name}"?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it",
+      });
+
+      if (!result.isConfirmed) return;
+
+      const res = await fetch(`/api/kanban/sprints/${sprintId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        await loadSprints();
+        Swal.fire({
+          icon: "success",
+          title: "Sprint deleted",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } else {
+        throw new Error("Failed to delete sprint");
+      }
+    } catch (e) {
+      console.error("deleteSprint error", e);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to delete sprint",
+      });
+    }
+  }
+
+  async function updateSprint(sprintId) {
+    try {
+      const sprint = sprints.find((s) => String(s._id) === String(sprintId));
+      if (!sprint) return;
+
+      const { value: newName } = await Swal.fire({
+        title: "Update Sprint",
+        input: "text",
+        inputLabel: "Sprint name",
+        inputValue: sprint.name,
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) return "Sprint name is required";
+        },
+      });
+
+      if (!newName) return;
+
+      const res = await fetch(`/api/kanban/sprints/${sprintId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newName }),
+      });
+
+      if (res.ok) {
+        await loadSprints();
+        Swal.fire({
+          icon: "success",
+          title: "Sprint updated",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } else {
+        throw new Error("Failed to update sprint");
+      }
+    } catch (e) {
+      console.error("updateSprint error", e);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to update sprint",
+      });
+    }
+  }
+
   async function loadBoards() {
     try {
-      const res = await fetch('/api/kanban/boards');
+      const res = await fetch("/api/kanban/boards");
       if (!res.ok) return;
       const data = await res.json();
       setBoards(data.boards || []);
       // default to personal board (null) if none selected
       if (!selectedBoardId) setSelectedBoardId(null);
     } catch (e) {
-      console.error('loadBoards error', e);
+      console.error("loadBoards error", e);
     }
   }
 
   async function loadSprints() {
     try {
       const headers = {};
-      if (selectedBoardId) headers['boardid'] = String(selectedBoardId);
-      const res = await fetch('/api/kanban/sprints', { headers });
+      if (selectedBoardId) headers["boardid"] = String(selectedBoardId);
+      const res = await fetch("/api/kanban/sprints", { headers });
       if (!res.ok) return setSprints([]);
       const data = await res.json();
       setSprints(data.sprints || []);
     } catch (e) {
-      console.error('loadSprints error', e);
+      console.error("loadSprints error", e);
       setSprints([]);
     }
   }
 
   async function createBoard() {
-    const name = window.prompt('Board name');
-    if (!name) return;
-    const collab = window.prompt('Collaborators (comma separated emails) - optional');
-    const body = { name, collaborators: collab ? collab.split(',').map(s=>s.trim()).filter(Boolean) : [] };
     try {
-      const res = await fetch('/api/kanban/boards', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const { value: name } = await Swal.fire({
+        title: "Create Board",
+        input: "text",
+        inputLabel: "Board name",
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) return "Board name is required";
+        },
+      });
+
+      if (!name) return;
+
+      const { value: collab } = await Swal.fire({
+        title: "Add Collaborators",
+        input: "text",
+        inputLabel: "Collaborator emails (comma-separated)",
+        showCancelButton: true,
+        inputPlaceholder: "user@example.com, other@example.com",
+      });
+
+      const body = {
+        name,
+        collaborators: collab
+          ? collab
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean)
+          : [],
+      };
+      const res = await fetch("/api/kanban/boards", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
       if (res.ok) {
         await loadBoards();
-        Swal.fire({ icon: 'success', title: 'Board created' , timer: 1400, showConfirmButton: false});
+        Swal.fire({
+          icon: "success",
+          title: "Board created",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } else {
+        throw new Error("Failed to create board");
       }
-    } catch (e) { console.error('createBoard error', e); }
+    } catch (e) {
+      console.error("createBoard error", e);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to create board",
+      });
+    }
   }
 
   async function createSprint(name) {
     try {
-      let sprintName = name;
-      if (!sprintName) sprintName = window.prompt('Sprint name');
+      const { value: sprintName } = await Swal.fire({
+        title: "Create Sprint",
+        input: "text",
+        inputLabel: "Sprint name",
+        inputValue: name || "",
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) return "Sprint name is required";
+        },
+      });
+
       if (!sprintName) return;
+
       const body = { name: sprintName, boardId: selectedBoardId || null };
-      const res = await fetch('/api/kanban/sprints', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const res = await fetch("/api/kanban/sprints", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
       if (res.ok) {
         await loadSprints();
-        Swal.fire({ icon: 'success', title: 'Sprint created', timer: 1200, showConfirmButton: false });
+        Swal.fire({
+          icon: "success",
+          title: "Sprint created",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } else {
+        throw new Error("Failed to create sprint");
       }
-    } catch (e) { console.error('createSprint error', e); }
+    } catch (e) {
+      console.error("createSprint error", e);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to create sprint",
+      });
+    }
   }
 
   async function loadTasks() {
@@ -610,7 +832,7 @@ export default function KanbanBoard() {
     setLoading(true);
     try {
       const headers = {};
-      if (selectedBoardId) headers['boardid'] = String(selectedBoardId);
+      if (selectedBoardId) headers["boardid"] = String(selectedBoardId);
       const res = await fetch("/api/kanban/tasks", { headers });
       const data = await res.json();
       const grouped = { todo: [], inprogress: [], done: [] };
@@ -822,29 +1044,104 @@ export default function KanbanBoard() {
             <label className="text-sm text-gray-600">Board</label>
             <select
               value={selectedBoardId || "personal"}
-              onChange={(e) => setSelectedBoardId(e.target.value === 'personal' ? null : e.target.value)}
+              onChange={(e) =>
+                setSelectedBoardId(
+                  e.target.value === "personal" ? null : e.target.value
+                )
+              }
               className="border rounded px-2 py-1"
             >
               <option value="personal">Personal</option>
               {boards.map((b) => (
-                <option key={String(b._id)} value={String(b._id)}>{b.name}</option>
+                <option key={String(b._id)} value={String(b._id)}>
+                  {b.name}
+                </option>
               ))}
             </select>
-            <button onClick={createBoard} className="ml-2 px-2 py-1 rounded bg-indigo-600 text-white text-sm">New Board</button>
+            <button
+              onClick={createBoard}
+              className="px-2 py-1 rounded bg-indigo-600 text-white text-sm transition-all duration-300 hover:scale-105 shadow-sm"
+            >
+              New Board
+            </button>
+            {selectedBoardId && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={async () => {
+                    const board = boards.find(
+                      (b) => String(b._id) === selectedBoardId
+                    );
+                    if (!board) return;
+
+                    const result = await Swal.fire({
+                      title: "Delete Board?",
+                      text: `Are you sure you want to delete board "${board.name}"? All tasks in this board will be deleted.`,
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#d33",
+                      cancelButtonColor: "#3085d6",
+                      confirmButtonText: "Yes, delete it!",
+                    });
+
+                    if (!result.isConfirmed) return;
+
+                    const res = await fetch(
+                      `/api/kanban/boards?boardId=${selectedBoardId}`,
+                      {
+                        method: "DELETE",
+                      }
+                    );
+
+                    if (res.ok) {
+                      await loadBoards();
+                      setSelectedBoardId(null);
+                      Swal.fire({
+                        icon: "success",
+                        title: "Board deleted",
+                        timer: 1500,
+                        showConfirmButton: false,
+                      });
+                    } else {
+                      Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Failed to delete board",
+                      });
+                    }
+                  }}
+                  className="tooltip tooltip-bottom px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 transition-all duration-300 hover:scale-105 shadow-sm"
+                  data-tip="Delete Board"
+                >
+                  <RiDeleteBin6Line className="text-red-500" />
+                </button>
+
+                <button
+                  onClick={() => manageBoardCollaborators(selectedBoardId)}
+                  className="px-2 py-1 rounded bg-blue-600 text-white text-sm transition-all duration-300 hover:scale-105 shadow-sm"
+                >
+                  Manage Team
+                </button>
+              </div>
+            )}
           </div>
 
           <button
             onClick={() => {
-              setEditingTask({ title: "", description: "", status: "todo", sprintId: null });
+              setEditingTask({
+                title: "",
+                description: "",
+                status: "todo",
+                sprintId: null,
+              });
               setModalOpen(true);
             }}
-            className="px-4 py-2 bg-linear-to-r from-amber-400 to-orange-500 text-white rounded-lg  transition-all duration-300 hover:scale-105 shadow-sm"
+            className="px-2 py-1 bg-linear-to-r from-amber-400 to-orange-500 text-white rounded  transition-all duration-300 hover:scale-105 shadow-sm"
           >
             + New Task
           </button>
           <button
             onClick={loadTasks}
-            className="px-4 py-2 border border-gray-300 rounded-lg  bg-linear-to-r from-blue-600 to-purple-600 text-white font-medium hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden text-sm lg:text-base"
+            className="px-2 py-1 border border-gray-300 rounded bg-linear-to-r from-blue-600 to-purple-600 text-white text-sm hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
           >
             Refresh
           </button>
@@ -899,6 +1196,28 @@ export default function KanbanBoard() {
                                 </div>
                                 <div className="text-sm text-gray-500 mt-1">
                                   {task.description}
+                                </div>
+
+                                {/* Badges */}
+                                <div className="flex gap-1 mt-2 flex-wrap">
+                                  {selectedBoardId && (
+                                    <span className="px-2 py-0.5 rounded-full bg-indigo-200 text-indigo-800 text-xs">
+                                      {boards.find(
+                                        (b) =>
+                                          String(b._id) ===
+                                          String(selectedBoardId)
+                                      )?.name || "Board"}
+                                    </span>
+                                  )}
+                                  {task.sprintId && (
+                                    <span className="px-2 py-0.5 rounded-full bg-green-200 text-green-800 text-xs">
+                                      {sprints.find(
+                                        (sp) =>
+                                          String(sp._id) ===
+                                          String(task.sprintId)
+                                      )?.name || "Sprint"}
+                                    </span>
+                                  )}
                                 </div>
                               </div>
                               <div className="ml-3 flex flex-col gap-1 text-sm">
@@ -973,18 +1292,48 @@ export default function KanbanBoard() {
                 placeholder="Description"
                 rows={4}
               />
-              <div className="flex gap-2 items-center">
-                <select
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                  value={editingTask?.sprintId ?? ""}
-                  onChange={(e) => setEditingTask((s) => ({ ...s, sprintId: e.target.value || null }))}
-                >
-                  <option value="">No Sprint</option>
-                  {sprints.map(sp => (
-                    <option key={String(sp._id)} value={String(sp._id)}>{sp.name}</option>
-                  ))}
-                </select>
-                <button onClick={() => createSprint()} className="px-3 py-2 rounded bg-green-600 text-white text-sm">New Sprint</button>
+              <div className="space-y-2">
+                <div className="flex gap-2 items-center">
+                  <select
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    value={editingTask?.sprintId ?? ""}
+                    onChange={(e) =>
+                      setEditingTask((s) => ({
+                        ...s,
+                        sprintId: e.target.value || null,
+                      }))
+                    }
+                  >
+                    <option value="">No Sprint</option>
+                    {sprints.map((sp) => (
+                      <option key={String(sp._id)} value={String(sp._id)}>
+                        {sp.name}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    onClick={() => createSprint()}
+                    className="px-3 py-2 rounded bg-green-600 text-white text-sm whitespace-nowrap"
+                  >
+                    New Sprint
+                  </button>
+                </div>
+                {editingTask?.sprintId && (
+                  <div className="flex gap-2 justify-end">
+                    <button
+                      onClick={() => updateSprint(editingTask.sprintId)}
+                      className="px-2 py-1 rounded bg-blue-600 text-white text-sm"
+                    >
+                      Edit Sprint
+                    </button>
+                    <button
+                      onClick={() => deleteSprint(editingTask.sprintId)}
+                      className="px-2 py-1 rounded bg-red-600 text-white text-sm"
+                    >
+                      Delete Sprint
+                    </button>
+                  </div>
+                )}
               </div>
               <select
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 "
