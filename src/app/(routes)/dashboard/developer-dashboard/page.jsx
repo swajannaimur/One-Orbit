@@ -20,6 +20,7 @@ import DashboardMockup from "./DashboardMockup/page";
 import MyProjects from "../developer-dashboard/myProjects/page";
 import Image from "next/image";
 import InviteForm from "@/app/api/users/invite/InviteForm";
+import TeamMemberPage from "../developer-dashboard/team-member/page";
 
 export default function DeveloperDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -97,13 +98,20 @@ export default function DeveloperDashboard() {
             <FaProjectDiagram className="text-indigo-500" />
             {isSidebarOpen && <span>My Projects</span>}
           </button>
+          <button
+            onClick={() => setActiveSection("teamMember")}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
+          >
+            <FaUsers className="text-green-500" />
+            {isSidebarOpen && <span>Team Member</span>}
+          </button>
 
-          <Link
+          {/* <Link
             href="/dashboard/developer-dashboard/team-member"
             className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-green-50 hover:to-emerald-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <FaUsers className="text-green-500" />
-            {/* {isSidebarOpen && <span>Team Members</span>} */}
+            
             <button
               onClick={() => {
                 setIsDropdownOpen(true);
@@ -112,7 +120,7 @@ export default function DeveloperDashboard() {
             >
               Team Member
             </button>
-          </Link>
+          </Link> */}
 
           {/* Invite a Teammate */}
           <button
@@ -161,7 +169,7 @@ export default function DeveloperDashboard() {
       {/* Main Content */}
       <div className="min-h-screen flex-1 flex flex-col pb-5 dark-bg">
         {/* Top Navbar */}
-        <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/60 shadow-md border-b border-white/40 dark:border-gray-700 px-6 py-4 flex justify-between items-center sticky top-0 z-30">
+        {/* <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/60 shadow-md border-b border-white/40 dark:border-gray-700 px-6 py-4 flex justify-between items-center sticky top-0 z-30">
           <h1 className="text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
             Overview
           </h1>
@@ -190,10 +198,13 @@ export default function DeveloperDashboard() {
               </button>
             </div>
           </div>
-        </header>
+        </header> */}
 
         {/* Dashboard Content */}
         <main className="p-6">
+          <h1 className="px-5 text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
+            Overview
+          </h1>
           <div className="bg-white/80 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-lg p-6 mb-6 border-l-4 border-indigo-500 hover:shadow-xl transition">
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-1">
               Welcome, {session?.user?.name || "Developer"} 👋
@@ -245,6 +256,11 @@ export default function DeveloperDashboard() {
           {activeSection === "myProjects" && (
             <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
               <MyProjects />
+            </div>
+          )}
+          {activeSection === "teamMember" && (
+            <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+              <TeamMemberPage />
             </div>
           )}
 
