@@ -177,7 +177,7 @@ export default function LoginForm() {
                 {/* login button */}
                 <button
                     type="submit"
-                    className="w-full py-2 cursor-pointer bg-primary text-white tracking-wider rounded-md
+                    className="w-full py-2 cursor-pointer btn-linear text-white tracking-wider rounded-md
                  hover:bg-primary/90"
                 >
                     {isLoading ? (
