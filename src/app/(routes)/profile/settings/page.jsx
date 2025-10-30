@@ -1,6 +1,5 @@
-
-
 "use client";
+
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import {
@@ -178,7 +177,7 @@ export default function DeveloperSettingsPage() {
     : [];
 
   return (
-    <div className="max-w-6xl mx-auto bg-linear-to-br from-indigo-100 via-white to-pink-100 shadow-xl rounded-2xl p-8 mt-20 mb-16 border border-indigo-200">
+    <div className="max-w-7xl mx-auto dark-bg shadow-xl rounded-2xl p-8 mt-20 mb-24 ">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-6">
         <div className="flex items-center gap-4">
@@ -191,11 +190,11 @@ export default function DeveloperSettingsPage() {
             />
           </div>
 
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800">
-              Developer Settings
+          <div >
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+              Profile Settings
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-white">
               Manage your developer profile, skills, links, and Q&A
             </p>
           </div>
@@ -216,61 +215,17 @@ export default function DeveloperSettingsPage() {
               </>
             )}
           </button>
-
-          <button
-            onClick={async () => {
-              setLoading(true);
-              try {
-                const res = await fetch("/api/users/me");
-                if (!res.ok) throw new Error("Failed to reload");
-                const data = await res.json();
-                const user = data.user || {};
-                setFormData({
-                  name: user.name || session?.user?.name || "",
-                  email: user.email || session?.user?.email || "",
-                  theme: user?.preferences?.theme || "light",
-                  notifications: user?.preferences?.notifications ?? true,
-                  bio: user.bio || "",
-                  portfolio: user.portfolio || "",
-                  resume: user.resume || "",
-                  about: user.about || "",
-                  skills: Array.isArray(user.skills)
-                    ? user.skills.join(", ")
-                    : user.skills || "",
-                  github: user.github || "",
-                  linkedin: user.linkedin || "",
-                  facebook: user.facebook || "",
-                  image: user.image || session?.user?.image || "",
-                  qna: {
-                    whyHire: user.qna?.whyHire || "",
-                    motivation: user.qna?.motivation || "",
-                    future: user.qna?.future || "",
-                    quality: user.qna?.quality || "",
-                    fiveYear: user.qna?.fiveYear || "",
-                  },
-                });
-                setAvatarPreview(user.image || session?.user?.image || "");
-              } catch (err) {
-                console.error(err);
-              } finally {
-                setLoading(false);
-              }
-            }}
-            className="px-5 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
-          >
-            Reload
-          </button>
         </div>
       </div>
 
       {/* Form */}
       <form
         onSubmit={handleUpdate}
-        className="space-y-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="space-y-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 "
       >
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             <FaUser className="inline mr-1 text-gray-500" /> Name
           </label>
           {isEditing ? (
@@ -282,21 +237,21 @@ export default function DeveloperSettingsPage() {
               className="input input-bordered w-full"
             />
           ) : (
-            <p className="text-gray-700">{formData.name || "Not set"}</p>
+            <p className="text-gray-700 dark:text-white">{formData.name || "Not set"}</p>
           )}
         </div>
 
         {/* Email */}
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             <FaEnvelope className="inline mr-1 text-gray-500" /> Email
           </label>
-          <p className="text-gray-700">{formData.email}</p>
+          <p className="text-gray-700 dark:text-white">{formData.email}</p>
         </div>
 
         {/* Avatar */}
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             Avatar URL
           </label>
           {isEditing ? (
@@ -316,7 +271,7 @@ export default function DeveloperSettingsPage() {
               />
             </>
           ) : (
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-white">
               {formData.image ? "Custom avatar set" : "Using provider avatar"}
             </p>
           )}
@@ -324,7 +279,7 @@ export default function DeveloperSettingsPage() {
 
         {/* Bio */}
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             <FaInfoCircle className="inline mr-1 text-gray-500" /> Short Bio
           </label>
           {isEditing ? (
@@ -337,13 +292,13 @@ export default function DeveloperSettingsPage() {
               placeholder="E.g. Full-stack developer passionate about MERN stack"
             />
           ) : (
-            <p className="text-gray-700">{formData.bio || "No bio yet"}</p>
+            <p className="text-gray-700 dark:text-white">{formData.bio || "No bio yet"}</p>
           )}
         </div>
 
         {/* Skills */}
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             <FaCode className="inline mr-1 text-gray-500" /> Skills
           </label>
           {isEditing ? (
@@ -367,13 +322,13 @@ export default function DeveloperSettingsPage() {
               ))}
             </div>
           ) : (
-            <p className="text-gray-700">No skills added</p>
+            <p className="text-gray-700 dark:text-white">No skills added</p>
           )}
         </div>
 
         {/* Portfolio */}
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             <FaLink className="inline mr-1 text-gray-500" /> Portfolio Link
           </label>
           {isEditing ? (
@@ -395,13 +350,13 @@ export default function DeveloperSettingsPage() {
               {formData.portfolio}
             </a>
           ) : (
-            <p className="text-gray-700">Not added</p>
+            <p className="text-gray-700 dark:text-white">Not added</p>
           )}
         </div>
 
         {/* Resume */}
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             <FaFileUpload className="inline mr-1 text-gray-500" /> Resume URL
           </label>
           {isEditing ? (
@@ -423,13 +378,13 @@ export default function DeveloperSettingsPage() {
               View Resume
             </a>
           ) : (
-            <p className="text-gray-700">No resume uploaded</p>
+            <p className="text-gray-700 dark:text-white">No resume uploaded</p>
           )}
         </div>
 
         {/* About */}
         <div className="md:col-span-3">
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             About You
           </label>
           {isEditing ? (
@@ -442,7 +397,7 @@ export default function DeveloperSettingsPage() {
               placeholder="Write about your experience, interests, and goals..."
             />
           ) : (
-            <p className="text-gray-700 whitespace-pre-wrap">
+            <p className="text-gray-700 dark:text-white whitespace-pre-wrap">
               {formData.about || "No details added yet"}
             </p>
           )}
@@ -453,7 +408,7 @@ export default function DeveloperSettingsPage() {
           <button
             type="button"
             onClick={() => setShowQnA(!showQnA)}
-            className="w-full flex justify-between items-center bg-indigo-200 hover:bg-indigo-300 text-indigo-800 font-semibold py-2 px-4 rounded-md mb-2 transition"
+            className="w-full flex justify-between items-center btn-linear  hover:btn-hover text-indigo-800 font-semibold py-2 px-4 rounded-md mb-2 transition"
           >
             <span>Developer Q&A</span>
             <span>{showQnA ? "▲ Hide" : "▼ Show"}</span>
@@ -472,7 +427,7 @@ export default function DeveloperSettingsPage() {
                 },
               ].map(({ label, name }) => (
                 <div key={name}>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                  <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
                     {label}
                   </label>
                   {isEditing ? (
@@ -486,7 +441,7 @@ export default function DeveloperSettingsPage() {
                       placeholder={`Your answer to "${label}"`}
                     />
                   ) : (
-                    <p className="text-gray-700 whitespace-pre-wrap">
+                    <p className="text-gray-700 dark:text-white whitespace-pre-wrap">
                       {formData.qna[name] || "Not answered yet"}
                     </p>
                   )}
@@ -503,7 +458,7 @@ export default function DeveloperSettingsPage() {
           { label: "Facebook", name: "facebook", icon: FaFacebook },
         ].map(({ label, name, icon: Icon }) => (
           <div key={name}>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
               <Icon className="inline mr-1 text-gray-500" /> {label}
             </label>
             {isEditing ? (
@@ -525,14 +480,14 @@ export default function DeveloperSettingsPage() {
                 {formData[name]}
               </a>
             ) : (
-              <p className="text-gray-700">Not added</p>
+              <p className="text-gray-700 dark:text-white">Not added</p>
             )}
           </div>
         ))}
 
         {/* Theme */}
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             Theme
           </label>
           {isEditing ? (
@@ -547,13 +502,13 @@ export default function DeveloperSettingsPage() {
               <option value="system">System Default</option>
             </select>
           ) : (
-            <p className="text-gray-700 capitalize">{formData.theme}</p>
+            <p className="text-gray-700 dark:text-white capitalize">{formData.theme}</p>
           )}
         </div>
 
         {/* Notifications */}
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">
+          <label className="block text-sm font-medium text-gray-600 mb-1 dark:text-white">
             Notifications
           </label>
           {isEditing ? (
@@ -567,7 +522,7 @@ export default function DeveloperSettingsPage() {
               <span>Enable</span>
             </label>
           ) : (
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-white">
               {formData.notifications ? "Enabled" : "Disabled"}
             </p>
           )}
@@ -579,7 +534,7 @@ export default function DeveloperSettingsPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-4 bg-linear-to-b from-indigo-600 to-indigo-400 text-white py-2 rounded-md hover:bg-indigo-700 transition disabled:opacity-60"
+              className="w-full mt-4 btn-linear text-white py-2 rounded-md hover:bg-indigo-700 transition disabled:opacity-60"
             >
               {loading ? "Saving..." : "Update Settings"}
             </button>

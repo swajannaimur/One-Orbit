@@ -55,11 +55,15 @@ export default function DeveloperProfilePage() {
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 p-6 mt-20 dark:from-gray-900 dark:to-gray-800">
       {/* Header */}
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4 sm:mb-0 dark:text-gray-200">
-          My Profile
+        <h2 className="text-4xl flex gap-4 lg:text-5xl xl:text-6xl font-bold tracking-tight mb-6">
+          <span className="bg-linear-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+            My 
+          </span>
+          <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Profile
+          </span>
         </h2>
-        <Link href="/dashboard/developer-dashboard/settings">
-          <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200">
+        <Link href="/profile/settings">
+          <button className="flex items-center gap-2 px-4 py-2 btn-linear text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200">
             <HiOutlineCog6Tooth className="w-5 h-5" />
             Settings
           </button>
