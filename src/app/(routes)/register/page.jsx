@@ -172,7 +172,7 @@ export default async function Register() {
                             <RegisterForm />
 
                             {/* Divider */}
-                            <div className="flex items-center my-8">
+                            <div className="flex items-center ">
                                 <div className="flex-grow h-px bg-gray-200 dark:bg-gray-700" />
                                 <span className="mx-4 text-sm text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">
                                     Or sign up with
@@ -184,7 +184,7 @@ export default async function Register() {
                             <Social />
 
                             {/* Login Link */}
-                            <div className="text-center mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <div className="text-center mt-4 border-t border-gray-200 dark:border-gray-700">
                                 <p className="text-gray-600 dark:text-gray-400">
                                     Already have an account?{" "}
                                     <a 
