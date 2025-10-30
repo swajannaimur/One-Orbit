@@ -237,7 +237,7 @@ export default function ChatPage() {
     };
   }, [ably, clientId, selectedGroup, selectedFriend]);
 
-  // ✅ Fetch list of users
+  // Fetch list of users
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -251,7 +251,7 @@ export default function ChatPage() {
     fetchUsers();
   }, [addedFriend]);
 
-  // ✅ Autoscroll
+  // Autoscroll
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
@@ -268,7 +268,7 @@ export default function ChatPage() {
     groupTyping,
   ]);
 
-  // ✅ Send private message
+  // Send private message
   const sendPrivateMessage = async (e) => {
     e.preventDefault();
     if (!clientId || !message.trim() || !selectedFriend?._id) return;
@@ -302,7 +302,7 @@ export default function ChatPage() {
     }
   };
 
-  // ✅ Send group message
+  // Send group message
   const sendGroupMessage = async (e) => {
     e.preventDefault();
     if (!clientId || !message.trim() || !selectedGroup?._id) return;
@@ -435,7 +435,7 @@ export default function ChatPage() {
     : null;
 
   return (
-    <>    
+    <>
       {usersList.length === 0 ? (
         <div className="w-full h-screen flex items-center justify-center">
           <span className="loading loading-spinner loading-xl"></span>
@@ -512,11 +512,15 @@ export default function ChatPage() {
                       {selectedFriend?.name || selectedGroup?.name}
                     </h2>
                     <p className="text-sm text-gray-400">
-                      {selectedFriend
-                        ? onlineUsers.includes(selectedFriend?._id)
-                          ? <span className="text-success">Online</span>
-                          : "Offline"
-                        : `${selectedGroup?.members.length} members`}
+                      {selectedFriend ? (
+                        onlineUsers.includes(selectedFriend?._id) ? (
+                          <span className="text-success">Online</span>
+                        ) : (
+                          "Offline"
+                        )
+                      ) : (
+                        `${selectedGroup?.members.length} members`
+                      )}
                     </p>
                   </div>
                 </div>
