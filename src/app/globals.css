@@ -1,5 +1,5 @@
 @import "tailwindcss";
-/* @plugin "daisyui"; */
+@plugin "daisyui";
 
 
 @plugin "daisyui/theme" {
@@ -19,7 +19,6 @@ body {
 .dark-bg {
   @apply  dark:from-gray-900 dark:to-gray-800;
 }
-
 
 .btn-linear {
   @apply bg-linear-to-r from-purple-600 to-blue-600 text-white font-semibold;
