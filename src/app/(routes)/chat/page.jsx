@@ -514,7 +514,7 @@ export default function ChatPage() {
                     <p className="text-sm text-gray-400">
                       {selectedFriend
                         ? onlineUsers.includes(selectedFriend?._id)
-                          ? "Online"
+                          ? <span className="text-success">Online</span>
                           : "Offline"
                         : `${selectedGroup?.members.length} members`}
                     </p>

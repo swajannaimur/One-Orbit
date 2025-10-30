@@ -131,7 +131,20 @@ export default function Sidebar({
                       </div>
                     </div>
                   </div>
-                  <span className="font-medium">{user.name}</span>
+                  <div>
+                    <span className="font-semibold text-lg">{user.name}</span>
+                    <p
+                      className={`text-sm ${
+                        onlineUsers.includes(String(user._id))
+                          ? "text-success"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      {onlineUsers.includes(String(user._id))
+                        ? "Online"
+                        : "Offline"}
+                    </p>
+                  </div>
                 </div>
               ))}
             </>
