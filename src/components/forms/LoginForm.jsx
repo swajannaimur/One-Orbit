@@ -4,23 +4,21 @@ import { useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa";
 
-export default function LoginForm()
-{
+export default function LoginForm() {
     const router = useRouter();
-    const [ error, setError ] = useState("");
-    const [ showPassword, setShowPassword ] = useState(false);
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // email validation function with regx
-    const isValidEmail = (email) =>
-    {
+    const isValidEmail = (email) => {
         const emailRegx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         return emailRegx.test(email);
     };
 
-    const handleSubmit = async (e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
         const email = e.target.email.value;
@@ -29,7 +27,7 @@ export default function LoginForm()
         setIsLoading(true);
 
         // email validation
-        if (!isValidEmail(email)){
+        if (!isValidEmail(email)) {
             toast.error("Email is Invalid");
             setError("Email is Invalid");
             setIsLoading(false);
@@ -37,7 +35,7 @@ export default function LoginForm()
         }
 
         // password validation
-        if (!password || password.length < 8){
+        if (!password || password.length < 8) {
             toast.error("Password should be at least 8 characters")
             setError("Password is less then 8");
             setIsLoading(false);
@@ -63,9 +61,10 @@ export default function LoginForm()
         //     router.push("/dashboard");
         // }
 
-        
+
 
         // OTP - commented by Yasin Arafat   
+<<<<<<< HEAD
         const res = await fetch("/api/send-otp", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -84,6 +83,57 @@ export default function LoginForm()
             setIsLoading(false);
         } else {
             router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
+        }
+=======
+        // const res = await fetch("/api/send-otp", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ email, password }),
+        // });
+
+        // if (res.ok){
+        //     localStorage.setItem("password", password);
+        //     setIsLoading(false);
+        //     router.push("/");
+        // }
+
+        // if (!res.ok) {
+        //     const data = await res.json();
+        //     setError(data.message);
+        //     setIsLoading(false);
+        // } else {
+        //     router.replace(`/verify-otp?email=${encodeURIComponent(email)}`);
+        // }
+>>>>>>> da481dba98683cb6406f6839f11bf89508d8fbba
+    }
+
+    const handleRoleBasedLogin = async (role) => {
+        let email, password;
+
+        if (role === "client") {
+            email = "client1@gmail.com";
+            password = "abcd1234";
+        }
+        else if (role === "dev") {
+            email = "dev1@gmail.com";
+            password = "abcd1234";
+        }
+
+        setIsLoading(true);
+
+        const result = await signIn("credentials", {
+            redirect: false, email, password,
+        });
+
+        if (result?.error) {
+            toast.error("Invalid Email or Password");
+            setError("Invalid Email or Password");
+            setIsLoading(false);
+        }
+        else {
+            toast.success(`${role} Login Successfull`);
+            setError("");
+            router.push("/dashboard");
         }
     }
 
@@ -126,8 +176,8 @@ export default function LoginForm()
                    focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                         />
 
-                        <button type="button" onClick={()=> setShowPassword(!showPassword)} className="absolute right-3 text-gray-500 cursor-pointer">
-                            {showPassword ? <FaEyeSlash size={18}/> : <FaEye size={18}/>}
+                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 text-gray-500 cursor-pointer">
+                            {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
                         </button>
                     </div>
 
@@ -149,7 +199,7 @@ export default function LoginForm()
                 {/* login button */}
                 <button
                     type="submit"
-                    className="w-full py-2 cursor-pointer bg-primary text-white tracking-wider rounded-md
+                    className="w-full py-2 cursor-pointer btn-linear text-white tracking-wider rounded-md
                  hover:bg-primary/90"
                 >
                     {isLoading ? (
@@ -158,6 +208,26 @@ export default function LoginForm()
                         "Login"
                     )}
                 </button>
+
+                {/* Role preferences */}
+
+                {/* Client Login ->  */}
+                <div className="flex justify-between items-center">
+                    <p
+                        onClick={() => handleRoleBasedLogin("client")}
+                        className="flex items-center gap-2 border border-blue-500 rounded-full px-3 py-1 text-blue-500 cursor-pointer">
+                        Client Login <FaArrowRight></FaArrowRight>
+                    </p>
+
+
+                    {/* Developer Loging */}
+
+                    <p
+                        onClick={() => handleRoleBasedLogin("dev")} className="flex items-center gap-2 border border-blue-500 rounded-full px-3 py-1 text-blue-500 cursor-pointer">
+                        Dev Login <FaArrowRight></FaArrowRight>
+                    </p>
+
+                </div>
 
                 {/* redirecting to register page */}
                 <p className="text-sm text-gray-500 tracking-wide font-semibold">
