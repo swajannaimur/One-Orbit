@@ -17,6 +17,7 @@ import { TbLogout2 } from "react-icons/tb";
 import KanbanBoard from "./kanban/KanbanBoard";
 import InviteForm from "@/components/forms/InviteForm";
 import DashboardMockup from "./DashboardMockup/page";
+import MyProjects from "../developer-dashboard/myProjects/page";
 import Image from "next/image";
 
 export default function DeveloperDashboard() {
@@ -55,7 +56,7 @@ export default function DeveloperDashboard() {
   const [activeSection, setActiveSection] = useState(null);
 
   return (
-    <div className="flex min-h-screen bg-linear-to-br from-indigo-50 via-blue-50 to-purple-100 ">
+    <div className="flex min-h-screen bg-linear-to-br from-indigo-50 via-blue-50 to-purple-100 py-20 ">
       {/* Sidebar */}
       <div
         className={`${
@@ -79,14 +80,22 @@ export default function DeveloperDashboard() {
         </div>
 
         <nav className="flex-1 px-2 py-4 space-y-2">
-          <Link
+          {/* <Link
             onClick={() => setActiveSection("myProjects")}
             href="/dashboard/developer-dashboard/myProjects"
             className="flex items-center gap-3 px-3 py-2 rounded-lg bg-linear-to-r from-blue-50 to-indigo-50 hover:from-indigo-100 hover:to-blue-100 text-gray-800 font-medium transition"
           >
             <FaProjectDiagram className="text-indigo-500" />
             {isSidebarOpen && <span>My Projects</span>}
-          </Link>
+          </Link> */}
+
+          <button
+            onClick={() => setActiveSection("myProjects")}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
+          >
+            <FaProjectDiagram className="text-indigo-500" />
+            {isSidebarOpen && <span>My Projects</span>}
+          </button>
 
           <Link
             href="/dashboard/developer-dashboard/teamMembers"
@@ -125,7 +134,7 @@ export default function DeveloperDashboard() {
                 router.push("/dashboard/developer-dashboard/settings");
               }}
             >
-              Settings
+              {isSidebarOpen && <span>Settings</span>}
             </button>
           </a>
           <a
@@ -134,7 +143,7 @@ export default function DeveloperDashboard() {
           >
             <TbLogout2 className="text-red-500" />
             <button onClick={() => signOut({ callbackUrl: "/" })}>
-              Logout
+              {isSidebarOpen && <span>Logout</span>}
             </button>
           </a>
         </nav>
@@ -253,6 +262,11 @@ export default function DeveloperDashboard() {
           {activeSection === "invite" && (
             <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
               <InviteForm />
+            </div>
+          )}
+          {activeSection === "myProjects" && (
+            <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
+              <MyProjects />
             </div>
           )}
 
