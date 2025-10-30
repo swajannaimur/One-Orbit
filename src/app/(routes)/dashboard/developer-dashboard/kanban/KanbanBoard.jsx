@@ -500,9 +500,22 @@ import { useSession } from "next-auth/react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const COLUMNS = [
-  { key: "todo", title: "📝 To Do", color: "from-pink-100 to-pink-50 dark:from-pink-900/50 dark:to-pink-800/50" },
-  { key: "inprogress", title: "⚙️ In Progress", color: "from-blue-100 to-blue-50 dark:from-blue-900/50 dark:to-blue-800/50" },
-  { key: "done", title: "✅ Done", color: "from-green-100 to-green-50 dark:from-green-900/50 dark:to-green-800/50" },
+  {
+    key: "todo",
+    title: "📝 To Do",
+    color: "from-pink-100 to-pink-50 dark:from-pink-900/50 dark:to-pink-800/50",
+  },
+  {
+    key: "inprogress",
+    title: "⚙️ In Progress",
+    color: "from-blue-100 to-blue-50 dark:from-blue-900/50 dark:to-blue-800/50",
+  },
+  {
+    key: "done",
+    title: "✅ Done",
+    color:
+      "from-green-100 to-green-50 dark:from-green-900/50 dark:to-green-800/50",
+  },
 ];
 
 function reorder(list, startIndex, endIndex) {
@@ -513,7 +526,6 @@ function reorder(list, startIndex, endIndex) {
 }
 
 export default function KanbanBoard() {
-<<<<<<< HEAD
   const { data: session } = useSession();
   const [tasksByStatus, setTasksByStatus] = useState({
     todo: [],
@@ -523,9 +535,6 @@ export default function KanbanBoard() {
   const [boards, setBoards] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState(null); // null -> personal
   const [sprints, setSprints] = useState([]);
-=======
-  const [tasksByStatus, setTasksByStatus] = useState({ todo: [], inprogress: [], done: [] });
->>>>>>> 6d63ca2a8b4189103f6b7b711d3da40c75f69fb1
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
@@ -540,14 +549,10 @@ export default function KanbanBoard() {
     return String(val);
   }
 
-<<<<<<< HEAD
   useEffect(() => {
     loadBoards();
     loadTasks();
   }, []);
-=======
-  useEffect(() => { loadTasks(); }, []);
->>>>>>> 6d63ca2a8b4189103f6b7b711d3da40c75f69fb1
 
   useEffect(() => {
     // reload sprints when board changes
@@ -852,7 +857,6 @@ export default function KanbanBoard() {
     }
   }
 
-<<<<<<< HEAD
   // AI task add
   useFrontendTool({
     name: "addTodoItem",
@@ -1037,10 +1041,6 @@ export default function KanbanBoard() {
   function handleBeforeCapture() {
     isDraggingRef.current = true;
   }
-=======
-  // AI & Delete tools omitted for brevity (keep as in your original code)
-  // saveTask, deleteTask, handleDragEnd, handleBeforeCapture remain unchanged
->>>>>>> 6d63ca2a8b4189103f6b7b711d3da40c75f69fb1
 
   return (
     <div className="min-h-screen bg-linear-to-br from-indigo-100 via-white to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6 rounded-xl transition-colors duration-300">
@@ -1135,7 +1135,6 @@ export default function KanbanBoard() {
           </div>
 
           <button
-<<<<<<< HEAD
             onClick={() => {
               setEditingTask({
                 title: "",
@@ -1146,51 +1145,66 @@ export default function KanbanBoard() {
               setModalOpen(true);
             }}
             className="px-2 py-1 bg-linear-to-r from-amber-400 to-orange-500 text-white rounded  transition-all duration-300 hover:scale-105 shadow-sm"
-=======
-            onClick={() => { setEditingTask({ title: "", description: "", status: "todo" }); setModalOpen(true); }}
-            className="px-4 py-2 bg-linear-to-r from-amber-400 to-orange-500 dark:from-amber-700 dark:to-orange-700 text-white rounded-lg transition-all duration-300 hover:scale-105 shadow-sm"
->>>>>>> 6d63ca2a8b4189103f6b7b711d3da40c75f69fb1
           >
             + New Task
           </button>
           <button
             onClick={loadTasks}
-<<<<<<< HEAD
             className="px-2 py-1 border border-gray-300 rounded bg-linear-to-r from-blue-600 to-purple-600 text-white text-sm hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
-=======
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-linear-to-r from-blue-600 to-purple-600 dark:from-blue-800 dark:to-purple-800 text-white font-medium hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm lg:text-base"
->>>>>>> 6d63ca2a8b4189103f6b7b711d3da40c75f69fb1
           >
             Refresh
           </button>
         </div>
       </div>
 
-      <DragDropContext onBeforeCapture={() => (isDraggingRef.current = true)} onDragEnd={(res) => {
-        isDraggingRef.current = false;
-        const { destination, source } = res;
-        if (!destination) return;
-        const srcCol = source.droppableId, destCol = destination.droppableId;
-        if (srcCol === destCol) {
-          const reordered = reorder(tasksByStatus[srcCol], source.index, destination.index);
-          setTasksByStatus((prev) => ({ ...prev, [srcCol]: reordered }));
-          return;
-        }
-        const moving = tasksByStatus[srcCol][source.index];
-        if (!moving) return;
-        const newSrc = Array.from(tasksByStatus[srcCol]);
-        newSrc.splice(source.index, 1);
-        const newDest = Array.from(tasksByStatus[destCol]);
-        newDest.splice(destination.index, 0, moving);
-        setTasksByStatus((prev) => ({ ...prev, [srcCol]: newSrc, [destCol]: newDest }));
-        fetch(`/api/kanban/tasks/${moving._id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status: destCol }) }).catch(console.error);
-      }}>
+      <DragDropContext
+        onBeforeCapture={() => (isDraggingRef.current = true)}
+        onDragEnd={(res) => {
+          isDraggingRef.current = false;
+          const { destination, source } = res;
+          if (!destination) return;
+          const srcCol = source.droppableId,
+            destCol = destination.droppableId;
+          if (srcCol === destCol) {
+            const reordered = reorder(
+              tasksByStatus[srcCol],
+              source.index,
+              destination.index
+            );
+            setTasksByStatus((prev) => ({ ...prev, [srcCol]: reordered }));
+            return;
+          }
+          const moving = tasksByStatus[srcCol][source.index];
+          if (!moving) return;
+          const newSrc = Array.from(tasksByStatus[srcCol]);
+          newSrc.splice(source.index, 1);
+          const newDest = Array.from(tasksByStatus[destCol]);
+          newDest.splice(destination.index, 0, moving);
+          setTasksByStatus((prev) => ({
+            ...prev,
+            [srcCol]: newSrc,
+            [destCol]: newDest,
+          }));
+          fetch(`/api/kanban/tasks/${moving._id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: destCol }),
+          }).catch(console.error);
+        }}
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {COLUMNS.map((col) => (
-            <div key={col.key} className={`rounded-xl shadow-lg p-4 bg-linear-to-b ${col.color} border border-gray-100 dark:border-gray-700 transition-colors duration-300`}>
+            <div
+              key={col.key}
+              className={`rounded-xl shadow-lg p-4 bg-linear-to-b ${col.color} border border-gray-100 dark:border-gray-700 transition-colors duration-300`}
+            >
               <div className="flex items-center justify-between mb-3">
-                <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200">{col.title}</h4>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">{tasksByStatus[col.key]?.length || 0}</span>
+                <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200">
+                  {col.title}
+                </h4>
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                  {tasksByStatus[col.key]?.length || 0}
+                </span>
               </div>
 
               <Droppable droppableId={col.key}>
@@ -1198,10 +1212,18 @@ export default function KanbanBoard() {
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className={`min-h-[200px] rounded transition ${snapshot.isDraggingOver ? "bg-blue-50 dark:bg-blue-900/30" : ""}`}
+                    className={`min-h-[200px] rounded transition ${
+                      snapshot.isDraggingOver
+                        ? "bg-blue-50 dark:bg-blue-900/30"
+                        : ""
+                    }`}
                   >
                     {tasksByStatus[col.key]?.map((task, index) => (
-                      <Draggable key={String(task._id)} draggableId={String(task._id)} index={index}>
+                      <Draggable
+                        key={String(task._id)}
+                        draggableId={String(task._id)}
+                        index={index}
+                      >
                         {(prov) => (
                           <div
                             ref={prov.innerRef}
@@ -1211,7 +1233,6 @@ export default function KanbanBoard() {
                           >
                             <div className="flex items-start justify-between">
                               <div>
-<<<<<<< HEAD
                                 <div className="font-semibold text-gray-800 text-sm md:text-base">
                                   {task.title}
                                 </div>
@@ -1240,14 +1261,23 @@ export default function KanbanBoard() {
                                     </span>
                                   )}
                                 </div>
-=======
-                                <div className="font-semibold text-gray-800 dark:text-gray-200 text-sm md:text-base">{task.title}</div>
-                                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">{task.description}</div>
->>>>>>> 6d63ca2a8b4189103f6b7b711d3da40c75f69fb1
                               </div>
                               <div className="ml-3 flex flex-col gap-1 text-sm">
-                                <button onClick={() => { setEditingTask(task); setModalOpen(true); }} className="text-indigo-600 dark:text-indigo-400 hover:underline">Edit</button>
-                                <button onClick={() => deleteTask(task._id)} className="text-red-600 dark:text-red-400 hover:underline">Delete</button>
+                                <button
+                                  onClick={() => {
+                                    setEditingTask(task);
+                                    setModalOpen(true);
+                                  }}
+                                  className="text-indigo-600 dark:text-indigo-400 hover:underline"
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  onClick={() => deleteTask(task._id)}
+                                  className="text-red-600 dark:text-red-400 hover:underline"
+                                >
+                                  Delete
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -1267,7 +1297,10 @@ export default function KanbanBoard() {
       <div className="z-50 mt-5">
         <CopilotPopup
           instructions="You are assisting the user as best as you can. Answer in the best way possible given the data you have."
-          labels={{ title: "One-Orbit Assistant", initial: "Easily add tasks by pasting your project description" }}
+          labels={{
+            title: "One-Orbit Assistant",
+            initial: "Easily add tasks by pasting your project description",
+          }}
         />
       </div>
 
@@ -1275,18 +1308,24 @@ export default function KanbanBoard() {
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fadeIn">
           <div className="bg-linear-to-br from-amber-100 via-white to-orange-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 rounded-xl p-6 w-full max-w-lg shadow-2xl transform transition-all animate-scaleIn">
-            <h4 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">{editingTask?._id ? "Edit Task" : "New Task"}</h4>
+            <h4 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+              {editingTask?._id ? "Edit Task" : "New Task"}
+            </h4>
             <div className="space-y-3">
               <input
                 className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-900 dark:text-gray-200"
                 value={editingTask?.title || ""}
-                onChange={(e) => setEditingTask((s) => ({ ...s, title: e.target.value }))}
+                onChange={(e) =>
+                  setEditingTask((s) => ({ ...s, title: e.target.value }))
+                }
                 placeholder="Title"
               />
               <textarea
                 className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-900 dark:text-gray-200"
                 value={editingTask?.description || ""}
-                onChange={(e) => setEditingTask((s) => ({ ...s, description: e.target.value }))}
+                onChange={(e) =>
+                  setEditingTask((s) => ({ ...s, description: e.target.value }))
+                }
                 placeholder="Description"
                 rows={4}
               />
@@ -1336,7 +1375,9 @@ export default function KanbanBoard() {
               <select
                 className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-900 dark:text-gray-200"
                 value={editingTask?.status || "todo"}
-                onChange={(e) => setEditingTask((s) => ({ ...s, status: e.target.value }))}
+                onChange={(e) =>
+                  setEditingTask((s) => ({ ...s, status: e.target.value }))
+                }
               >
                 <option value="todo">To Do</option>
                 <option value="inprogress">In Progress</option>
@@ -1344,10 +1385,19 @@ export default function KanbanBoard() {
               </select>
             </div>
             <div className="mt-5 flex justify-end gap-3">
-              <button onClick={() => { setModalOpen(false); setEditingTask(null); }} className="px-4 py-2 border rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+              <button
+                onClick={() => {
+                  setModalOpen(false);
+                  setEditingTask(null);
+                }}
+                className="px-4 py-2 border rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+              >
                 Cancel
               </button>
-              <button onClick={() => saveTask(editingTask)} className="px-4 py-2 bg-linear-to-r from-amber-400 to-orange-500 dark:from-amber-700 dark:to-orange-700 text-white rounded-lg hover:bg-amber-700 dark:hover:bg-orange-800 transition-all duration-200 shadow-sm">
+              <button
+                onClick={() => saveTask(editingTask)}
+                className="px-4 py-2 bg-linear-to-r from-amber-400 to-orange-500 dark:from-amber-700 dark:to-orange-700 text-white rounded-lg hover:bg-amber-700 dark:hover:bg-orange-800 transition-all duration-200 shadow-sm"
+              >
                 Save
               </button>
             </div>
@@ -1356,10 +1406,30 @@ export default function KanbanBoard() {
       )}
 
       <style jsx>{`
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
-        .animate-scaleIn { animation: scaleIn 0.3s ease-out; }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+        .animate-scaleIn {
+          animation: scaleIn 0.3s ease-out;
+        }
       `}</style>
     </div>
   );
