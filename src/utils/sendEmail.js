@@ -1,28 +1,26 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: true,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
-export async function sendEmail({ to, subject, text, html }) {
-  if (!to) {
-    console.error("❌ Missing `to` address in sendEmail");
-    return;
-  }
+export async function sendEmail({ to, subject, html }) {
   try {
-    const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM,
+    await transporter.sendMail({
+      from: `"OneOrbit" <${process.env.SMTP_USER}>`,
       to,
       subject,
-      text,    // optional
-      html     // optional – at least one should exist
+      html,
     });
-    if (error) {
-      console.error("❌ Resend send error:", error);
-      return;
-    }
-    console.log("✅ Email sent, id:", data.id);
-    return data;
-  } catch (err) {
-    console.error("❌ sendEmail exception:", err);
-    throw err;
+    return { success: true };
+  } catch (error) {
+    console.error("Error sending email:", error);
+    return { success: false, error };
   }
 }
