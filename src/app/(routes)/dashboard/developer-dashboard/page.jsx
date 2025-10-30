@@ -82,45 +82,28 @@ export default function DeveloperDashboard() {
         </div>
 
         <nav className="flex-1 px-2 py-4 space-y-2">
-          {/* <Link
-            onClick={() => setActiveSection("myProjects")}
-            href="/dashboard/developer-dashboard/myProjects"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg bg-linear-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-800 hover:from-indigo-100 hover:to-blue-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
-          >
-            <FaProjectDiagram className="text-indigo-500" />
-            {isSidebarOpen && <span>My Projects</span>}
-          </Link> */}
+          {/* MY projects */}
 
           <button
             onClick={() => setActiveSection("myProjects")}
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition dark:hover:from-gray-700 dark:hover:to-gray-700"
           >
             <FaProjectDiagram className="text-indigo-500" />
-            {isSidebarOpen && <span className="dark:text-white">My Projects</span>}
+            {isSidebarOpen && (
+              <span className="dark:text-white">My Projects</span>
+            )}
           </button>
+
+          {/* Team member */}
           <button
             onClick={() => setActiveSection("teamMember")}
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition dark:hover:from-gray-700 dark:hover:to-gray-700"
           >
             <FaUsers className="text-green-500" />
-            {isSidebarOpen && <span className="dark:text-white">Team Member</span>}
+            {isSidebarOpen && (
+              <span className="dark:text-white">Team Member</span>
+            )}
           </button>
-
-          {/* <Link
-            href="/dashboard/developer-dashboard/team-member"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-green-50 hover:to-emerald-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
-          >
-            <FaUsers className="text-green-500" />
-            
-            <button
-              onClick={() => {
-                setIsDropdownOpen(true);
-                router.push("/dashboard/developer-dashboard/team-member");
-              }}
-            >
-              Team Member
-            </button>
-          </Link> */}
 
           {/* Invite a Teammate */}
           <button
@@ -128,7 +111,9 @@ export default function DeveloperDashboard() {
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-indigo-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
           >
             <FaUserPlus className="text-indigo-600" />
-            {isSidebarOpen && <span className="dark:text-white">Invite a Teammate</span>}
+            {isSidebarOpen && (
+              <span className="dark:text-white">Invite a Teammate</span>
+            )}
           </button>
 
           {/* Kanban Board */}
@@ -149,7 +134,9 @@ export default function DeveloperDashboard() {
               onClick={() => router.push("/profile/settings")}
               className="text-gray-800 dark:text-gray-200"
             >
-              {isSidebarOpen && <span className="dark:text-white">Settings</span>}
+              {isSidebarOpen && (
+                <span className="dark:text-white">Settings</span>
+              )}
             </button>
           </a>
           <a
@@ -166,38 +153,6 @@ export default function DeveloperDashboard() {
 
       {/* Main Content */}
       <div className="min-h-screen flex-1 flex flex-col pb-5 dark-bg">
-        {/* Top Navbar */}
-        {/* <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/60 shadow-md border-b border-white/40 dark:border-gray-700 px-6 py-4 flex justify-between items-center sticky top-0 z-30">
-          <h1 className="text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
-            Overview
-          </h1>
-          <div className="flex items-center gap-4">
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setIsDropdownOpen((s) => !s)}
-                className="flex items-center gap-2 focus:outline-none"
-              >
-                <div className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                  {(remoteUser?.name || session?.user?.name)?.split(" ")[0] ??
-                    "Guest"}
-                </div>
-                <div className="relative w-9 h-9 rounded-full border border-indigo-200 dark:border-gray-600 shadow-sm overflow-hidden">
-                  <Image
-                    src={
-                      remoteUser?.image ||
-                      session?.user?.image ||
-                      "https://i.pravatar.cc/40"
-                    }
-                    alt="Profile"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </button>
-            </div>
-          </div>
-        </header> */}
-
         {/* Dashboard Content */}
         <main className="p-6">
           <h1 className="pb-5 text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">

@@ -61,8 +61,8 @@ export default function Sidebar({
   return (
     <>
       <aside
-        className={`md:w-72 w-full bg-white dark:bg-violet-500/20 dark:text-white rounded-2xl border-base-200 md:static z-50 absolute ${
-          sidebarOpen ? "left-0" : "-left-195"
+        className={`md:w-72 w-full h-190 md:h-auto bg-white dark:bg-violet-500/20 dark:text-white rounded-2xl border-base-200 md:static z-50 absolute ${
+          sidebarOpen ? "left-0 bottom-0" : "-left-195"
         }`}
       >
         <div className="flex border-b border-violet-500/10 dark:border-violet-900">
@@ -131,7 +131,20 @@ export default function Sidebar({
                       </div>
                     </div>
                   </div>
-                  <span className="font-medium">{user.name}</span>
+                  <div>
+                    <span className="font-semibold text-lg">{user.name}</span>
+                    <p
+                      className={`text-sm ${
+                        onlineUsers.includes(String(user._id))
+                          ? "text-success"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      {onlineUsers.includes(String(user._id))
+                        ? "Online"
+                        : "Offline"}
+                    </p>
+                  </div>
                 </div>
               ))}
             </>
