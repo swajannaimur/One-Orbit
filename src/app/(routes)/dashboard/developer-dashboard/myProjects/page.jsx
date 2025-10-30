@@ -1,3 +1,216 @@
+// "use client";
+// import React, { useEffect, useState } from "react";
+// import { FaTrashAlt } from "react-icons/fa";
+// import Swal from "sweetalert2";
+// import { useSession } from "next-auth/react";
+// import Loading from "@/app/loading";
+
+// export default function DevelopersProjects() {
+//   const { data: session, status } = useSession();
+//   const [bids, setBids] = useState([]);
+//   const [assignedProjects, setAssignedProjects] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   // ✅ Wait for session to load
+//   useEffect(() => {
+//     if (status === "loading") return; // wait for session
+//     if (status === "unauthenticated") {
+//       setLoading(false);
+//       return;
+//     }
+
+//     const developerEmail = session?.user?.email;
+//     if (!developerEmail) {
+//       setLoading(false);
+//       return;
+//     }
+
+//     const fetchData = async () => {
+//       try {
+//         const [bidsRes, assignedRes, projectDetails] = await Promise.all([
+//           fetch("/api/bids"),
+//           fetch("/api/assign-project"),
+//         ]);
+
+//         const bidsData = await bidsRes.json();
+//         const assignedData = await assignedRes.json();
+
+//         // ✅ Filter projects by logged-in developer
+//         const myBids = bidsData.filter(
+//           (bid) => bid.developerEmail === developerEmail
+//         );
+//         const myAssigned = assignedData.filter((p) =>
+//           p.developers?.includes(developerEmail)
+//         );
+
+//         setBids(myBids);
+//         setAssignedProjects(myAssigned);
+//       } catch (error) {
+//         console.error("Error fetching projects:", error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchData();
+//   }, [session, status]);
+
+//   const handleDeleteBid = async (id) => {
+//     // Confirm before deleting
+//     const confirmResult = await Swal.fire({
+//       title: "Are you sure?",
+//       text: "Do you really want to remove this bid from your list?",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#3085d6",
+//       cancelButtonColor: "#d33",
+//       confirmButtonText: "Yes, remove it!",
+//     });
+
+//     if (!confirmResult.isConfirmed) return; // Stop if canceled
+
+//     try {
+//       const res = await fetch(`/api/bids?id=${id}`, {
+//         method: "DELETE",
+//       });
+
+//       if (!res.ok) {
+//         const errorData = await res.json();
+//         console.error("Delete failed:", errorData.error);
+
+//         Swal.fire({
+//           icon: "error",
+//           title: "Oops...",
+//           text: "Failed to delete the bid!",
+//         });
+//         return;
+//       }
+
+//       const data = await res.json();
+//       console.log("Deleted:", data);
+
+//       // ✅ Sweet success alert
+//       Swal.fire({
+//         icon: "success",
+//         title: "Deleted!",
+//         text: "Bid removed successfully.",
+//         timer: 1500,
+//         showConfirmButton: false,
+//       });
+
+//       // Remove from UI
+//       setBids((prev) => prev.filter((bid) => bid._id !== id));
+//     } catch (err) {
+//       console.error("Error deleting bid:", err);
+//       Swal.fire({
+//         icon: "error",
+//         title: "Something went wrong!",
+//         text: "Please try again later.",
+//       });
+//     }
+//   };
+
+//   // ✅ Handle session loading
+//   if (status === "loading" || loading) return <Loading />;
+
+//   if (status === "unauthenticated")
+//     return (
+//       <p className="text-center py-10 text-red-600 font-medium">
+//         Please log in to view your projects.
+//       </p>
+//     );
+
+//   return (
+//     <div className="p-6 space-y-10 dark-bg">
+//       {/* Stats */}
+//       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+//         <h1 className="text-3xl font-semibold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent ">
+//           MY Projects
+//         </h1>
+//         <div className="flex gap-6 text-center">
+//           <div className="bg-linear-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105 px-4 py-2  shadow-md">
+//             <h3 className="text-blue-600 font-semibold text-lg">
+//               Total Bids: {bids.length}
+//             </h3>
+//           </div>
+//           <div className="bg-linear-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105 px-4 py-2  shadow-md">
+//             <h3 className="text-amber-500 font-semibold text-lg">
+//               Assigned Projects: {assignedProjects.length}
+//             </h3>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Bids Section */}
+//       <div>
+//         <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-black dark:text-white">
+//           Projects I Have Bid On
+//         </h2>
+//         {bids.length === 0 ? (
+//           <p className="text-gray-500 dark:text-white">You haven’t placed any bids yet.</p>
+//         ) : (
+//           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+//             {bids.map((project) => (
+//               <div
+//                 key={project._id}
+//                 className="bg-linear-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
+//               >
+//                 <h3 className="text-lg font-semibold text-gray-800">
+//                   {project.projectName}
+//                 </h3>
+//                 <p className="text-sm text-gray-500 mb-2">{project.category}</p>
+
+//                 <p className="text-sm text-gray-500 mb-4">
+//                   <strong>Client:</strong> {project.clientName || "N/A"}
+//                 </p>
+//                 <div className="flex justify-between items-center">
+//                   <button
+//                     onClick={() => handleDeleteBid(project._id)}
+//                     className="flex items-center gap-2 text-red-600 hover:text-red-800"
+//                   >
+//                     <FaTrashAlt /> Delete
+//                   </button>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+
+//       {/* Assigned Section */}
+//       <div>
+//         <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-black dark:text-white">
+//           Projects Assigned to Me
+//         </h2>
+//         {assignedProjects.length === 0 ? (
+//           <p className="text-gray-500 dark:text-white">No projects assigned yet.</p>
+//         ) : (
+//           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+//             {assignedProjects.map((project) => (
+//               <div
+//                 key={project._id}
+//                 className="bg-linear-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
+//               >
+//                 <h3 className="text-lg font-semibold text-gray-800">
+//                   {project.projectName}
+//                 </h3>
+//                 <p className="text-sm text-gray-500 mb-3">
+//                   <strong>Status:</strong> {project.status}
+//                 </p>
+//                 <p className="text-sm text-gray-600 mb-3">
+//                   Assigned at:{" "}
+//                   {new Date(project.assignedAt).toLocaleDateString()}
+//                 </p>
+//                 <div className="flex justify-between items-center"></div>
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
+
 "use client";
 import React, { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
@@ -13,7 +226,7 @@ export default function DevelopersProjects() {
 
   // ✅ Wait for session to load
   useEffect(() => {
-    if (status === "loading") return; // wait for session
+    if (status === "loading") return;
     if (status === "unauthenticated") {
       setLoading(false);
       return;
@@ -27,7 +240,7 @@ export default function DevelopersProjects() {
 
     const fetchData = async () => {
       try {
-        const [bidsRes, assignedRes, projectDetails] = await Promise.all([
+        const [bidsRes, assignedRes] = await Promise.all([
           fetch("/api/bids"),
           fetch("/api/assign-project"),
         ]);
@@ -35,7 +248,6 @@ export default function DevelopersProjects() {
         const bidsData = await bidsRes.json();
         const assignedData = await assignedRes.json();
 
-        // ✅ Filter projects by logged-in developer
         const myBids = bidsData.filter(
           (bid) => bid.developerEmail === developerEmail
         );
@@ -56,7 +268,6 @@ export default function DevelopersProjects() {
   }, [session, status]);
 
   const handleDeleteBid = async (id) => {
-    // Confirm before deleting
     const confirmResult = await Swal.fire({
       title: "Are you sure?",
       text: "Do you really want to remove this bid from your list?",
@@ -67,7 +278,7 @@ export default function DevelopersProjects() {
       confirmButtonText: "Yes, remove it!",
     });
 
-    if (!confirmResult.isConfirmed) return; // Stop if canceled
+    if (!confirmResult.isConfirmed) return;
 
     try {
       const res = await fetch(`/api/bids?id=${id}`, {
@@ -75,9 +286,6 @@ export default function DevelopersProjects() {
       });
 
       if (!res.ok) {
-        const errorData = await res.json();
-        console.error("Delete failed:", errorData.error);
-
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -86,10 +294,6 @@ export default function DevelopersProjects() {
         return;
       }
 
-      const data = await res.json();
-      console.log("Deleted:", data);
-
-      // ✅ Sweet success alert
       Swal.fire({
         icon: "success",
         title: "Deleted!",
@@ -98,7 +302,6 @@ export default function DevelopersProjects() {
         showConfirmButton: false,
       });
 
-      // Remove from UI
       setBids((prev) => prev.filter((bid) => bid._id !== id));
     } catch (err) {
       console.error("Error deleting bid:", err);
@@ -121,21 +324,21 @@ export default function DevelopersProjects() {
     );
 
   return (
-    <div className="p-6 space-y-10 dark-bg">
-      {/* Stats */}
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <h1 className="text-3xl font-semibold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent ">
-          MY Projects
+    <div className="p-4 sm:p-6 space-y-10 dark-bg">
+      {/* Header + Stats */}
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-6 flex-wrap">
+        <h1 className="text-2xl sm:text-3xl font-semibold bg-gradient-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent text-center sm:text-left">
+          My Projects
         </h1>
-        <div className="flex gap-6 text-center">
-          <div className="bg-linear-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105 px-4 py-2  shadow-md">
-            <h3 className="text-blue-600 font-semibold text-lg">
+        <div className="flex flex-wrap justify-center sm:justify-end gap-4 w-full sm:w-auto">
+          <div className="flex-1 sm:flex-none min-w-[150px] bg-gradient-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all border border-gray-100 duration-500 hover:scale-105 px-4 py-3 text-center shadow-md">
+            <h3 className="text-blue-600 font-semibold text-base sm:text-lg">
               Total Bids: {bids.length}
             </h3>
           </div>
-          <div className="bg-linear-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105 px-4 py-2  shadow-md">
-            <h3 className="text-amber-500 font-semibold text-lg">
-              Assigned Projects: {assignedProjects.length}
+          <div className="flex-1 sm:flex-none min-w-[150px] bg-gradient-to-r from-blue-50 to-purple-100 rounded-xl hover:shadow-lg transition-all border border-gray-100 duration-500 hover:scale-105 px-4 py-3 text-center shadow-md">
+            <h3 className="text-amber-500 font-semibold text-base sm:text-lg">
+              Assigned: {assignedProjects.length}
             </h3>
           </div>
         </div>
@@ -143,23 +346,24 @@ export default function DevelopersProjects() {
 
       {/* Bids Section */}
       <div>
-        <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-black dark:text-white">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4 border-b pb-2 text-black dark:text-white">
           Projects I Have Bid On
         </h2>
         {bids.length === 0 ? (
-          <p className="text-gray-500 dark:text-white">You haven’t placed any bids yet.</p>
+          <p className="text-gray-500 dark:text-white">
+            You haven’t placed any bids yet.
+          </p>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
             {bids.map((project) => (
               <div
                 key={project._id}
-                className="bg-linear-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
+                className="bg-gradient-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
               >
                 <h3 className="text-lg font-semibold text-gray-800">
                   {project.projectName}
                 </h3>
                 <p className="text-sm text-gray-500 mb-2">{project.category}</p>
-
                 <p className="text-sm text-gray-500 mb-4">
                   <strong>Client:</strong> {project.clientName || "N/A"}
                 </p>
@@ -177,19 +381,21 @@ export default function DevelopersProjects() {
         )}
       </div>
 
-      {/* Assigned Section */}
+      {/* Assigned Projects Section */}
       <div>
-        <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-black dark:text-white">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4 border-b pb-2 text-black dark:text-white">
           Projects Assigned to Me
         </h2>
         {assignedProjects.length === 0 ? (
-          <p className="text-gray-500 dark:text-white">No projects assigned yet.</p>
+          <p className="text-gray-500 dark:text-white">
+            No projects assigned yet.
+          </p>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
             {assignedProjects.map((project) => (
               <div
                 key={project._id}
-                className="bg-linear-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
+                className="bg-gradient-to-r from-blue-50 to-purple-100 rounded-2xl shadow hover:shadow-lg transition-all p-5 border border-gray-100 duration-500 hover:scale-105"
               >
                 <h3 className="text-lg font-semibold text-gray-800">
                   {project.projectName}
@@ -201,7 +407,6 @@ export default function DevelopersProjects() {
                   Assigned at:{" "}
                   {new Date(project.assignedAt).toLocaleDateString()}
                 </p>
-                <div className="flex justify-between items-center"></div>
               </div>
             ))}
           </div>
