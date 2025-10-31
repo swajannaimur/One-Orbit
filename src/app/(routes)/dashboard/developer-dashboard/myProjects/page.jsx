@@ -313,6 +313,59 @@ export default function DevelopersProjects() {
     }
   };
 
+  const handlCompleteButton = async (projectId) => {
+    // Confirm first before completing
+    const confirmResult = await Swal.fire({
+      title: "Mark as Completed?",
+      text: "Are you sure this project is fully completed?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, mark as completed!",
+    });
+
+    if (!confirmResult.isConfirmed) return; // Stop if cancelled
+
+    try {
+      const res = await fetch(`/api/assign-project/${projectId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "completed" }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Project marked as completed!",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        // Update UI instantly
+        setAssignedProjects((prev) =>
+          prev.map((p) =>
+            p._id === projectId ? { ...p, status: "completed" } : p
+          )
+        );
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Failed to update status!",
+        });
+      }
+    } catch (error) {
+      console.error("Error updating project:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong!",
+        text: "Try again later.",
+      });
+    }
+  };
+
   // ✅ Handle session loading
   if (status === "loading" || loading) return <Loading />;
 
@@ -407,6 +460,23 @@ export default function DevelopersProjects() {
                   Assigned at:{" "}
                   {new Date(project.assignedAt).toLocaleDateString()}
                 </p>
+                <div>
+                  <div>
+                    <button
+                      onClick={() => handlCompleteButton(project._id)}
+                      className={`btn btn-linear ${
+                        project.status === "completed"
+                          ? "opacity-50 cursor-not-allowed text-white"
+                          : ""
+                      }`}
+                      disabled={project.status === "completed"}
+                    >
+                      {project.status === "completed"
+                        ? "Completed "
+                        : "Mark as Completed"}
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

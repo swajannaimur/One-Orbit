@@ -22,16 +22,16 @@ export default function DetailsAccordion({ project }) {
         <>
             {/* details accordion */}
             <div className="w-full md:w-80">
-                <div className="collapse collapse-arrow bg-base-100 border border-gray-200 rounded-lg">
+                <div className="collapse collapse-arrow rounded-lg">
                     <input type="checkbox" />
-                    <div className="collapse-title text-base font-medium">
+                    <div className="collapse-title text-base font-medium dark:text-white">
                         Details
                     </div>
                     <div className="collapse-content space-y-1">
-                        <ul className="ml-5 list-disc text-sm text-gray-700">
+                        <ul className="ml-5 list-disc text-sm text-gray-700 dark:text-white">
 
                             {project.developerEmails.length === 0 ? (
-                                <p className="text-gray-500">Nobody has placed any bid</p>
+                                <p className="text-gray-500 dark:text-white">Nobody has placed any bid</p>
                             ) : (
                                 project.developerEmails.map((dev, i) => (
                                     <li key={i} className="mb-1">
@@ -42,14 +42,15 @@ export default function DetailsAccordion({ project }) {
                                                     developer: dev,
                                                     projectId: project.projectDetails._id,
                                                     projectName: project.projectDetails.projectName,
+                                                    budget: project.bids[i],
                                                 },
                                             }}
-                                            className="font-semibold cursor-pointer text-blue-600 hover:underline"
+                                            className="font-semibold cursor-pointer text-blue-600 hover:underline "
                                         >
                                             {dev}
                                         </Link>{" "}
                                         — Bid:{" "}
-                                        <span className="text-green-600 font-semibold">
+                                        <span className="text-green-600 font-semibold dark:text-white">
                                             {project.bids[i]}$
                                         </span>
                                     </li>

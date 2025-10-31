@@ -23,6 +23,9 @@ export default function AssignDeveloper() {
     const developer = searchParams.get("developer");
     const projectId = searchParams.get("projectId");
     const projectName = searchParams.get("projectName");
+    const budget = searchParams.get("budget");
+
+    console.log('Got budget of : $', budget);
 
     const [isAlreadyAssigned, setIsAlreadyAssigned] = useState(false);
     // console.log("Project id in assign dev : ", projectId);
@@ -61,7 +64,9 @@ export default function AssignDeveloper() {
                 body: JSON.stringify({
                     projectId,
                     projectName,
-                    devEmail: email
+                    devEmail: email,
+                    budget: budget,
+                    payment: "not-paid",
                 }),
             });
 
@@ -116,7 +121,7 @@ export default function AssignDeveloper() {
 
     return (
         <motion.div
-            className="max-w-5xl mx-auto mt-10 bg-white border border-gray-200 shadow-lg rounded-2xl p-8"
+            className="max-w-5xl mx-auto mt-24 bg-white dark-bg shadow-lg rounded-2xl p-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -132,22 +137,20 @@ export default function AssignDeveloper() {
                     />
                 </div>
 
-
-
                 {/* Profile Info */}
                 <div className="flex-1 space-y-2">
-                    <h1 className="text-4xl font-bold text-gray-800">{profile.name}</h1>
-                    <p className="flex items-center text-gray-600 text-base gap-2">
-                        <FaUserTie className="text-blue-600" /> {profile.role}
+                    <h1 className="text-4xl font-bold text-gray-800 dark:text-white">{profile.name}</h1>
+                    <p className="flex items-center text-gray-600 dark:text-white text-base gap-2">
+                        <FaUserTie className="text-blue-600 " /> {profile.role}
                     </p>
-                    <p className="flex items-center text-gray-600 text-base gap-2">
-                        <FaEnvelope className="text-blue-600" /> {developer}
+                    <p className="flex items-center text-gray-600 dark:text-white text-base gap-2">
+                        <FaEnvelope className="text-blue-600 " /> {developer}
                     </p>
-                    <p className="flex items-center text-gray-600 text-base gap-2">
-                        <FaMapMarkerAlt className="text-blue-600" /> {profile.location}
+                    <p className="flex items-center text-gray-600 dark:text-white text-base gap-2">
+                        <FaMapMarkerAlt className="text-blue-600 " /> {profile.location}
                     </p>
-                    <p className="flex items-center text-gray-600 text-base gap-2">
-                        <FaPhoneAlt className="text-blue-600" /> {profile.phone}
+                    <p className="flex items-center text-gray-600 dark:text-white text-base gap-2">
+                        <FaPhoneAlt className="text-blue-600 " /> {profile.phone}
                     </p>
 
                     <div className="flex items-center gap-2 mt-3">
@@ -172,7 +175,7 @@ export default function AssignDeveloper() {
                         className={`px-4 py-2 rounded-lg font-medium shadow-md transition text-md 
       ${isAlreadyAssigned
                                 ? "bg-gray-300 cursor-not-allowed text-gray-600"
-                                : "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+                                : "btn-linear text-white cursor-pointer"
                             }`}
                     >
                         {isAlreadyAssigned ? "Already Assigned" : "Assign This Developer"}
@@ -190,14 +193,14 @@ export default function AssignDeveloper() {
 
             {/* Bio */}
             <div className="mt-8">
-                <h2 className="text-xl font-semibold text-gray-800 mb-3">About</h2>
-                <p className="text-gray-600 leading-relaxed">{profile.bio}</p>
+                <h2 className="text-xl font-semibold text-gray-800 mb-3 dark:text-white">About</h2>
+                <p className="text-gray-600 leading-relaxed dark:text-white">{profile.bio}</p>
             </div>
 
             {/* Skills */}
             <div className="mt-8">
-                <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                    <FaCode className="text-blue-600" /> Skills
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+                    <FaCode className="text-blue-600 " /> Skills
                 </h2>
                 <div className="flex flex-wrap gap-2">
                     {profile.skills.map((skill, index) => (
@@ -213,25 +216,25 @@ export default function AssignDeveloper() {
 
             {/* Experience Timeline */}
             <div className="mt-8">
-                <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
                     <FaBriefcase className="text-blue-600" /> Experience
                 </h2>
                 <div className="space-y-4">
                     {profile.experience.map((exp, idx) => (
                         <div
                             key={idx}
-                            className="border-l-4 border-blue-500 pl-4 py-2 bg-gray-50 rounded-r-lg"
+                            className="border-l-4 border-blue-500 pl-4 py-2 bg-gray-50 dark-bg rounded-r-lg"
                         >
-                            <p className="text-blue-700 font-semibold">{exp.role}</p>
-                            <p className="text-gray-700">{exp.company}</p>
-                            <p className="text-gray-500 text-sm">{exp.duration}</p>
+                            <p className="text-blue-700 font-semibold dark:text-white">{exp.role}</p>
+                            <p className="text-gray-700 dark:text-white">{exp.company}</p>
+                            <p className="text-gray-500 text-sm dark:text-white">{exp.duration}</p>
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* Ratings */}
-            <div className="mt-8">
+            {/* <div className="mt-8">
                 <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center gap-2">
                     <FaStar className="text-yellow-500" /> Ratings
                 </h2>
@@ -249,10 +252,10 @@ export default function AssignDeveloper() {
                         {profile.rating.toFixed(1)} / 5.0
                     </span>
                 </div>
-            </div>
+            </div> */}
 
             {/* Project Stats */}
-            <div className="mt-8">
+            {/* <div className="mt-8">
                 <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center gap-2">
                     <FaLaptopCode className="text-blue-600" /> Project Stats
                 </h2>
@@ -260,10 +263,10 @@ export default function AssignDeveloper() {
                     <p className="text-gray-600 text-sm">Total Projects Completed</p>
                     <p className="text-xl font-bold text-blue-600">{profile.projects}</p>
                 </div>
-            </div>
+            </div> */}
 
             {/* Social Links */}
-            <div className="mt-8 flex gap-4">
+            {/* <div className="mt-8 flex gap-4">
                 <a
                     href={profile.github}
                     target="_blank"
@@ -280,7 +283,7 @@ export default function AssignDeveloper() {
                 >
                     <FaLinkedin className="text-2xl" /> LinkedIn
                 </a>
-            </div>
+            </div> */}
 
         </motion.div>
     );
