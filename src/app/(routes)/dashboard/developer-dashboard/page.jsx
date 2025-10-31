@@ -96,7 +96,7 @@ export default function DeveloperDashboard() {
   };
 
   return (
-    <div className="flex min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
+    <div className="flex min-h-screen mt-20 bg-gradient-to-br from-blue-50   to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
       {/* Mobile Overlay */}
       {isMobile && isSidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" />
@@ -222,68 +222,6 @@ export default function DeveloperDashboard() {
                 <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {navigationItems.find(item => item.id === activeSection)?.label || "Dashboard"}
                 </h1>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-3 sm:gap-4">
-              {/* Notifications */}
-              <button className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                <FaBell className="text-gray-600 dark:text-gray-400" />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
-              </button>
-
-              {/* User Dropdown */}
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center gap-2 sm:gap-3 p-1 sm:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <div className="text-right hidden sm:block">
-                    <div className="text-sm font-medium text-gray-900 dark:text-white">
-                      {(remoteUser?.name || session?.user?.name)?.split(" ")[0] ?? "Guest"}
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      Developer
-                    </div>
-                  </div>
-                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-blue-200 dark:border-blue-800 overflow-hidden">
-                    <Image
-                      src={
-                        remoteUser?.image ||
-                        session?.user?.image ||
-                        "https://i.pravatar.cc/40"
-                      }
-                      alt="Profile"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </button>
-
-                {/* Dropdown Menu */}
-                {isDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-40">
-                    <button
-                      onClick={() => router.push("/profile")}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                    >
-                      View Profile
-                    </button>
-                    <button
-                      onClick={() => router.push("/settings")}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                    >
-                      Settings
-                    </button>
-                    <div className="border-t border-gray-200 dark:border-gray-600 my-1"></div>
-                    <button
-                      onClick={() => signOut({ callbackUrl: "/" })}
-                      className="w-full px-4 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           </div>
