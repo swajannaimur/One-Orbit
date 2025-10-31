@@ -16,13 +16,6 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const legalLinks = [
-    { name: "Privacy", href: "/privacy" },
-    { name: "Terms", href: "/terms" },
-    { name: "Security", href: "/security" },
-    { name: "Cookies", href: "/cookies" },
-  ];
-
   const socialLinks = [
     { name: "Twitter", icon: FiTwitter, href: "https://twitter.com" },
     { name: "LinkedIn", icon: FiLinkedin, href: "https://linkedin.com" },
@@ -101,14 +94,6 @@ const Footer = () => {
                     Pricing
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/changelog"
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  >
-                    Changelog
-                  </Link>
-                </li>
               </ul>
             </div>
 
@@ -126,30 +111,6 @@ const Footer = () => {
                     About
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/careers"
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  >
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/press"
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  >
-                    Press
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  >
-                    Contact
-                  </Link>
-                </li>
               </ul>
             </div>
 
@@ -159,14 +120,7 @@ const Footer = () => {
                 Resources
               </h3>
               <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="/blog"
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  >
-                    Blog
-                  </Link>
-                </li>
+                
                 <li>
                   <Link
                     href="/documentation"
@@ -183,14 +137,7 @@ const Footer = () => {
                     Community
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/support"
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  >
-                    Support
-                  </Link>
-                </li>
+               
               </ul>
             </div>
           </div>
@@ -202,52 +149,22 @@ const Footer = () => {
             {/* Left */}
             <div className="flex flex-col sm:flex-row items-center gap-4 text-sm text-gray-600 dark:text-gray-400 text-center md:text-left">
               <span>© 2025 OneOrbit. All rights reserved.</span>
-              <div className="flex flex-wrap justify-center gap-3">
-                {legalLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="hover:text-gray-900 dark:hover:text-white"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
             </div>
 
             {/* Center */}
             <div className="flex flex-col sm:flex-row items-center gap-4 text-sm text-gray-600 dark:text-gray-400 text-center">
               <div className="flex items-center gap-2">
                 <FiMail className="w-4 h-4" />
-                <span>hello@orbit.com</span>
+                <span>one-orbit@gmail.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <FiPhone className="w-4 h-4" />
-                <span>+1 (555) 123-4567</span>
+                <span>+8801 6312 46448</span>
               </div>
             </div>
 
             {/* Right */}
             <div className="flex items-center justify-center gap-4">
-              {/* Social Links */}
-              <div className="flex gap-3">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-9 h-9 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-                      aria-label={social.name}
-                    >
-                      <Icon className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" />
-                    </a>
-                  );
-                })}
-              </div>
-
               {/* Back to Top */}
               <button
                 onClick={scrollToTop}

@@ -45,7 +45,7 @@ export default function MyProjects() {
                     <span className="loading loading-spinner loading-lg text-primary"></span>
                 </div>
             ) : projects.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6">
                     {projects.map((project, idx) => (
                         <ProjectCard key={idx} project={project} />
                     ))}
