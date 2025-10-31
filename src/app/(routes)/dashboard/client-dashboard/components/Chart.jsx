@@ -20,15 +20,15 @@ const data = [
 
 const Chart = () => {
     return (
-        <div className="w-full h-64 bg-white rounded-xl shadow-md p-4">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700">
+        <div className="w-full h-64 bg-white rounded-xl shadow-md p-4 dark-bg">
+            <h2 className="text-lg font-semibold mb-4 text-gray-700 dark:text-white">
                 Project Status Overview
             </h2>
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" stroke="#555" />
-                    <YAxis stroke="#555" />
+                    <XAxis dataKey="name" stroke="#ffffff" />
+                    <YAxis stroke="#ffffff" />
                     <Tooltip
                         contentStyle={{ backgroundColor: "#f9f9f9", borderRadius: 8 }}
                     />
