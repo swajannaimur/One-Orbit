@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 export const POST = async (req) => {
 	try {
 		const body = await req.json();
-		const { projectId, projectName, devEmail: developerEmail } = body;
+		const { projectId, projectName, devEmail: developerEmail, budget, payment } = body;
 
 		if (!projectId || !developerEmail || !projectName) {
 			return NextResponse.json({
@@ -87,6 +87,8 @@ export const POST = async (req) => {
 				projectId: mongoProjectId,
 				projectName,
 				developers: [developerEmail],
+                budget,
+                payment,
 				status: "assigned",
 				assignedAt: new Date(),
 			};
