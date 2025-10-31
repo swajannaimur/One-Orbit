@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
+import Loading from "@/app/loading";
 
 export default function DevelopersProjects() {
   const { data: session, status } = useSession();
@@ -110,8 +111,7 @@ export default function DevelopersProjects() {
   };
 
   // ✅ Handle session loading
-  if (status === "loading" || loading)
-    return <p className="text-center py-10">Loading...</p>;
+  if (status === "loading" || loading) return <Loading />;
 
   if (status === "unauthenticated")
     return (
@@ -121,10 +121,10 @@ export default function DevelopersProjects() {
     );
 
   return (
-    <div className="p-6 space-y-10">
+    <div className="p-6 space-y-10 dark-bg">
       {/* Stats */}
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <h1 className="text-3xl font-semibold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent">
+        <h1 className="text-3xl font-semibold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent ">
           MY Projects
         </h1>
         <div className="flex gap-6 text-center">
@@ -143,11 +143,11 @@ export default function DevelopersProjects() {
 
       {/* Bids Section */}
       <div>
-        <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-black">
+        <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-black dark:text-white">
           Projects I Have Bid On
         </h2>
         {bids.length === 0 ? (
-          <p className="text-gray-500">You haven’t placed any bids yet.</p>
+          <p className="text-gray-500 dark:text-white">You haven’t placed any bids yet.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {bids.map((project) => (
@@ -179,11 +179,11 @@ export default function DevelopersProjects() {
 
       {/* Assigned Section */}
       <div>
-        <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-black ">
+        <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-black dark:text-white">
           Projects Assigned to Me
         </h2>
         {assignedProjects.length === 0 ? (
-          <p className="text-gray-500">No projects assigned yet.</p>
+          <p className="text-gray-500 dark:text-white">No projects assigned yet.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {assignedProjects.map((project) => (
