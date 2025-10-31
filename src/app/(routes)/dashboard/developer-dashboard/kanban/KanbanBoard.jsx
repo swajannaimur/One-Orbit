@@ -42,7 +42,7 @@ export default function KanbanBoard() {
     done: [],
   });
   const [boards, setBoards] = useState([]);
-  const [selectedBoardId, setSelectedBoardId] = useState(null); // null -> personal
+  const [selectedBoardId, setSelectedBoardId] = useState(null); 
   const [sprints, setSprints] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -222,7 +222,6 @@ export default function KanbanBoard() {
       if (!res.ok) return;
       const data = await res.json();
       setBoards(data.boards || []);
-      // default to personal board (null) if none selected
       if (!selectedBoardId) setSelectedBoardId(null);
     } catch (e) {
       console.error("loadBoards error", e);
@@ -566,7 +565,7 @@ export default function KanbanBoard() {
                   e.target.value === "personal" ? null : e.target.value
                 )
               }
-              className="border rounded px-2 py-1 dark:text-white"
+              className="border rounded px-2 py-1 dark:text-red-500"
             >
               <option value="personal">Personal</option>
               {boards.map((b) => (
@@ -740,10 +739,10 @@ export default function KanbanBoard() {
                           >
                             <div className="flex items-start justify-between">
                               <div>
-                                <div className="font-semibold text-gray-800 text-sm md:text-base">
+                                <div className="font-semibold text-gray-800 text-sm md:text-base dark:text-white">
                                   {task.title}
                                 </div>
-                                <div className="text-sm text-gray-500 mt-1">
+                                <div className="text-sm text-gray-500 mt-1 dark:text-white">
                                   {task.description}
                                 </div>
 
