@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }) {
         { href: "/dashboard/client-dashboard", label: "Home", icon: <FaHome /> },
         { href: "/dashboard/client-dashboard/myProjects", label: "My Projects", icon: <FaFolderOpen /> },
         { href: "/dashboard/client-dashboard/to-pay", label: "To Pay", icon: <FaMoneyBillWave /> },
-        { href: "/dashboard/client-dashboard/payment", label: "Payment", icon: <FiCreditCard /> },
+        // { href: "/dashboard/client-dashboard/payment", label: "Payment", icon: <FiCreditCard /> },
     ];
 
     return (
