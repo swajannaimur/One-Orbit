@@ -30,9 +30,9 @@ export default function Payment() {
     console.log(typeof(amount))
 
     return (
-        <div className="max-w-4xl mx-auto p-10 text-center text-white m-10">
+        <div className="max-w-4xl mx-auto px-10 text-center">
             <div className="mb-10">
-                <h1 className="text-4xl font-extrabold">Paying </h1>
+                <h1 className="text-4xl font-bold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">Paying </h1>
                 <h2 className="text-2xl">
                     to <span className="font-bold">{project?.developers}</span>
                 </h2>
