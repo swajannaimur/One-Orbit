@@ -73,7 +73,7 @@ export default function DashboardLayout({ children }) {
     ];
 
     return (
-        <div className="flex min-h-screen mt-20 bg-gradient-to-br from-blue-50   to-purple-50 dark:from-gray-900  dark:to-purple-900">
+        <div className="flex min-h-screen mt-20 dark:from-gray-900  dark:to-purple-900">
             {/* Mobile Overlay */}
             {isMobile && isSidebarOpen && (
                 <div
