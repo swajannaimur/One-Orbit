@@ -23,6 +23,9 @@ export default function AssignDeveloper() {
     const developer = searchParams.get("developer");
     const projectId = searchParams.get("projectId");
     const projectName = searchParams.get("projectName");
+    const budget = searchParams.get("budget");
+
+    console.log('Got budget of : $', budget);
 
     const [isAlreadyAssigned, setIsAlreadyAssigned] = useState(false);
     // console.log("Project id in assign dev : ", projectId);
@@ -61,7 +64,9 @@ export default function AssignDeveloper() {
                 body: JSON.stringify({
                     projectId,
                     projectName,
-                    devEmail: email
+                    devEmail: email,
+                    budget: budget,
+                    payment: "not-paid",
                 }),
             });
 

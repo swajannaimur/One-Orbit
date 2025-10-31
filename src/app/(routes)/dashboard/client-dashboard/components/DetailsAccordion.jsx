@@ -42,6 +42,7 @@ export default function DetailsAccordion({ project }) {
                                                     developer: dev,
                                                     projectId: project.projectDetails._id,
                                                     projectName: project.projectDetails.projectName,
+                                                    budget: project.bids[i],
                                                 },
                                             }}
                                             className="font-semibold cursor-pointer text-blue-600 hover:underline"
