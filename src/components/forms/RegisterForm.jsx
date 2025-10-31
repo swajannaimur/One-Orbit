@@ -235,7 +235,7 @@ export default function RegisterForm() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-2 cursor-pointer bg-primary text-white tracking-wider rounded-md
+                    className="w-full py-2 cursor-pointer btn-linear text-white tracking-wider rounded-md
                     hover:bg-primary/90 disabled:bg-gray-400"
                 >
                     {loading ? "Registering..." : "Register"}
