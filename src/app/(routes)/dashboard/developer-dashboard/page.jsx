@@ -72,7 +72,7 @@ export default function DeveloperDashboard() {
         const data = await res.json();
         if (!mounted) return;
         setRemoteUser(data.user || null);
-      } catch (err) {}
+      } catch (err) { }
     }
     load();
     return () => (mounted = false);
@@ -96,7 +96,7 @@ export default function DeveloperDashboard() {
   };
 
   return (
-    <div className="flex min-h-screen mt-20 bg-gradient-to-br from-blue-50   to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
+    <div className="flex min-h-screen mt-20 bg-gradient-to-br from-blue-50   to-purple-50 dark:from-gray-900  dark:to-purple-900">
       {/* Mobile Overlay */}
       {isMobile && isSidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" />
@@ -111,7 +111,7 @@ export default function DeveloperDashboard() {
           w-80 lg:w-72 xl:w-80
           bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl
           shadow-2xl lg:shadow-lg border-r border-gray-200 dark:border-gray-700
-          transition-transform duration-300 ease-in-out flex flex-col
+          transition-transform duration-300 ease-in-out flex flex-col mt-16 sm:mt-0
         `}
       >
         {/* Sidebar Header */}
@@ -121,15 +121,9 @@ export default function DeveloperDashboard() {
               <PiKanban className="text-white text-xl" />
             </div>
             <h2 className="text-xl font-bold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              DevSpace
+              Developer Dashboard
             </h2>
           </div>
-          <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          >
-            <FaTimes className="text-gray-600 dark:text-gray-400 text-lg" />
-          </button>
         </div>
 
         {/* User Profile */}
@@ -184,15 +178,9 @@ export default function DeveloperDashboard() {
         {/* Footer Actions */}
         <div className="p-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
           <button
-            onClick={() => router.push("/dashboard/developer-dashboard/settings")}
-            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-colors"
-          >
-            <MdOutlineSettingsSuggest className="text-lg text-gray-500" />
-            <span>Settings</span>
-          </button>
-          <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 font-medium transition-colors"
+            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-100
+hover:text-blue-600 dark:hover:bg-red-900/20 font-medium transition-colors"
           >
             <TbLogout2 className="text-lg text-red-500" />
             <span>Logout</span>
@@ -213,7 +201,7 @@ export default function DeveloperDashboard() {
               >
                 <FaBars className="text-gray-700 dark:text-gray-300 text-lg" />
               </button>
-              
+
               {/* Page Title */}
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center lg:hidden">
