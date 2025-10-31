@@ -30,14 +30,6 @@ export default function ToPayPage() {
 
   return (
     <div className="min-h-screen p-4 sm:p-6">
-      <motion.h1
-        className="text-2xl sm:text-3xl font-bold mb-6 text-center text-primary"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        To Pay Projects
-      </motion.h1>
-
       {loading ? (
         <div className="flex justify-center items-center h-40">
           <span className="loading loading-spinner loading-lg text-primary"></span>
@@ -53,9 +45,9 @@ export default function ToPayPage() {
       ) : (
         <>
           {/* 🟢 Table View for Large Screens */}
-          <div className="hidden sm:block overflow-x-auto bg-white shadow-lg rounded-2xl mt-6">
+          <div className="hidden sm:block overflow-x-auto bg-white shadow-lg rounded-md mt-6">
             <table className="table table-zebra w-full min-w-[700px] text-sm sm:text-base">
-              <thead className="bg-primary text-white">
+              <thead className="bg-gradient-to-br from-blue-600 to-purple-600 text-white">
                 <tr>
                   <th>SL</th>
                   <th>Project Name</th>
@@ -88,9 +80,9 @@ export default function ToPayPage() {
                         ))}
                       </div>
                     </td>
-                    <td>${item.budget}</td>
+                    <td className="font-bold">${item.budget}</td>
                     <td>
-                      <span className="badge badge-success">{item.status}</span>
+                      <span className="badge badge-success text-white font-semibold">{item.status}</span>
                     </td>
                     <td>
                       <span className="badge badge-warning text-white">
@@ -100,7 +92,7 @@ export default function ToPayPage() {
                     <td>
                       <button
                         onClick={() => handlePayNow(item)}
-                        className="btn btn-sm"
+                        className="btn btn-sm btn-linear"
                         disabled={item.payment === "completed"}
                       >
                         {item.payment === "completed" ? "Paid" : "Pay Now"}

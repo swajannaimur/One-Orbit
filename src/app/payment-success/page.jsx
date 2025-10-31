@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 export default function PaymentSuccess() {
     const params = useSearchParams();
@@ -48,7 +49,7 @@ export default function PaymentSuccess() {
     }, [paymentIntent, amount]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen text-white">
+        <div className="flex flex-col items-center justify-center min-h-screen dark:text-white">
             {loading ? (
                 <span className="loading loading-spinner loading-lg"></span>
             ) : (
@@ -56,6 +57,9 @@ export default function PaymentSuccess() {
                     <h1 className="text-3xl font-bold">Payment Successful</h1>
                     <p className="mt-2 text-lg">Transaction ID: {paymentIntent}</p>
                     <p className="text-gray-400">Amount: ${amount}</p>
+                    <Link href={'/dashboard'}>
+                    <button className="btn btn-linear">Back To Dashboard</button>
+                    </Link>
                 </>
             )}
         </div>
