@@ -12,13 +12,7 @@ export default async function DashboardHome() {
     }
 
     return (
-        <div className="min-h-screen px-4 mt-24 ">
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-8">
-                <FaHome className="text-3xl text-blue-600 " />
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Dashboard Home</h1>
-            </div>
-
+        <div className="min-h-screen px-4">
             {/* Welcome Card */}   
             <div className="bg-white  shadow-md rounded-xl p-6 mb-6 border-l-4 border-blue-600 dark-bg">
                 <h2 className="text-lg font-semibold text-gray-700  mb-2 dark:text-white">
@@ -28,8 +22,6 @@ export default async function DashboardHome() {
                     Here’s a quick overview of your dashboard and activities.
                 </p>
             </div>
-
-          
 
             {/* Overview Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 ">

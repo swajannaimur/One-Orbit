@@ -12,7 +12,6 @@ export default function MyProjects() {
 
     useEffect(() => {
         const fetchMyProjects = async () => {
-
             try {
                 setLoading(true);
                 const res = await fetch("/api/totalBids", {
@@ -24,45 +23,38 @@ export default function MyProjects() {
                 });
 
                 const data = await res.json();
-                console.log(data)
                 if (data.success) {
                     setProjects(data.data);
+                } else {
+                    console.log("Error: ", data.error);
                 }
-                else {
-                    console.log("Error: ", data.error)
-                }
-            }
-
-            catch (error) {
+            } catch (error) {
                 console.log("Error fetching total bids", error);
-            }
-            finally {
+            } finally {
                 setLoading(false);
             }
         };
 
         if (email) fetchMyProjects();
-    }, [email])
-
+    }, [email]);
 
     return (
-        <div className="w-10/11 mx-auto px-4 my-10 ">
-            {/* page header */}
-            <h2 className="text-2xl font-semibold text-center mb-8">My Projects by Bids</h2>
-
-            {/* showing loading spinner */}
-            {
-                loading ? (<div className="flex justify-center items-center py-10">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            {loading ? (
+                <div className="flex justify-center items-center py-10">
                     <span className="loading loading-spinner loading-lg text-primary"></span>
-                </div>) : projects.length > 0 ? (
-                    <div className="grid grid-cols-1 gap-4">
-                        {projects.map((project, idx) => (
-                            <ProjectCard key={idx} project={project}></ProjectCard>
-                        ))}
-                    </div>
-                ) : (<p className="text-center text-gray-500">No Bid projects found for this client email : {email}</p>)
-            }
-
+                </div>
+            ) : projects.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {projects.map((project, idx) => (
+                        <ProjectCard key={idx} project={project} />
+                    ))}
+                </div>
+            ) : (
+                <p className="text-center text-gray-500 text-sm sm:text-base break-words">
+                    No Bid projects found for this client email: {email}
+                </p>
+            )}
         </div>
-    )
+    );
 }

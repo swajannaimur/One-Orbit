@@ -13,10 +13,17 @@ import {
 } from "react-icons/fa";
 import { FiCreditCard, FiInbox } from 'react-icons/fi';
 import { usePathname } from 'next/navigation';
+import { MdOutlineSettingsSuggest } from 'react-icons/md';
+import { TbLogout2 } from 'react-icons/tb';
+import { PiKanban } from 'react-icons/pi';
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 export default function DashboardLayout({ children }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const { data: session } = useSession();
+    const [remoteUser, setRemoteUser] = useState(null);
     const pathname = usePathname();
 
     // Check screen size
@@ -36,6 +43,22 @@ export default function DashboardLayout({ children }) {
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
 
+    // Load user data
+    useEffect(() => {
+        let mounted = true;
+        async function load() {
+            try {
+                const res = await fetch("/api/users/me");
+                if (!res.ok) return;
+                const data = await res.json();
+                if (!mounted) return;
+                setRemoteUser(data.user || null);
+            } catch (err) { }
+        }
+        load();
+        return () => (mounted = false);
+    }, []);
+
     // Close sidebar when route changes on mobile
     useEffect(() => {
         if (isMobile) {
@@ -50,10 +73,10 @@ export default function DashboardLayout({ children }) {
     ];
 
     return (
-        <div className="flex mt-20 min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="flex min-h-screen mt-20 bg-gradient-to-br from-blue-50   to-purple-50 dark:from-gray-900  dark:to-purple-900">
             {/* Mobile Overlay */}
             {isMobile && isSidebarOpen && (
-                <div 
+                <div
                     className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
                     onClick={() => setIsSidebarOpen(false)}
                 />
@@ -62,16 +85,20 @@ export default function DashboardLayout({ children }) {
             {/* Sidebar */}
             <div className={`
                 fixed lg:static inset-y-0 left-0 z-50
-                ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-                w-80 lg:w-64
-                bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 
-                dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20
-                shadow-xl lg:shadow-lg
-                transition-transform duration-300 ease-in-out
-                flex flex-col
+    ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+    w-80 lg:w-72 xl:w-80
+    bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 
+    dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20
+    shadow-xl lg:shadow-lg
+    transition-transform duration-300 ease-in-out
+    flex flex-col mt-16 sm:mt-0
             `}>
                 {/* Sidebar Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-4 p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <PiKanban className="text-white text-xl" />
+                    </div>
+
                     <h1 className="text-xl font-bold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
                         Client Dashboard
                     </h1>
@@ -83,6 +110,32 @@ export default function DashboardLayout({ children }) {
                     </button>
                 </div>
 
+                {/* User Profile */}
+                <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center gap-3">
+                        <div className="relative w-12 h-12 rounded-full border-2 border-blue-200 dark:border-blue-800 overflow-hidden">
+                            <Image
+                                src={
+                                    remoteUser?.image ||
+                                    session?.user?.image ||
+                                    "https://i.pravatar.cc/40"
+                                }
+                                alt="Profile"
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-gray-900 dark:text-white truncate">
+                                {remoteUser?.name || session?.user?.name || "Guest"}
+                            </h3>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                                {session?.user?.email || "Developer"}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Navigation Links */}
                 <nav className="flex-1 px-5 py-8">
                     <ul className="space-y-3">
@@ -90,12 +143,12 @@ export default function DashboardLayout({ children }) {
                             const isActive = pathname === link.href;
                             return (
                                 <li key={link.href}>
-                                    <Link 
+                                    <Link
                                         href={link.href}
                                         className={`
                                             flex items-center gap-4 p-4 rounded-xl font-medium transition-all duration-200
-                                            ${isActive 
-                                                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25" 
+                                            ${isActive
+                                                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25"
                                                 : "text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400"
                                             }
                                         `}
@@ -112,21 +165,16 @@ export default function DashboardLayout({ children }) {
                     </ul>
                 </nav>
 
-                {/* User Section */}
-                <div className="p-6 border-t border-gray-200 dark:border-gray-700">
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                            <FaUser className="text-white text-sm" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                                Client User
-                            </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                                Premium Plan
-                            </p>
-                        </div>
-                    </div>
+                {/* Footer Actions */}
+                <div className="p-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+                    <button
+                        onClick={() => signOut({ callbackUrl: "/" })}
+                        className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-blue-100
+hover:text-blue-600 dark:hover:bg-red-900/20 font-medium transition-colors"
+                    >
+                        <TbLogout2 className="text-lg text-red-500" />
+                        <span>Logout</span>
+                    </button>
                 </div>
             </div>
 
@@ -143,30 +191,16 @@ export default function DashboardLayout({ children }) {
                             >
                                 <FaBars className="text-gray-700 dark:text-gray-300 text-lg" />
                             </button>
-                            
+
                             {/* Page Title */}
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center lg:hidden">
                                     <FaHome className="text-white text-sm" />
                                 </div>
-                                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                     {links.find(link => link.href === pathname)?.label || "Dashboard"}
                                 </h1>
                             </div>
-                        </div>
-
-                        {/* Header Actions */}
-                        <div className="flex items-center gap-4">
-                            {/* Notifications */}
-                            <button className="relative p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
-                                <FiInbox className="text-gray-600 dark:text-gray-400 text-xl" />
-                                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
-                            </button>
-
-                            {/* Settings */}
-                            <button className="p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
-                                <FaCog className="text-gray-600 dark:text-gray-400 text-xl" />
-                            </button>
                         </div>
                     </div>
                 </header>
