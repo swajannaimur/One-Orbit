@@ -9,32 +9,30 @@ export default function DetailsAccordion({ project }) {
     const [assignedEmails, setAssignedEmails] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // console.log("Project printing : ", project);
-
     useEffect(() => {
         if (selectedDeveloper && !loading) {
             document.getElementById("developer_modal").showModal();
         }
     }, [selectedDeveloper, loading]);
 
-
     return (
         <>
             {/* details accordion */}
-            <div className="w-full md:w-80">
-                <div className="collapse collapse-arrow rounded-lg">
+            <div className="w-full">
+                <div className="collapse collapse-arrow rounded-lg border border-gray-200 dark:border-gray-700">
                     <input type="checkbox" />
-                    <div className="collapse-title text-base font-medium dark:text-white">
+                    <div className="collapse-title text-sm sm:text-base font-medium dark:text-white">
                         Details
                     </div>
-                    <div className="collapse-content space-y-1">
-                        <ul className="ml-5 list-disc text-sm text-gray-700 dark:text-white">
-
+                    <div className="collapse-content space-y-2 sm:space-y-1">
+                        <ul className="ml-4 sm:ml-5 list-disc text-sm sm:text-base text-gray-700 dark:text-white space-y-1">
                             {project.developerEmails.length === 0 ? (
-                                <p className="text-gray-500 dark:text-white">Nobody has placed any bid</p>
+                                <p className="text-gray-500 dark:text-white text-sm">
+                                    Nobody has placed any bid
+                                </p>
                             ) : (
                                 project.developerEmails.map((dev, i) => (
-                                    <li key={i} className="mb-1">
+                                    <li key={i} className="mb-1 break-all">
                                         <Link
                                             href={{
                                                 pathname: "/dashboard/client-dashboard/assign-developer",
@@ -45,7 +43,7 @@ export default function DetailsAccordion({ project }) {
                                                     budget: project.bids[i],
                                                 },
                                             }}
-                                            className="font-semibold cursor-pointer text-blue-600 hover:underline "
+                                            className="font-semibold cursor-pointer text-blue-600 hover:underline break-all"
                                         >
                                             {dev}
                                         </Link>{" "}
@@ -56,7 +54,6 @@ export default function DetailsAccordion({ project }) {
                                     </li>
                                 ))
                             )}
-
                         </ul>
                     </div>
                 </div>
@@ -64,41 +61,37 @@ export default function DetailsAccordion({ project }) {
 
             {/* developer profile modal */}
             <dialog id="developer_modal" className="modal">
-                <div className="modal-box">
+                <div className="modal-box max-w-xs sm:max-w-md">
                     {loading ? (
                         <div className="flex justify-center py-10">
                             <span className="loading loading-spinner loading-lg"></span>
                         </div>
                     ) : selectedDeveloper ? (
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-sm sm:text-base">
                             <h3 className="font-bold text-lg">{selectedDeveloper.name}</h3>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-gray-600 break-all">
                                 Email: {selectedDeveloper.email}
                             </p>
 
-                            {/* <p className="text-sm">
-                                Skills: {selectedDeveloper.skills?.join(", ")}
-                            </p> */}
-
                             <p className="text-sm">Rating: No value</p>
 
-                            {/* Assign Button - TODO: make a different Component */}
                             <p className="mt-4">
                                 <button
-                                    className={`px-3 py-1 rounded-md ${assignedEmails.includes(selectedDeveloper?.email)
+                                    className={`px-3 py-1 rounded-md text-sm sm:text-base ${assignedEmails.includes(selectedDeveloper?.email)
                                         ? "bg-gray-300 cursor-not-allowed"
                                         : "bg-blue-400 cursor-pointer"
                                         }`}
                                     onClick={() => handleAssign(selectedDeveloper?.email)}
                                     disabled={assignedEmails.includes(selectedDeveloper?.email)}
                                 >
-                                    {assignedEmails.includes(selectedDeveloper?.email) ? "Already Assigned" : "Assign"}
+                                    {assignedEmails.includes(selectedDeveloper?.email)
+                                        ? "Already Assigned"
+                                        : "Assign"}
                                 </button>
                             </p>
-
                         </div>
                     ) : (
-                        <p className="text-center text-gray-500">No data found</p>
+                        <p className="text-center text-gray-500 text-sm">No data found</p>
                     )}
                     <div className="modal-action">
                         <form method="dialog">
