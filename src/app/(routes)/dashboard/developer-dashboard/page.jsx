@@ -2,7 +2,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import {
   FaTasks,
   FaUsers,
@@ -10,12 +9,12 @@ import {
   FaBell,
   FaBars,
   FaUserPlus,
+  FaTimes,
 } from "react-icons/fa";
 import { PiKanban } from "react-icons/pi";
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { TbLogout2 } from "react-icons/tb";
 import KanbanBoard from "./kanban/KanbanBoard";
-
 import DashboardMockup from "./DashboardMockup/page";
 import MyProjects from "../developer-dashboard/myProjects/page";
 import Image from "next/image";
@@ -23,23 +22,47 @@ import InviteForm from "@/app/api/users/invite/InviteForm";
 import TeamMemberPage from "../developer-dashboard/team-member/page";
 
 export default function DeveloperDashboard() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { data: session } = useSession();
   const [remoteUser, setRemoteUser] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const sidebarRef = useRef(null);
   const router = useRouter();
 
+  // Check screen size
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setIsSidebarOpen(true);
+      } else {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsDropdownOpen(false);
       }
+      if (sidebarRef.current && !sidebarRef.current.contains(e.target) && isMobile && isSidebarOpen) {
+        setIsSidebarOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [dropdownRef]);
+  }, [dropdownRef, isMobile, isSidebarOpen]);
 
+  // Load user data
   useEffect(() => {
     let mounted = true;
     async function load() {
@@ -55,217 +78,304 @@ export default function DeveloperDashboard() {
     return () => (mounted = false);
   }, []);
 
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState("overview");
+
+  const navigationItems = [
+    { id: "overview", label: "Overview", icon: FaProjectDiagram, color: "text-blue-500" },
+    { id: "myProjects", label: "My Projects", icon: FaProjectDiagram, color: "text-indigo-500" },
+    { id: "teamMember", label: "Team Members", icon: FaUsers, color: "text-green-500" },
+    { id: "invite", label: "Invite Teammate", icon: FaUserPlus, color: "text-purple-500" },
+    { id: "board", label: "Kanban Board", icon: PiKanban, color: "text-pink-500" },
+  ];
+
+  const handleNavigation = (sectionId) => {
+    setActiveSection(sectionId);
+    if (isMobile) {
+      setIsSidebarOpen(false);
+    }
+  };
 
   return (
-    <div className="flex min-h-screen dark-bg bg-linear-to-br from-indigo-50 to-purple-100 dark-bg mt-20">
+    <div className="flex min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
+      {/* Mobile Overlay */}
+      {isMobile && isSidebarOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" />
+      )}
+
       {/* Sidebar */}
       <div
-        className={`${
-          isSidebarOpen ? "w-64" : "w-16"
-        } backdrop-blur-xl  dark-bg shadow-lg border-r border-white/40 dark:border-gray-700 transition-all duration-300 flex flex-col`}
+        ref={sidebarRef}
+        className={`
+          fixed lg:static inset-y-0 left-0 z-50
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          w-80 lg:w-72 xl:w-80
+          bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl
+          shadow-2xl lg:shadow-lg border-r border-gray-200 dark:border-gray-700
+          transition-transform duration-300 ease-in-out flex flex-col
+        `}
       >
-        <div className="flex items-center justify-between px-4 py-4 border-b border-white/40 dark:border-gray-700">
-          <h2
-            className={`${
-              isSidebarOpen ? "block" : "hidden"
-            } text-xl font-bold bg-linear-to-br from-blue-500 to-purple-600 bg-clip-text text-transparent`}
-          >
-            Developer Dashboard
-          </h2>
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <PiKanban className="text-white text-xl" />
+            </div>
+            <h2 className="text-xl font-bold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              DevSpace
+            </h2>
+          </div>
           <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+            onClick={() => setIsSidebarOpen(false)}
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           >
-            <FaBars />
+            <FaTimes className="text-gray-600 dark:text-gray-400 text-lg" />
           </button>
         </div>
 
-        <nav className="flex-1 px-2 py-4 space-y-2">
-          {/* <Link
-            onClick={() => setActiveSection("myProjects")}
-            href="/dashboard/developer-dashboard/myProjects"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg bg-linear-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-800 hover:from-indigo-100 hover:to-blue-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
-          >
-            <FaProjectDiagram className="text-indigo-500" />
-            {isSidebarOpen && <span>My Projects</span>}
-          </Link> */}
+        {/* User Profile */}
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="relative w-12 h-12 rounded-full border-2 border-blue-200 dark:border-blue-800 overflow-hidden">
+              <Image
+                src={
+                  remoteUser?.image ||
+                  session?.user?.image ||
+                  "https://i.pravatar.cc/40"
+                }
+                alt="Profile"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-gray-900 dark:text-white truncate">
+                {remoteUser?.name || session?.user?.name || "Guest"}
+              </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                {session?.user?.email || "Developer"}
+              </p>
+            </div>
+          </div>
+        </div>
 
-          <button
-            onClick={() => setActiveSection("myProjects")}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
-          >
-            <FaProjectDiagram className="text-indigo-500" />
-            {isSidebarOpen && <span>My Projects</span>}
-          </button>
-          <button
-            onClick={() => setActiveSection("teamMember")}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 text-gray-800 font-medium transition"
-          >
-            <FaUsers className="text-green-500" />
-            {isSidebarOpen && <span>Team Member</span>}
-          </button>
-
-          {/* <Link
-            href="/dashboard/developer-dashboard/team-member"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-green-50 hover:to-emerald-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
-          >
-            <FaUsers className="text-green-500" />
-            
-            <button
-              onClick={() => {
-                setIsDropdownOpen(true);
-                router.push("/dashboard/developer-dashboard/team-member");
-              }}
-            >
-              Team Member
-            </button>
-          </Link> */}
-
-          {/* Invite a Teammate */}
-          <button
-            onClick={() => setActiveSection("invite")}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-indigo-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
-          >
-            <FaUserPlus className="text-indigo-600" />
-            {isSidebarOpen && <span>Invite a Teammate</span>}
-          </button>
-
-          {/* Kanban Board */}
-          <button
-            onClick={() => setActiveSection("board")}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
-          >
-            <PiKanban className="text-purple-500" />
-            {isSidebarOpen && <span>Board</span>}
-          </button>
-
-          <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-yellow-50 hover:to-yellow-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
-          >
-            <MdOutlineSettingsSuggest className="text-yellow-500" />
-            <button
-              onClick={() =>
-                router.push("/dashboard/developer-dashboard/settings")
-              }
-              className="text-gray-800 dark:text-gray-200"
-            >
-              {isSidebarOpen && <span>Settings</span>}
-            </button>
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-100 dark:hover:from-gray-700 dark:hover:to-gray-700 font-medium transition"
-          >
-            <TbLogout2 className="text-red-500" />
-            <button onClick={() => signOut({ callbackUrl: "/" })}>
-              {isSidebarOpen && <span>Logout</span>}
-            </button>
-          </a>
+        {/* Navigation */}
+        <nav className="flex-1 px-4 py-6 space-y-2">
+          {navigationItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleNavigation(item.id)}
+                className={`
+                  w-full flex items-center gap-4 px-4 py-3 rounded-xl font-medium transition-all duration-200
+                  ${activeSection === item.id
+                    ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
+                  }
+                `}
+              >
+                <Icon className={`text-lg ${activeSection === item.id ? "text-white" : item.color}`} />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
         </nav>
+
+        {/* Footer Actions */}
+        <div className="p-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+          <button
+            onClick={() => router.push("/dashboard/developer-dashboard/settings")}
+            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-colors"
+          >
+            <MdOutlineSettingsSuggest className="text-lg text-gray-500" />
+            <span>Settings</span>
+          </button>
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 font-medium transition-colors"
+          >
+            <TbLogout2 className="text-lg text-red-500" />
+            <span>Logout</span>
+          </button>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="min-h-screen flex-1 flex flex-col pb-5 dark-bg">
-        {/* Top Navbar */}
-        {/* <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/60 shadow-md border-b border-white/40 dark:border-gray-700 px-6 py-4 flex justify-between items-center sticky top-0 z-30">
-          <h1 className="text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
-            Overview
-          </h1>
-          <div className="flex items-center gap-4">
-            <div className="relative" ref={dropdownRef}>
+      <div className="flex-1 flex flex-col min-h-screen w-full">
+        {/* Top Header - FIXED: Always show hamburger on mobile */}
+        <header className="sticky top-0 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-sm border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {/* Hamburger Button - ALWAYS VISIBLE ON MOBILE */}
               <button
-                onClick={() => setIsDropdownOpen((s) => !s)}
-                className="flex items-center gap-2 focus:outline-none"
+                onClick={() => setIsSidebarOpen(true)}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors lg:hidden"
               >
-                <div className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                  {(remoteUser?.name || session?.user?.name)?.split(" ")[0] ??
-                    "Guest"}
-                </div>
-                <div className="relative w-9 h-9 rounded-full border border-indigo-200 dark:border-gray-600 shadow-sm overflow-hidden">
-                  <Image
-                    src={
-                      remoteUser?.image ||
-                      session?.user?.image ||
-                      "https://i.pravatar.cc/40"
-                    }
-                    alt="Profile"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                <FaBars className="text-gray-700 dark:text-gray-300 text-lg" />
               </button>
+              
+              {/* Page Title */}
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center lg:hidden">
+                  <PiKanban className="text-white text-sm" />
+                </div>
+                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  {navigationItems.find(item => item.id === activeSection)?.label || "Dashboard"}
+                </h1>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 sm:gap-4">
+              {/* Notifications */}
+              <button className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                <FaBell className="text-gray-600 dark:text-gray-400" />
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
+              </button>
+
+              {/* User Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center gap-2 sm:gap-3 p-1 sm:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <div className="text-right hidden sm:block">
+                    <div className="text-sm font-medium text-gray-900 dark:text-white">
+                      {(remoteUser?.name || session?.user?.name)?.split(" ")[0] ?? "Guest"}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      Developer
+                    </div>
+                  </div>
+                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-blue-200 dark:border-blue-800 overflow-hidden">
+                    <Image
+                      src={
+                        remoteUser?.image ||
+                        session?.user?.image ||
+                        "https://i.pravatar.cc/40"
+                      }
+                      alt="Profile"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </button>
+
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-40">
+                    <button
+                      onClick={() => router.push("/profile")}
+                      className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      View Profile
+                    </button>
+                    <button
+                      onClick={() => router.push("/settings")}
+                      className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      Settings
+                    </button>
+                    <div className="border-t border-gray-200 dark:border-gray-600 my-1"></div>
+                    <button
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="w-full px-4 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </header> */}
+        </header>
 
-        {/* Dashboard Content */}
-        <main className="p-6">
-          <h1 className="px-5 text-2xl font-bold bg-linear-to-br from-amber-500 to-orange-600 bg-clip-text text-transparent">
-            Overview
-          </h1>
-          <div className="bg-white/80 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-lg p-6 mb-6 border-l-4 border-indigo-500 hover:shadow-xl transition">
-            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-1">
-              Welcome, {session?.user?.name || "Developer"} 👋
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              Here’s a quick overview of your dashboard and current activities.
-            </p>
-          </div>
+        {/* Main Content Area */}
+        <main className="flex-1 p-4 sm:p-6">
+          {/* Welcome Banner */}
+          {activeSection === "overview" && (
+            <>
+              <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-lg p-6 sm:p-8 mb-6 sm:mb-8 text-white">
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">
+                  Welcome back, {session?.user?.name || "Developer"}! 👋
+                </h2>
+                <p className="text-blue-100 opacity-90 text-sm sm:text-base">
+                  Here's what's happening with your projects today.
+                </p>
+              </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-linear-to-r from-green-50 to-emerald-100 dark:from-gray-800 dark:to-gray-800 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
-              <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                Active Projects
-              </h3>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">
-                3
-              </p>
-            </div>
-            <div className="bg-linear-to-r from-yellow-50 to-amber-100 dark:from-gray-800 dark:to-gray-800 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
-              <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                Pending Tasks
-              </h3>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">
-                7
-              </p>
-            </div>
-            <div className="bg-linear-to-r from-red-50 to-rose-100 dark:from-gray-800 dark:to-gray-800 rounded-xl shadow p-5 hover:shadow-lg transition transform hover:-translate-y-1">
-              <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                Completed Tasks
-              </h3>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">
-                15
-              </p>
-            </div>
-          </div>
+              {/* Stats Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 border-l-4 border-blue-500 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Active Projects</h3>
+                      <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-2">3</p>
+                    </div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                      <FaProjectDiagram className="text-blue-600 dark:text-blue-400 text-lg sm:text-xl" />
+                    </div>
+                  </div>
+                </div>
 
-          {activeSection === "board" && (
-            <div className="mt-10 bg-white/80 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-lg">
-              <KanbanBoard />
-            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Pending Tasks</h3>
+                      <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-2">7</p>
+                    </div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                      <FaTasks className="text-purple-600 dark:text-purple-400 text-lg sm:text-xl" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 border-l-4 border-green-500 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Team Members</h3>
+                      <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-2">12</p>
+                    </div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                      <FaUsers className="text-green-600 dark:text-green-400 text-lg sm:text-xl" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
 
-          {activeSection === "invite" && (
-            <div className="mt-10 bg-white/80 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-lg">
-              <InviteForm />
-            </div>
-          )}
-          {activeSection === "myProjects" && (
-            <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
-              <MyProjects />
-            </div>
-          )}
-          {activeSection === "teamMember" && (
-            <div className="mt-10 bg-white/80 backdrop-blur-md rounded-xl shadow-lg">
-              <TeamMemberPage />
-            </div>
-          )}
+          {/* Dynamic Sections */}
+          <div className="space-y-6 sm:space-y-8">
+            {activeSection === "board" && (
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                <KanbanBoard />
+              </div>
+            )}
 
-          <div className="mt-10 bg-white/80 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-lg">
-            <DashboardMockup />
+            {activeSection === "invite" && (
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                <InviteForm />
+              </div>
+            )}
+
+            {activeSection === "myProjects" && (
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                <MyProjects />
+              </div>
+            )}
+
+            {activeSection === "teamMember" && (
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                <TeamMemberPage />
+              </div>
+            )}
+
+            {/* Default Dashboard Content */}
+            {activeSection === "overview" && (
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                <DashboardMockup />
+              </div>
+            )}
           </div>
         </main>
       </div>
