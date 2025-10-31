@@ -142,10 +142,10 @@ export default function TeamMemberPage() {
     }
   };
 
-  if(loading) return <Loading/>
+  if (loading) return <Loading />
 
   return (
-    <div className="min-h-screen dark-bg bg-linear-to-br from-blue-50 to-purple-50 py-8 px-4 mt-20">
+    <div className="min-h-screen dark-bg bg-linear-to-br from-blue-50 to-purple-50 py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
@@ -235,7 +235,7 @@ export default function TeamMemberPage() {
                   <h2 className="text-xl  font-semibold text-gray-800 dark:text-white">
                     Active Team Members
                   </h2>
-                 
+
                 </div>
 
                 {teamMembers.length === 0 ? (
