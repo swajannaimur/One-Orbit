@@ -19,9 +19,11 @@ import {
 import { HiOutlineSparkles, HiOutlineCurrencyDollar } from "react-icons/hi";
 import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 import { RiRocketLine, RiLightbulbFlashLine } from "react-icons/ri";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const pathname = usePathname();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,8 +38,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
- 
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Navbar() {
     },
   ];
 
-  // Only show “Create Project” if role is client
+  // Only show "Create Project" if role is client
   if (role === "client") {
     secureItems.push({
       href: "/create-post",
@@ -80,6 +80,14 @@ export default function Navbar() {
     { href: "/dashboard", label: "Dashboard", icon: HiOutlineSparkles },
     { href: "/pricing", label: "Pricing", icon: FiCreditCard }
   ];
+
+  // Helper function to check if a route is active
+  const isActiveRoute = (href) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
+  };
 
   return (
     <>
@@ -119,18 +127,26 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center space-x-1">
               {/* Public Nav Items */}
               {navItems.map((item) => {
+                const isActive = isActiveRoute(item.href);
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium">
+                    className={`relative flex items-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 group font-medium ${isActive
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                      : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                      }`}
+                  >
                     {item.label}
                     {item.badge && (
                       <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-linear-to-r from-green-400 to-blue-500 text-white rounded-full">
                         {item.badge}
                       </span>
                     )}
-                    <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-4/5 group-hover:left-1/10"></div>
+                    <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-blue-500 to-purple-500 transition-all duration-300 ${isActive
+                      ? "w-4/5 left-1/10"
+                      : "group-hover:w-4/5 group-hover:left-1/10"
+                      }`}></div>
                   </Link>
                 );
               })}
@@ -138,11 +154,15 @@ export default function Navbar() {
               {/* Secure Nav Items - Only show when session exists */}
               {session &&
                 secureItems.map((item) => {
+                  const isActive = isActiveRoute(item.href);
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="relative flex items-center gap-2 px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition-all duration-300 group font-medium"
+                      className={`relative flex items-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 group font-medium ${isActive
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                        }`}
                     >
                       {item.label}
                       {item.badge && (
@@ -150,7 +170,10 @@ export default function Navbar() {
                           {item.badge}
                         </span>
                       )}
-                      <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-4/5 group-hover:left-1/10"></div>
+                      <div className={`absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-blue-500 to-purple-500 transition-all duration-300 ${isActive
+                        ? "w-4/5 left-1/10"
+                        : "group-hover:w-4/5 group-hover:left-1/10"
+                        }`}></div>
                     </Link>
                   );
                 })}
@@ -234,14 +257,18 @@ export default function Navbar() {
                         <div className="p-2">
                           {userMenuItems.map((item) => {
                             const Icon = item.icon;
+                            const isActive = isActiveRoute(item.href);
                             return (
                               <Link
                                 key={item.href}
                                 href={item.href}
-                                className="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200 group"
+                                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${isActive
+                                  ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                                  : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                                  }`}
                                 onClick={() => setIsUserDropdownOpen(false)}
                               >
-                                <Icon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                                <Icon className={`w-4 h-4 group-hover:scale-110 transition-transform ${isActive ? "text-blue-600 dark:text-blue-400" : ""}`} />
                                 {item.label}
                               </Link>
                             );
@@ -315,11 +342,15 @@ export default function Navbar() {
             {/* Navigation Items */}
             <div className="grid gap-2">
               {navItems.map((item) => {
+                const isActive = isActiveRoute(item.href);
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-4 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all duration-300 group font-medium"
+                    className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group font-medium ${isActive
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                      }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.label}
@@ -331,6 +362,25 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+
+              {/* Secure Items for Mobile */}
+              {session &&
+                secureItems.map((item) => {
+                  const isActive = isActiveRoute(item.href);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group font-medium ${isActive
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                        }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
             </div>
 
             {/* Mobile Authentication */}
@@ -368,14 +418,18 @@ export default function Navbar() {
                 <div className="grid gap-2">
                   {userMenuItems.map((item) => {
                     const Icon = item.icon;
+                    const isActive = isActiveRoute(item.href);
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-center gap-4 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all duration-300 group font-medium"
+                        className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group font-medium ${isActive
+                          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                          : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                          }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        <Icon className={`w-5 h-5 group-hover:scale-110 transition-transform ${isActive ? "text-blue-600 dark:text-blue-400" : ""}`} />
                         {item.label}
                       </Link>
                     );
@@ -412,7 +466,7 @@ export default function Navbar() {
       {/* Backdrop Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0  bg-opacity-10 z-30 lg:hidden"
+          className="fixed inset-0 bg-opacity-10 z-30 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
