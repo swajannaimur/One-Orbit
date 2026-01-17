@@ -6,7 +6,6 @@ import Footer from "../components/common/Footer";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/lib/SessionProvider";
 import { AblyProvider } from "@/lib/AblyProvider";
-import "@copilotkit/react-ui/styles.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
